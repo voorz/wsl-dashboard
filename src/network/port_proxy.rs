@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Copyright (c) 2026 owu <wqh@live.com>
 // SPDX-License-Identifier: GPL-3.0-only
 
-use tracing::{info, error};
+use tracing::{info, error, debug};
 use std::process::Command;
 use std::os::windows::process::CommandExt;
 use std::collections::HashSet;
@@ -11,6 +11,8 @@ use super::tracker::{get_distro_ip, is_distro_running};
 const CREATE_NO_WINDOW: u32 = 0x08000000;
 
 fn execute_netsh(args: &[&str]) -> Result<String, String> {
+    let cmd_line = format!("netsh {}", args.join(" "));
+    debug!("Executing netsh command: {}", cmd_line);
     let output = Command::new("netsh")
         .args(args)
         .creation_flags(CREATE_NO_WINDOW)

@@ -134,7 +134,7 @@ END
 )
             ).expect("Failed to write icon.rc");
 
-            embed_resource::compile(icon_rc_path, std::iter::empty::<&std::ffi::OsStr>());
+            let _ = embed_resource::compile(icon_rc_path, std::iter::empty::<&std::ffi::OsStr>());
         }
     }
 

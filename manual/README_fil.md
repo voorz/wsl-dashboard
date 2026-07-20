@@ -192,7 +192,33 @@ Ang mga log file ay isinusulat sa na-configure na log directory at maaaring isam
 
 ## 📦 Gabay sa Pag-install
 
-### Paraan 1: I-download ang Pre-compiled na Binary
+### Paraan 1: Bisitahin ang website ng proyekto (Inirerekomenda)
+
+Inirerekomenda naming bisitahin ang opisyal na website upang mag-download, dahil nag-aalok ito ng maraming mirror link para sa mas maayos na karanasan:
+
+Pumunta sa [Download page](https://www.wslui.com/download/) at piliin ang mirror na angkop para sa iyong rehiyon.
+
+### Paraan 2: I-install sa pamamagitan ng winget
+
+Maaari mong i-install ang WSLDashboard nang direkta mula sa Windows Package Manager (winget), gamit ang moniker o ang buong package identifier:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Paraan 3: I-download ang Pre-compiled na Binary
 
 Ang pinakamadaling paraan para magsimula ay gamitin ang compiled na bersyon:
 
@@ -202,7 +228,7 @@ Ang pinakamadaling paraan para magsimula ay gamitin ang compiled na bersyon:
 
 Walang kailangang i-install — ang app ay isang portable na programa na iisang file.
 
-### Paraan 2: I-build mula sa Source Code
+### Paraan 4: I-build mula sa Source Code
 
 Siguraduhin na naka-install ang Rust toolchain (Rust 1.92+ o mas bago).
 

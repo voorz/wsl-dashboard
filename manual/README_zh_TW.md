@@ -192,7 +192,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | 繁體中�
 
 ## 📦 安裝指南
 
-### 方式 1: 下載預編譯二進制文件
+### 方式 1: 訪問專案網站（推薦）
+
+我們推薦訪問官方網站下載，網站上提供多個鏡像鏈接，下載體驗更流暢：
+
+前往[下載頁面](https://www.wslui.com/download/)選擇適合您所在地區的鏡像。
+
+### 方式 2: 通過 winget 安裝
+
+您可以通過 Windows 套件管理員 (winget) 直接安裝 WSLDashboard，使用別名或完整套件識別碼均可：
+
+```powershell
+# 搜尋（不區分大小寫）
+winget search wsl-dashboard
+# 或
+winget search WSLDashboard
+
+# 安裝（任選其一）
+winget install wsl-dashboard
+# 或
+winget install Owu.WSLDashboard
+```
+
+> winget 套件識別碼為 `Owu.WSLDashboard`，別名為 `wsl-dashboard`（不區分大小寫），兩者均可使用。
+
+更多資訊，請造訪 [WinGet 社群儲存庫](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard)。
+
+### 方式 3: 下載預編譯二進制文件
 
 最简单的方式是使用編譯好的版本：
 
@@ -202,7 +228,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | 繁體中�
 
 無需安裝，本應用為單文件便攜式程序。
 
-### 方式 2: 從源碼構建
+### 方式 4: 從源碼構建
 
 請確保已安裝 Rust 工具鏈（Rust 1.92+ 或更新版本）。
 

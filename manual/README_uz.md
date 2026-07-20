@@ -226,19 +226,39 @@ level = "info"  # debug, info, warn, error
 
 ## 📦 O'rnatish bo'yicha qo'llanma
 
-### 1-usul: Installer orqali
+### 1-usul: Loyiha veb-saytiga tashrif buyuring (Tavsiya etiladi)
 
-1. So'nggi versiyani yuklab oling: [Releases](https://github.com/your-repo/wsl-dashboard/releases)
-2. `WSL-Dashboard-Setup.exe` faylini ishga tushiring
-3. O'rnatish bo'yicha ko'rsatmalarga amal qiling
+Rasmiy veb-sayt orqali yuklab olishni tavsiya qilamiz, chunki u silliq tajriba uchun bir nechta mirror havolalarini taqdim etadi:
 
-### 2-usul: Portable versiya
+[Yuklab olish sahifasi](https://www.wslui.com/download/) ga o'ting va mintaqangizga mos mirrorni tanlang.
+
+### 2-usul: winget orqali o'rnatish
+
+Siz WSLDashboard'ni Windows Package Manager (winget) orqali to'g'ridan-to'g'ri o'rnatishingiz mumkin, moniker yoki to'liq paket identifikatoridan foydalanib:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> winget paket identifikatori `Owu.WSLDashboard` va moniker `wsl-dashboard` (case-insensitive). Ikkalasi ham ishlaydi.
+
+Qo'shimcha ma'lumot uchun [WinGet hamjamiyat ombori](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard) ga tashrif buyuring.
+
+### 3-usul: Portable versiya
 
 1. Portable versiyani yuklab oling
 2. Arxivni istalgan joyga oching
 3. `wsl-dashboard.exe` faylini ishga tushiring
 
-### 3-usul: Manba koddan
+### 4-usul: Manba koddan
 
 ```bash
 # Repositoryni klonlash
@@ -255,8 +275,6 @@ cargo build --release
 # Ishga tushirish
 cargo run --release
 ```
-
----
 
 ## 🛠️ Texnologik stak va samaradorlik
 

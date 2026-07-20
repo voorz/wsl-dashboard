@@ -192,7 +192,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 📦 คู่มือการติดตั้ง
 
-### วิธีที่ 1: ดาวน์โหลดไบนารีที่คอมไพล์แล้ว
+### วิธีที่ 1: เยี่ยมชมเว็บไซต์ของโครงการ (แนะนำ)
+
+เราแนะนำให้เยี่ยมชมเว็บไซต์ทางการเพื่อดาวน์โหลด เนื่องจากมีลิงก์มิเรอร์หลายแห่งเพื่อประสบการณ์ที่ราบรื่นยิ่งขึ้น:
+
+ไปที่ [หน้าดาวน์โหลด](https://www.wslui.com/download/) และเลือกมิเรอร์ที่เหมาะสมกับภูมิภาคของคุณ
+
+### วิธีที่ 2: ติดตั้งผ่าน winget
+
+คุณสามารถติดตั้ง WSLDashboard ได้โดยตรงจาก Windows Package Manager (winget) โดยใช้ชื่อย่อหรือรหัสแพ็กเกจเต็ม:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### วิธีที่ 3: ดาวน์โหลดไบนารีที่คอมไพล์แล้ว
 
 วิธีที่ง่ายที่สุดในการเริ่มต้นคือใช้เวอร์ชันที่คอมไพล์แล้ว:
 
@@ -202,7 +228,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ไม่จำเป็นต้องติดตั้ง แอปพลิเคชันเป็นโปรแกรมพกพาไฟล์เดี่ยว
 
-### วิธีที่ 2: คอมไพล์จากซอร์สโค้ด
+### วิธีที่ 4: คอมไพล์จากซอร์สโค้ด
 
 ตรวจสอบให้แน่ใจว่าคุณได้ติดตั้ง Rust toolchain (Rust 1.92+ หรือใหม่กว่า) แล้ว
 

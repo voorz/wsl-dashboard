@@ -215,8 +215,8 @@ export component TitleBar inherits Rectangle {
                 }
             }
 
-            if (!AppI18n.is-rtl && !root.hide_pin_icon): WindowControlButton {
-                text: "\u{E718}"; // Pin
+            if (!AppI18n.is-rtl && !root.hide_pin_icon): pin-btn := WindowControlButton {
+                text: "\u{E718}";
                 icon_color: root.is_pinned ? Theme.icon_color_pin : Theme.text_primary;
                 clicked => {
                     root.pin_toggle();
@@ -231,8 +231,8 @@ export component TitleBar inherits Rectangle {
                 }
             }
 
-            if (AppI18n.is-rtl && !root.hide_pin_icon): WindowControlButton {
-                text: "\u{E718}"; // Pin
+            if (AppI18n.is-rtl && !root.hide_pin_icon): pin-btn-rtl := WindowControlButton {
+                text: "\u{E718}";
                 icon_color: root.is_pinned ? Theme.icon_color_pin : Theme.text_primary;
                 clicked => {
                     root.pin_toggle();

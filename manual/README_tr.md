@@ -192,7 +192,33 @@ Günlük dosyaları yapılandırılan günlük dizinine yazılır ve sorunları 
 
 ## 📦 Kurulum Kılavuzu
 
-### Seçenek 1: Önceden derlenmiş ikiliyi indirin
+### Seçenek 1: Proje web sitesini ziyaret edin (Önerilen)
+
+Resmi web sitesini ziyaret etmenizi öneririz, çünkü daha sorunsuz bir deneyim için birden fazla yansı (mirror) bağlantısı sunar:
+
+[İndirme sayfasına](https://www.wslui.com/download/) gidin ve bölgenize uygun yansıyı seçin.
+
+### Seçenek 2: winget ile yükleyin
+
+WSLDashboard'ı, takma ad (moniker) veya tam paket tanımlayıcısını kullanarak doğrudan Windows Paket Yöneticisi'nden (winget) yükleyebilirsiniz:
+
+```powershell
+# Arama (büyük/küçük harf duyarsız)
+winget search wsl-dashboard
+# veya
+winget search WSLDashboard
+
+# Yükleme (birini seçin)
+winget install wsl-dashboard
+# veya
+winget install Owu.WSLDashboard
+```
+
+> winget paket tanımlayıcısı `Owu.WSLDashboard` ve takma adı `wsl-dashboard`'dır (büyük/küçük harf duyarsız). İkisi de çalışır.
+
+Daha fazla bilgi için [WinGet topluluk deposunu](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard) ziyaret edin.
+
+### Seçenek 3: Önceden derlenmiş ikiliyi indirin
 
 Başlamanın en kolay yolu önceden derlenmiş sürümü kullanmaktır:
 
@@ -202,7 +228,7 @@ Başlamanın en kolay yolu önceden derlenmiş sürümü kullanmaktır:
 
 Yükleyici gerekmez; uygulama tek bir taşınabilir ikili dosyadır.
 
-### Seçenek 2: Kaynaktan derleyin
+### Seçenek 4: Kaynaktan derleyin
 
 Rust araç zincirinin (Rust 1.92+ veya daha yeni) kurulu olduğundan emin olun.
 

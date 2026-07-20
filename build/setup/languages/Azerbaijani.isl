@@ -365,7 +365,7 @@ ShutdownBlockReasonUninstallingApp=%1 silinir.
 
 [CustomMessages]
 
-CreateSchedulerTask=Task Scheduler task yaratmaq (avtomatik başlayan distro, USB avtomatik qoşulma, port forwarding üçün)
+CreateSchedulerTask=Task Scheduler yaratmaq (avtomatik başlayan distro, USB avtomatik qoşulma, port forwarding üçün)
 SchedulerTaskNote1=└ Quraşdırma zamanı ixtiyari; keçmək gələcək istifadəyə təsir etmir.
 SchedulerTaskNote2=└ Proqram açıldıqdan sonra istənilən vaxt əl ilə başladıla bilər.
 SchedulerTaskNote3=└ EV sertifikatının olmaması səbəbindən bu əməliyyat AV proqramı tərəfindən yanlış aşkarlana bilər; zəhmət olmasa, icazə verin.

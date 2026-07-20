@@ -192,7 +192,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 📦 انسٹالیشن گائیڈ
 
-### آپشن 1: تیار شدہ بائنری ڈاؤن لوڈ کریں
+### آپشن 1: پروجیکٹ ویب سائٹ دیکھیں (تجویز کردہ)
+
+ہم آفیشل ویب سائٹ سے ڈاؤن لوڈ کرنے کی تجویز کرتے ہیں، کیونکہ یہ ہموار تجربے کے لیے متعدد میرر لنکس فراہم کرتی ہے:
+
+[ڈاؤن لوڈ صفحہ](https://www.wslui.com/download/) پر جائیں اور اپنے علاقے کے لیے موزوں میرر منتخب کریں۔
+
+### آپشن 2: winget کے ذریعے انسٹال کریں
+
+آپ Windows پیکیج مینیجر (winget) سے براہ راست WSLDashboard انسٹال کر سکتے ہیں، مانیکر یا مکمل پیکیج آئیڈینٹیفائر استعمال کرتے ہوئے:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> winget پیکیج آئیڈینٹیفائر `Owu.WSLDashboard` ہے اور مانیکر `wsl-dashboard` ہے (کیس-غیر حساس)۔ دونوں میں سے کوئی بھی کام کرے گا۔
+
+مزید معلومات کے لیے، [WinGet کمیونٹی ریپوزٹری](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard) دیکھیں۔
+
+### آپشن 3: تیار شدہ بائنری ڈاؤن لوڈ کریں
 
 شروع کرنے کا سب سے آسان طریقہ پہلے سے کمپائل شدہ ریلیز کا استعمال کرنا ہے:
 
@@ -202,7 +228,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 کسی انسٹالر کی ضرورت نہیں ہے؛ ایپ ایک واحد پورٹیبل بائنری ہے۔
 
-### آپشن 2: سورس سے بلڈ کریں
+### آپشن 4: سورس سے بلڈ کریں
 
 یقینی بنائیں کہ آپ کے پاس Rust ٹول چین (Rust 1.92+ یا نیا) انسٹال ہے۔
 

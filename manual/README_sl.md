@@ -193,7 +193,33 @@ Dnevniške datoteke se zapisujejo v konfiguriran imenik in jih je mogoče prilo�
 
 ## 📦 Vodnik za namestitev
 
-### Možnost 1: Prenos že zgrajene binarne datoteke
+### Možnost 1: Obiščite spletno stran projekta (Priporočeno)
+
+Priporočamo obisk uradne spletne strani za prenos, saj ponuja več zrcalnih povezav za bolj gladko izkušnjo:
+
+Obiščite [Stran za prenos](https://www.wslui.com/download/) in izberite zrcalo, primerno za vašo regijo.
+
+### Možnost 2: Namestitev prek winget
+
+WSLDashboard lahko namestite neposredno prek Windows Package Manager (winget), z uporabo monikerja ali polnega identifikatorja paketa:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> Identifikator paketa winget je `Owu.WSLDashboard`, moniker pa `wsl-dashboard` (neobčutljiv na velikost črk). Oba delujeta.
+
+Za več informacij obiščite [skupnostno skladišče WinGet](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Možnost 3: Prenos že zgrajene binarne datoteke
 
 Najlažji način za začetek je uporaba vnaprej prevedene različice:
 
@@ -203,7 +229,7 @@ Najlažji način za začetek je uporaba vnaprej prevedene različice:
 
 Namestitev ni potrebna; aplikacija je ena sama prenosna binarna datoteka.
 
-### Možnost 2: Gradnja iz izvorne kode
+### Možnost 4: Gradnja iz izvorne kode
 
 Prepričajte se, da imate nameščena orodja Rust (Rust 1.92+ ali novejša).
 

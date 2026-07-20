@@ -74,64 +74,25 @@ export component CheckProxyDialog inherits Rectangle {
             spacing: 12px;
             alignment: AppI18n.is-rtl ? end : start;
 
-            // RTL: Text then Icon
-            if (AppI18n.is-rtl): VerticalLayout {
+            VerticalLayout {
                 alignment: start;
                 spacing: 4px;
                 Text {
                     text: AppI18n.t("dialog.check_proxy_desc1", [AppI18n.version]);
                     font-size: 14px * LayoutConstants.font-scale;
                     font-family: Theme.default_font;
-                    color: Theme.text_primary;
+                    color: Theme.text_secondary;
                     wrap: word-wrap;
-                    horizontal-alignment: right;
+                    horizontal-alignment: AppI18n.is-rtl ? right : left;
                 }
 
                 Text {
                     text: AppI18n.t("dialog.check_proxy_desc2", [AppI18n.version]);
                     font-size: 14px * LayoutConstants.font-scale;
                     font-family: Theme.default_font;
-                    color: Theme.text_primary;
+                    color: Theme.text_secondary;
                     wrap: word-wrap;
-                    horizontal-alignment: right;
-                }
-            }
-
-            Rectangle {
-                width: 32px;
-                height: 32px;
-                border-radius: 16px;
-                background: #4285f4;
-                Text {
-                    text: "?";
-                    color: white;
-                    font-size: 20px;
-                    font-weight: 500;
-                    horizontal-alignment: center;
-                    vertical-alignment: center;
-                }
-            }
-
-            // LTR: Icon then Text
-            if (!AppI18n.is-rtl): VerticalLayout {
-                alignment: start;
-                spacing: 4px;
-                Text {
-                    text: AppI18n.t("dialog.check_proxy_desc1", [AppI18n.version]);
-                    font-size: 14px * LayoutConstants.font-scale;
-                    font-family: Theme.default_font;
-                    color: Theme.text_primary;
-                    wrap: word-wrap;
-                    horizontal-alignment: left;
-                }
-
-                Text {
-                    text: AppI18n.t("dialog.check_proxy_desc2", [AppI18n.version]);
-                    font-size: 14px * LayoutConstants.font-scale;
-                    font-family: Theme.default_font;
-                    color: Theme.text_primary;
-                    wrap: word-wrap;
-                    horizontal-alignment: left;
+                    horizontal-alignment: AppI18n.is-rtl ? right : left;
                 }
             }
         }

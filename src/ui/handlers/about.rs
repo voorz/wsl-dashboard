@@ -122,14 +122,17 @@ fn match_group<'a>(
 // Returns (rgba_bytes, width, height), all implement Send, can be safely passed across threads
 fn load_image_pixels(url: &str) -> Result<(Vec<u8>, u32, u32), String> {
     let resp = ureq::get(url)
-        .timeout(std::time::Duration::from_secs(10))
+        .config()
+        .timeout_global(Some(std::time::Duration::from_secs(10)))
+        .build()
         .call()
-        .map_err(|e| e.to_string())?;
+        .map_err(|e: ureq::Error| e.to_string())?;
 
     let mut bytes = Vec::new();
-    resp.into_reader()
+    resp.into_body()
+        .into_reader()
         .read_to_end(&mut bytes)
-        .map_err(|e| e.to_string())?;
+        .map_err(|e: std::io::Error| e.to_string())?;
 
     let img = image::load_from_memory(&bytes).map_err(|e| e.to_string())?;
     let rgba = img.to_rgba8();

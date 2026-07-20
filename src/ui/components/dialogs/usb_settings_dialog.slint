@@ -1,0 +1,317 @@
+// SPDX-FileCopyrightText: Copyright (c) 2026 owu <wqh@live.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
+import {
+    Theme,
+    UsbDevice,
+    AppI18n,
+    LayoutConstants,
+} from "../../theme.slint";
+import { CustomCheckBox } from "../form_widgets.slint";
+
+export component UsbSettingsDialog inherits Rectangle {
+    in property <UsbDevice> device;
+    in-out property <bool> force_bind: false;
+    in-out property <bool> boot_attach: false;
+    in-out property <bool> auto_attach: false;
+
+    callback close;
+    callback save(string, string, bool, bool, bool);    // bus_id, vid_pid, force_bind, boot_attach, auto_attach
+
+    // Background mask
+    background: #00000080;
+
+    // Trap clicks
+    TouchArea { }
+
+    // Dialog Box
+    Rectangle {
+        width: 420px;
+        height: layout.preferred-height;
+        background: Theme.card_bg;
+        border-radius: 8px;
+        border-width: 1px;
+        border-color: Theme.border_color;
+        TouchArea { /* prevent click through */ }
+
+        layout := VerticalLayout {
+            padding: 24px;
+            spacing: 8px;
+
+            // Header: title + close button
+            Rectangle {
+                height: 24px;
+                HorizontalLayout {
+                    x: AppI18n.is-rtl ? 32px : 0;
+                    width: parent.width - 32px;
+                    alignment: AppI18n.is-rtl ? end : start;
+                    
+                    if (!AppI18n.is-rtl): HorizontalLayout {
+                        spacing: 8px;
+                        Text {
+                            text: AppI18n.t("usb.device_settings_title", [AppI18n.version]);
+                            font-size: 18px * LayoutConstants.font-scale;
+                            font-family: Theme.default_font;
+                            font-weight: 500;
+                            color: Theme.text_primary;
+                            vertical-alignment: center;
+                        }
+                        Text {
+                            text: "(BusId " + device.bus_id + ")";
+                            font-size: 13px * LayoutConstants.font-scale;
+                            font-family: Theme.default_font;
+                            font-weight: 400;
+                            color: Theme.text_secondary;
+                            vertical-alignment: center;
+                        }
+                    }
+                    if (AppI18n.is-rtl): HorizontalLayout {
+                        spacing: 8px;
+                        Text {
+                            text: "(BusId " + device.bus_id + ")";
+                            font-size: 13px * LayoutConstants.font-scale;
+                            font-family: Theme.default_font;
+                            font-weight: 400;
+                            color: Theme.text_secondary;
+                            vertical-alignment: center;
+                        }
+                        Text {
+                            text: AppI18n.t("usb.device_settings_title", [AppI18n.version]);
+                            font-size: 18px * LayoutConstants.font-scale;
+                            font-family: Theme.default_font;
+                            font-weight: 500;
+                            color: Theme.text_primary;
+                            vertical-alignment: center;
+                        }
+                    }
+                }
+                TouchArea {
+                    x: AppI18n.is-rtl ? 0 : parent.width - self.width;
+                    width: 24px;
+                    height: 24px;
+                    clicked => { root.close(); }
+                    Rectangle {
+                        background: parent.has-hover ? Theme.hover_bg : transparent;
+                        border-radius: 4px;
+                        Text {
+                            text: "\u{E8BB}";
+                            font-family: Theme.icon_font;
+                            font-size: 14px;
+                            color: Theme.text_primary;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                    }
+                }
+            }
+
+            // Divider
+            Rectangle {
+                height: 1px;
+                background: Theme.border_color;
+            }
+
+            // Force Bind option with "?" tooltip
+            VerticalLayout {
+                spacing: 8px;
+                HorizontalLayout {
+                    spacing: 4px;
+                    alignment: start;
+                    CustomCheckBox {
+                        text: AppI18n.t("usb.force_bind", [AppI18n.version]);
+                        checked <=> root.force_bind;
+                    }
+                    // Blue question mark with hover tooltip
+                    Rectangle {
+                        width: 18px;
+                        height: 18px;
+                        y: (parent.height - self.height) / 2;
+                        background: qmark-touch.has-hover ? #0078D420 : transparent;
+                        border-radius: 9px;
+                        Text {
+                            text: "?";
+                            font-size: 12px;
+                            font-weight: 500;
+                            font-family: Theme.default_font;
+                            color: #0078D4;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                        // Tooltip on hover
+                        Rectangle {
+                            visible: qmark-touch.has-hover;
+                            opacity: qmark-touch.has-hover ? 1 : 0;
+                            background: Theme.dark_mode ? #3E3E42 : #F0F0F0;
+                            border-color: Theme.border_color;
+                            border-width: 1px;
+                            border-radius: 4px;
+                            z: 100;
+                            x: (parent.width - self.width) / 2;
+                            y: -self.height - 4px;
+                            width: hint-text.width + 12px;
+                            height: hint-text.height + 6px;
+                            drop-shadow-blur: 4px;
+                            drop-shadow-color: #00000018;
+                            hint-text := Text {
+                                text: AppI18n.t("usb.force_bind_hint", [AppI18n.version]);
+                                color: Theme.text_primary;
+                                font-size: 11px * LayoutConstants.font-scale;
+                                font-family: Theme.default_font;
+                                horizontal-alignment: center;
+                                vertical-alignment: center;
+                            }
+                        }
+                        qmark-touch := TouchArea {
+                            mouse-cursor: help;
+                        }
+                    }
+                }
+            }
+
+            // Boot Attach option with "?" tooltip
+            VerticalLayout {
+                spacing: 8px;
+                HorizontalLayout {
+                    spacing: 4px;
+                    alignment: start;
+                    CustomCheckBox {
+                        text: AppI18n.t("usb.boot_attach", [AppI18n.version]);
+                        checked <=> root.boot_attach;
+                    }
+                    // Blue question mark with hover tooltip
+                    Rectangle {
+                        width: 18px;
+                        height: 18px;
+                        y: (parent.height - self.height) / 2;
+                        background: boot-qmark-touch.has-hover ? #0078D420 : transparent;
+                        border-radius: 9px;
+                        Text {
+                            text: "?";
+                            font-size: 12px;
+                            font-weight: 500;
+                            font-family: Theme.default_font;
+                            color: #0078D4;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                        // Tooltip on hover
+                        Rectangle {
+                            visible: boot-qmark-touch.has-hover;
+                            opacity: boot-qmark-touch.has-hover ? 1 : 0;
+                            background: Theme.dark_mode ? #3E3E42 : #F0F0F0;
+                            border-color: Theme.border_color;
+                            border-width: 1px;
+                            border-radius: 4px;
+                            z: 100;
+                            x: (parent.width - self.width) / 2;
+                            y: -self.height - 4px;
+                            width: boot-hint-text.width + 12px;
+                            height: boot-hint-text.height + 6px;
+                            drop-shadow-blur: 4px;
+                            drop-shadow-color: #00000018;
+                            boot-hint-text := Text {
+                                text: AppI18n.t("usb.boot_attach_hint", [AppI18n.version]);
+                                color: Theme.text_primary;
+                                font-size: 11px * LayoutConstants.font-scale;
+                                font-family: Theme.default_font;
+                                horizontal-alignment: center;
+                                vertical-alignment: center;
+                            }
+                        }
+                        boot-qmark-touch := TouchArea {
+                            mouse-cursor: help;
+                        }
+                    }
+                }
+            }
+
+            // Auto Attach option with "?" tooltip
+            VerticalLayout {
+                spacing: 8px;
+                HorizontalLayout {
+                    spacing: 4px;
+                    alignment: start;
+                    CustomCheckBox {
+                        text: AppI18n.t("usb.auto_attach", [AppI18n.version]);
+                        checked <=> root.auto_attach;
+                    }
+                    // Blue question mark with hover tooltip
+                    Rectangle {
+                        width: 18px;
+                        height: 18px;
+                        y: (parent.height - self.height) / 2;
+                        background: auto-qmark-touch.has-hover ? #0078D420 : transparent;
+                        border-radius: 9px;
+                        Text {
+                            text: "?";
+                            font-size: 12px;
+                            font-weight: 500;
+                            font-family: Theme.default_font;
+                            color: #0078D4;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                        // Tooltip on hover
+                        Rectangle {
+                            visible: auto-qmark-touch.has-hover;
+                            opacity: auto-qmark-touch.has-hover ? 1 : 0;
+                            background: Theme.dark_mode ? #3E3E42 : #F0F0F0;
+                            border-color: Theme.border_color;
+                            border-width: 1px;
+                            border-radius: 4px;
+                            z: 100;
+                            x: (parent.width - self.width) / 2;
+                            y: -self.height - 4px;
+                            width: auto-hint-text.width + 12px;
+                            height: auto-hint-text.height + 6px;
+                            drop-shadow-blur: 4px;
+                            drop-shadow-color: #00000018;
+                            auto-hint-text := Text {
+                                text: AppI18n.t("usb.auto_attach_hint", [AppI18n.version]);
+                                color: Theme.text_primary;
+                                font-size: 11px * LayoutConstants.font-scale;
+                                font-family: Theme.default_font;
+                                horizontal-alignment: center;
+                                vertical-alignment: center;
+                            }
+                        }
+                        auto-qmark-touch := TouchArea {
+                            mouse-cursor: help;
+                        }
+                    }
+                }
+            }
+
+            // Footer
+            HorizontalLayout {
+                alignment: AppI18n.is-rtl ? start : end;
+
+                Rectangle {
+                    width: 90px;
+                    height: 32px;
+                    background: Theme.accent;
+                    border-radius: 6px;
+                    TouchArea {
+                        clicked => {
+                            root.save(device.bus_id, device.vid_pid, root.force_bind, root.boot_attach, root.auto_attach);
+                        }
+                    }
+
+                    HorizontalLayout {
+                        spacing: 4px;
+                        alignment: center;
+                        Text {
+                            text: AppI18n.t("dialog.save", [AppI18n.version]);
+                            color: white;
+                            font-size: 13px * LayoutConstants.font-scale;
+                            font-family: Theme.default_font;
+                            font-weight: 500;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

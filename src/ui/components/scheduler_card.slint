@@ -1,0 +1,280 @@
+// SPDX-FileCopyrightText: Copyright (c) 2026 owu <wqh@live.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
+import { Theme, AppI18n, LayoutConstants, SchedulerTaskUI } from "../theme.slint";
+import { ActionIcon } from "common.slint";
+
+export component SchedulerCard inherits Rectangle {
+    in property <SchedulerTaskUI> task;
+    in property <bool> busy: false;
+    callback edit_clicked(string);
+    callback delete_clicked(string);
+    callback toggle_clicked(string);
+    callback run_clicked(string);
+
+    height: 48px;
+    background: Theme.card_bg;
+    border-radius: 6px;
+    border-width: 1px;
+    border-color: Theme.border_color;
+    HorizontalLayout {
+        padding-left: 12px;
+        padding-right: 12px;
+
+        // --- RTL layout ---
+        if (AppI18n.is-rtl): HorizontalLayout {
+            spacing: 12px;
+            alignment: center;
+
+            // Delete
+            VerticalLayout {
+                alignment: center;
+                ActionIcon {
+                    icon: "\u{E74D}";
+                    is_font_icon: true;
+                    show_shield: true;
+                    icon_type: "danger";
+                    tooltip: AppI18n.t("scheduler.delete_btn", [AppI18n.version]);
+                    clicked => { root.delete_clicked(task.task_id); }
+                }
+            }
+
+            // Run now
+            VerticalLayout {
+                alignment: center;
+                ActionIcon {
+                    icon: "\u{E768}";
+                    is_font_icon: true;
+                    show_shield: true;
+                    icon_type: "success";
+                    opacity: task.enabled ? 1.0 : 0.4;
+                    tooltip: AppI18n.t("scheduler.run_now_btn", [AppI18n.version]);
+                    clicked => { if (task.enabled) { root.run_clicked(task.task_id); } }
+                }
+            }
+
+            // Toggle enable/disable
+            VerticalLayout {
+                alignment: center;
+                ActionIcon {
+                    icon: task.enabled ? "\u{E81A}" : "\u{E819}";
+                    is_font_icon: true;
+                    show_shield: true;
+                    icon_type: task.enabled ? "warning" : "success";
+                    tooltip: task.enabled ? AppI18n.t("scheduler.disable_btn", [AppI18n.version]) : AppI18n.t("scheduler.enable_btn", [AppI18n.version]);
+                    clicked => { root.toggle_clicked(task.task_id); }
+                }
+            }
+
+            // Edit
+            VerticalLayout {
+                alignment: center;
+                ActionIcon {
+                    icon: "\u{E70F}";
+                    is_font_icon: true;
+                    show_shield: true;
+                    icon_type: "info";
+                    tooltip: AppI18n.t("scheduler.edit_btn", [AppI18n.version]);
+                    clicked => { root.edit_clicked(task.task_id); }
+                }
+            }
+        }
+
+        // --- LTR content: Status indicator + Info ---
+        if (!AppI18n.is-rtl): HorizontalLayout {
+            spacing: 12px;
+            alignment: center;
+
+            // Status indicator
+            VerticalLayout {
+                alignment: center;
+                Text {
+                    text: "\u{EA81}";
+                    font-family: Theme.icon_font;
+                    font-size: 12px * LayoutConstants.font-scale;
+                    color: task.enabled ? (task.status == "Running" ? Theme.accent : #4CAF50) : #9E9E9E;
+                }
+            }
+
+            // Info
+            VerticalLayout {
+                alignment: center;
+                spacing: 2px;
+                Text {
+                    text: task.display_name;
+                    font-family: Theme.default_font;
+                    font-size: 14px * LayoutConstants.font-scale;
+                    font-weight: 500;
+                    color: Theme.text_primary;
+                    horizontal-alignment: left;
+                    overflow: elide;
+                }
+
+                HorizontalLayout {
+                    spacing: 4px;
+                    alignment: start;
+                    height: 16px;
+                    Text {
+                        text: task.cron_expr;
+                        font-family: "Consolas";
+                        font-size: 11px * LayoutConstants.font-scale;
+                        color: Theme.text_secondary;
+                        vertical-alignment: center;
+                    }
+                    Text {
+                        text: "  ";
+                        font-size: 11px * LayoutConstants.font-scale;
+                    }
+                    Text {
+                        text: task.command_short;
+                        font-family: Theme.default_font;
+                        font-size: 11px * LayoutConstants.font-scale;
+                        color: Theme.text_secondary;
+                        vertical-alignment: center;
+                        overflow: elide;
+                    }
+                }
+            }
+        }
+
+        // Spacer
+        Rectangle {
+            horizontal-stretch: 1;
+        }
+
+        // --- RTL content: Info + Status indicator ---
+        if (AppI18n.is-rtl): HorizontalLayout {
+            spacing: 12px;
+            alignment: center;
+
+            VerticalLayout {
+                alignment: center;
+                spacing: 2px;
+                Text {
+                    text: task.display_name;
+                    font-family: Theme.default_font;
+                    font-size: 14px * LayoutConstants.font-scale;
+                    font-weight: 500;
+                    color: Theme.text_primary;
+                    horizontal-alignment: right;
+                    overflow: elide;
+                }
+                HorizontalLayout {
+                    spacing: 4px;
+                    alignment: end;
+                    height: 16px;
+                    Text {
+                        text: task.command_short;
+                        font-family: Theme.default_font;
+                        font-size: 11px * LayoutConstants.font-scale;
+                        color: Theme.text_secondary;
+                        vertical-alignment: center;
+                        overflow: elide;
+                    }
+                    Text {
+                        text: "  ";
+                        font-size: 11px * LayoutConstants.font-scale;
+                    }
+                    Text {
+                        text: task.cron_expr;
+                        font-family: "Consolas";
+                        font-size: 11px * LayoutConstants.font-scale;
+                        color: Theme.text_secondary;
+                        vertical-alignment: center;
+                    }
+                }
+            }
+
+            VerticalLayout {
+                alignment: center;
+                Text {
+                    text: "\u{EA81}";
+                    font-family: Theme.icon_font;
+                    font-size: 12px * LayoutConstants.font-scale;
+                    color: task.enabled ? (task.status == "Running" ? Theme.accent : #4CAF50) : #9E9E9E;
+                }
+            }
+        }
+
+        // --- LTR actions ---
+        if (!AppI18n.is-rtl): HorizontalLayout {
+            spacing: 12px;
+            alignment: center;
+
+            // Edit
+            VerticalLayout {
+                alignment: center;
+                ActionIcon {
+                    icon: "\u{E70F}";
+                    is_font_icon: true;
+                    show_shield: true;
+                    icon_type: "info";
+                    tooltip: AppI18n.t("scheduler.edit_btn", [AppI18n.version]);
+                    clicked => { root.edit_clicked(task.task_id); }
+                }
+            }
+
+            // Toggle enable/disable
+            VerticalLayout {
+                alignment: center;
+                ActionIcon {
+                    icon: task.enabled ? "\u{E81A}" : "\u{E819}";
+                    is_font_icon: true;
+                    show_shield: true;
+                    icon_type: task.enabled ? "warning" : "success";
+                    tooltip: task.enabled ? AppI18n.t("scheduler.disable_btn", [AppI18n.version]) : AppI18n.t("scheduler.enable_btn", [AppI18n.version]);
+                    clicked => { root.toggle_clicked(task.task_id); }
+                }
+            }
+
+            // Run now
+            VerticalLayout {
+                alignment: center;
+                ActionIcon {
+                    icon: "\u{E768}";
+                    is_font_icon: true;
+                    show_shield: true;
+                    icon_type: "success";
+                    opacity: task.enabled ? 1.0 : 0.4;
+                    tooltip: AppI18n.t("scheduler.run_now_btn", [AppI18n.version]);
+                    clicked => { if (task.enabled) { root.run_clicked(task.task_id); } }
+                }
+            }
+
+            // Delete
+            VerticalLayout {
+                alignment: center;
+                ActionIcon {
+                    icon: "\u{E74D}";
+                    is_font_icon: true;
+                    show_shield: true;
+                    icon_type: "danger";
+                    tooltip: AppI18n.t("scheduler.delete_btn", [AppI18n.version]);
+                    clicked => { root.delete_clicked(task.task_id); }
+                }
+            }
+        }
+    }
+
+    // Busy overlay - prevents duplicate clicks with animated spinner
+    if (root.busy): Rectangle {
+        background: Theme.dark_mode ? #00000099 : #FFFFFFCC;
+        border-radius: 6px;
+        border-width: 1px;
+        border-color: Theme.accent;
+        z: 10;
+        TouchArea { }
+
+        // Spinning icon
+        Text {
+            text: "\u{E895}";
+            font-family: Theme.icon_font;
+            font-size: 20px;
+            color: Theme.accent;
+            horizontal-alignment: center;
+            vertical-alignment: center;
+            opacity: 0.5 + 0.5 * abs(sin(360deg * animation-tick() / 1.5s));
+            transform-rotation: 360deg * mod(animation-tick(), 2s) / 2s;
+        }
+    }
+}

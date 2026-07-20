@@ -192,7 +192,33 @@ Pliki logów są zapisywane w skonfigurowanym katalogu logów i można je dołą
 
 ## 📦 Instalacja
 
-### Metoda 1: Pobranie gotowego pliku binarnego
+### Opcja 1: Odwiedź stronę projektu (Zalecane)
+
+Zalecamy odwiedzenie oficjalnej strony internetowej w celu pobrania, ponieważ oferuje wiele linków lustrzanych dla płynniejszego doświadczenia:
+
+Przejdź na [stronę pobierania](https://www.wslui.com/download/) i wybierz lustro odpowiednie dla swojego regionu.
+
+### Opcja 2: Instalacja przez winget
+
+Możesz zainstalować WSLDashboard bezpośrednio z Menedżera pakietów Windows (winget), używając monikera lub pełnego identyfikatora pakietu:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Opcja 3: Pobranie gotowego pliku binarnego
 
 Najprostszym sposobem na rozpoczęcie jest użycie gotowej wersji:
 
@@ -202,7 +228,7 @@ Najprostszym sposobem na rozpoczęcie jest użycie gotowej wersji:
 
 Instalacja nie jest wymagana — aplikacja jest przenośnym programem jednoplikowym.
 
-### Metoda 2: Kompilacja ze źródeł
+### Opcja 4: Kompilacja ze źródeł
 
 Upewnij się, że masz zainstalowany Rust toolchain (Rust 1.92+ lub nowszy).
 

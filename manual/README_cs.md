@@ -192,7 +192,33 @@ Soubory protokolů se zapisují do nakonfigurovaného adresáře a lze je přilo
 
 ## 📦 Instalační příručka
 
-### Možnost 1: Stažení předem sestaveného binárního souboru
+### Možnost 1: Navštivte web projektu (Doporučeno)
+
+Doporučujeme navštívit oficiální webové stránky pro stažení, protože nabízejí několik zrcadlových odkazů pro plynulejší zážitek:
+
+Přejděte na [stránku pro stažení](https://www.wslui.com/download/) a vyberte zrcadlo vhodné pro vaši oblast.
+
+### Možnost 2: Instalace přes winget
+
+Můžete nainstalovat WSLDashboard přímo z Windows Package Manager (winget) pomocí monikeru nebo úplného identifikátoru balíčku:
+
+```powershell
+# Vyhledávání (nezáleží na velikosti písmen)
+winget search wsl-dashboard
+# nebo
+winget search WSLDashboard
+
+# Instalace (vyberte jednu)
+winget install wsl-dashboard
+# nebo
+winget install Owu.WSLDashboard
+```
+
+> Identifikátor balíčku winget je `Owu.WSLDashboard` a moniker je `wsl-dashboard` (nezáleží na velikosti písmen). Oba fungují.
+
+Další informace naleznete v [komunitním repozitáři WinGet](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Možnost 3: Stažení předem sestaveného binárního souboru
 
 Nejjednodušší způsob, jak začít, je použít předkompilovanou verzi:
 
@@ -202,7 +228,7 @@ Nejjednodušší způsob, jak začít, je použít předkompilovanou verzi:
 
 Není vyžadován žádný instalátor; aplikace je jediný přenosný binární soubor.
 
-### Možnost 2: Sestavení ze zdrojového kódu
+### Možnost 4: Sestavení ze zdrojového kódu
 
 Ujistěte se, že máte nainstalovanou sadu nástrojů Rust (Rust 1.92+ nebo novější).
 

@@ -101,17 +101,18 @@ async fn cleanup_usb_bindings() {
     info!("Cleaning up USB bindings...");
     
     let home_dir = dirs::home_dir().unwrap_or_else(|| PathBuf::from("."));
-    let settings_path = home_dir.join(".wsldashboard").join("settings.toml");
+    let settings_path = home_dir.join(".wsldashboard").join("usb.toml");
     
     if !settings_path.exists() {
-        info!("settings.toml not found, skipping USB unbinding cleanup.");
+        info!("usb.toml not found, skipping USB unbinding cleanup.");
         return;
     }
 
     match fs::read_to_string(&settings_path) {
         Ok(content) => {
-            if let Ok(config) = toml::from_str::<crate::config::models::Config>(&content) {
-                for device in &config.usb.auto_attach_list {
+            if let Ok(config) = toml::from_str::<crate::config::models::UsbConfigFile>(&content) {
+                for device in config.usb.values() {
+                    if device.bus_id.is_empty() { continue; }
                     info!("Performing unbind for device {} (BusId: {})", device.vid_pid, device.bus_id);
                     // Execute usbipd unbind --busid <bus_id>
                     let args = vec!["unbind".to_string(), "--busid".to_string(), device.bus_id.clone()];
@@ -124,7 +125,7 @@ async fn cleanup_usb_bindings() {
                 info!("USB binding cleanup completed.");
             }
         }
-        Err(e) => error!("Failed to read settings.toml: {}", e),
+        Err(e) => error!("Failed to read usb.toml: {}", e),
     }
 }
 
@@ -137,10 +138,31 @@ async fn cleanup_task_scheduler() {
         info!("Scheduled task deleted successfully.");
     }
 
-    // Also try to delete scheduled task directory \WSLDashboard
-    info!("Cleaning up scheduled task directory: \\WSLDashboard");
-    let dir_cmd = "schtasks /Delete /TN \"\\WSLDashboard\" /F";
-    let _ = system::run_invisible_elevated_command(dir_cmd);
+    info!("Cleaning up user task directory: \\WSLDashboard\\UserTasks");
+    // Write a temporary powershell script to unregister all tasks in the UserTasks directory
+    // and then remove the directory itself.
+    // This avoids cmd.exe quote stripping and pipe escaping issues
+    let temp_ps1 = std::env::temp_dir().join("wsldashboard_uninstall_tasks.ps1");
+    let ps1_content = "\
+$tasks = Get-ScheduledTask -TaskPath '\\WSLDashboard\\UserTasks\\' -ErrorAction SilentlyContinue
+if ($tasks) { $tasks | Unregister-ScheduledTask -Confirm:$false }
+$service = New-Object -ComObject Schedule.Service
+$service.Connect()
+try {
+    $rootFolder = $service.GetFolder('\\')
+    $wslFolder = $rootFolder.GetFolder('WSLDashboard')
+    try { $wslFolder.DeleteFolder('UserTasks', $null) } catch { }
+    try { $rootFolder.DeleteFolder('WSLDashboard', $null) } catch { }
+} catch { }
+";
+    if std::fs::write(&temp_ps1, ps1_content).is_ok() {
+        let ps_cmd = format!("powershell -NoProfile -ExecutionPolicy Bypass -WindowStyle Hidden -File \"{}\"", temp_ps1.display());
+        let _ = system::run_invisible_elevated_command(&ps_cmd);
+        let _ = std::fs::remove_file(&temp_ps1);
+    }
+
+    // Note: schtasks /Delete cannot remove a folder that still contains tasks.
+    // The PowerShell script above unregisters all tasks and then removes the folder.
 }
 
 async fn cleanup_registry_autostart() {

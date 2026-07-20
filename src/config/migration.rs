@@ -4,31 +4,6 @@
 use tracing::info;
 use super::{Config, SETTINGS_VERSION};
 
-// Record new or changed fields for each version to implement global configuration control
-// 
-// v1 global field list (2026-01-10):
-//   [application]
-//   - name: String
-//   - app-version: String (previously version)
-//   - setting-version: String (previously settings.version)
-//   - startup-time: String
-//   [system]
-//   - system-language: String
-//   - timezone: String
-//   [settings]
-//   - modify-time: String
-//   - distro-location: String
-//   - logs-location: String
-//   - temp-location: String
-//   - ui-language: String
-//   - auto-shutdown: bool
-//   - dark-mode: bool
-//
-// v2 new fields (2026-01-10 16:16):
-//   [settings]
-//   - check-time: String (millisecond timestamp, default "0")
-//   - check-update: u8 (days, default 7)
-
 pub fn migrate_config(config: &mut Config) {
     let old_version = config.application.setting_version as u32;
     
@@ -81,6 +56,12 @@ pub fn migrate_config(config: &mut Config) {
         info!("Upgrading to v7: adding [settings] mail (default true),hide-pin (default false)");
         config.settings.mail = true;
         config.settings.hide_pin = false;
+    }
+
+    // v7 -> v8 logic
+    if old_version < 8 {
+        info!("Upgrading to v8: adding [settings] show-drag (default true)");
+        config.settings.show_drag = true;
     }
 
     config.application.setting_version = SETTINGS_VERSION as u8;

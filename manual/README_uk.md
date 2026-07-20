@@ -192,7 +192,33 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 ## 📦 Посібник з встановлення
 
-### Спосіб 1: Завантаження зібраного бінарного файлу
+### Спосіб 1: Відвідайте веб-сайт проєкту (Рекомендовано)
+
+Рекомендуємо відвідати офіційний веб-сайт для завантаження, оскільки він пропонує кілька дзеркальних посилань для більш зручного досвіду:
+
+Перейдіть на [сторінку завантаження](https://www.wslui.com/download/) та виберіть дзеркало, яке підходить для вашого регіону.
+
+### Спосіб 2: Встановлення через winget
+
+Ви можете встановити WSLDashboard безпосередньо з Windows Package Manager (winget), використовуючи монікер або повний ідентифікатор пакета:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Спосіб 3: Завантаження зібраного бінарного файлу
 
 Найпростіший спосіб почати роботу — використати зібрану версію:
 
@@ -202,7 +228,7 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 Встановлення не потрібне — додаток є портативною програмою одним файлом.
 
-### Спосіб 2: Збірка з вихідного коду
+### Спосіб 4: Збірка з вихідного коду
 
 Переконайтеся, що у вас встановлений Rust toolchain (Rust 1.92+ або новіший).
 

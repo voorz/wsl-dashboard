@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
 // Configuration file version constant
-pub const SETTINGS_VERSION: u32 = 7;
+pub const SETTINGS_VERSION: u32 = 8;
 
 // Application configuration
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -66,6 +66,8 @@ pub struct UserSettings {
     pub mail: bool,
     #[serde(rename = "hide-pin", default)]
     pub hide_pin: bool,
+    #[serde(rename = "show-drag", default = "default_true")]
+    pub show_drag: bool,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -102,8 +104,6 @@ pub struct Config {
     pub settings: UserSettings,
     #[serde(default)]
     pub tray: TraySettings,
-    #[serde(default)]
-    pub usb: UsbConfig,
     #[serde(default)]
     pub sidebar: SidebarConfig,
 }
@@ -155,10 +155,10 @@ impl Config {
                 colorful_icons: true,
                 mail: true,
                 hide_pin: false,
+                show_drag: true,
             },
 
             tray: TraySettings::default(),
-            usb: UsbConfig::default(),
             sidebar: SidebarConfig::default(),
         }
     }
@@ -199,12 +199,54 @@ impl Default for SidebarConfig {
     }
 }
 
-// --- USB Configuration ---
+// --- USB Configuration (now in usb.toml) ---
 
-#[derive(Debug, Clone, Serialize, Deserialize, Default)]
-pub struct UsbConfig {
-    #[serde(rename = "auto-attach-list", default)]
-    pub auto_attach_list: Vec<UsbAutoAttachDevice>,
+pub const USB_CONFIG_VERSION: u32 = 1;
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct UsbConfigFile {
+    #[serde(default)]
+    pub common: UsbCommonConfig,
+    #[serde(default)]
+    pub usb: std::collections::HashMap<String, UsbDeviceConfig>,
+}
+
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+pub struct UsbCommonConfig {
+    #[serde(rename = "setting-version", default = "default_usb_version")]
+    pub setting_version: u32,
+    #[serde(rename = "modify-time", default = "default_modify_time")]
+    pub modify_time: String,
+}
+
+pub fn default_usb_version() -> u32 { USB_CONFIG_VERSION }
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct UsbDeviceConfig {
+    #[serde(rename = "boot-attach", default)]
+    pub boot_attach: bool,
+    #[serde(rename = "auto-attach", default)]
+    pub auto_attach: bool,
+    #[serde(rename = "force-bind", default)]
+    pub force_bind: bool,
+    #[serde(rename = "bus-id")]
+    pub bus_id: String,
+    #[serde(rename = "vid-pid")]
+    pub vid_pid: String,
+    #[serde(default)]
+    pub distribution: String,
+}
+
+impl Default for UsbConfigFile {
+    fn default() -> Self {
+        Self {
+            common: UsbCommonConfig {
+                setting_version: USB_CONFIG_VERSION,
+                modify_time: chrono::Utc::now().timestamp_millis().to_string(),
+            },
+            usb: std::collections::HashMap::new(),
+        }
+    }
 }
 
 pub const NETWORK_VERSION: u32 = 1;
@@ -250,15 +292,6 @@ impl Default for NetworkConfig {
             proxy: Default::default(),
         }
     }
-}
-
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct UsbAutoAttachDevice {
-    #[serde(rename = "bus-id")]
-    pub bus_id: String,
-    #[serde(rename = "vid-pid")]
-    pub vid_pid: String,
-    pub distribution: String,
 }
 
 // --- Instance-specific configuration (instances.toml) ---

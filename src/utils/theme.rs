@@ -90,13 +90,13 @@ impl ThemeWatcher {
             let status = RegOpenKeyExW(
                 HKEY_CURRENT_USER,
                 PCWSTR(subkey.as_ptr()),
-                0,
+                Some(0),
                 KEY_READ,
                 &mut hkey
             );
 
             if status.is_err() {
-                return Err(windows::core::Error::from_win32());
+                return Err(windows::core::Error::from_thread());
             }
 
             let value_name = encode_wide("AppsUseLightTheme");
@@ -117,7 +117,7 @@ impl ThemeWatcher {
             let _ = RegCloseKey(hkey);
 
             if status.is_err() {
-                return Err(windows::core::Error::from_win32());
+                return Err(windows::core::Error::from_thread());
             }
 
             Ok(data)

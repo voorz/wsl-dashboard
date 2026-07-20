@@ -68,12 +68,14 @@ export component SettingsView inherits Rectangle {
     in-out property <bool> sidebar_toggle: true;
     in-out property <bool> sidebar_usb: true;
     in-out property <bool> sidebar_network: true;
+    in-out property <bool> sidebar_scheduler: true;
     in-out property <bool> sidebar_donate: true;
     in-out property <bool> sidebar_about: true;
     in-out property <bool> sparse_vhd: false;
     in-out property <bool> colorful_icons: false;
     in-out property <bool> mail_icon_always: true;
     in-out property <bool> hide_pin_icon: false;
+    in-out property <bool> show_drag: true;
     in property <SettingsStrings> strings;
     in property <[string]> language_options;
     in-out property <int> selected_language_index;
@@ -251,12 +253,14 @@ export component SettingsView inherits Rectangle {
                             sidebar_toggle <=> root.sidebar_toggle;
                             sidebar_usb <=> root.sidebar_usb;
                             sidebar_network <=> root.sidebar_network;
+                            sidebar_scheduler <=> root.sidebar_scheduler;
                             sidebar_donate <=> root.sidebar_donate;
                             sidebar_about <=> root.sidebar_about;
                             system_color <=> root.system_color;
                             colorful_icons <=> root.colorful_icons;
                             mail_icon_always <=> root.mail_icon_always;
                             hide_pin_icon <=> root.hide_pin_icon;
+                            show_drag <=> root.show_drag;
                         }
                     }
                 }

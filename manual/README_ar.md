@@ -192,7 +192,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 📦 دليل التثبيت
 
-### الخيار 1: تنزيل الملف الثنائي الجاهز
+### الخيار 1: زيارة موقع المشروع (موصى به)
+
+نوصي بزيارة الموقع الرسمي للتنزيل، حيث يوفر روابط مرايا متعددة لتجربة أكثر سلاسة:
+
+تفضل بزيارة [صفحة التحميل](https://www.wslui.com/download/) واختر المرآة المناسبة لمنطقتك.
+
+### الخيار 2: التثبيت عبر winget
+
+يمكنك تثبيت WSLDashboard مباشرة من Windows Package Manager (winget)، باستخدام الاسم المختصر أو معرف الحزمة الكامل:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> معرف حزمة winget هو `Owu.WSLDashboard` والاسم المختصر هو `wsl-dashboard` (غير حساس لحالة الأحرف). أي منهما يعمل.
+
+لمزيد من المعلومات، تفضل بزيارة [مستودع WinGet المجتمعي](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### الخيار 3: تنزيل الملف الثنائي الجاهز
 
 أسهل طريقة للبدء هي استخدام الإصدار المجمع مسبقًا:
 
@@ -202,7 +228,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 لا يتطلب البرنامج تثبيتًا؛ التطبيق عبارة عن ملف ثنائي محمول واحد.
 
-### الخيار 2: البناء من المصدر
+### الخيار 4: البناء من المصدر
 
 تأكد من تثبيت أدوات Rust (Rust 1.92+ أو أحدث).
 

@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { CustomScrollbar } from "../components/scrollbar.slint";
-import { Theme, Distro, AppI18n, LayoutConstants } from "../theme.slint";
+import { Theme, Distro, AppI18n, LayoutConstants, AppApi } from "../theme.slint";
 import { DistroCard } from "../components/distro_card.slint";
 import { DistroNotFoundView } from "../components/distro_not_found_view.slint";
 
@@ -10,7 +10,7 @@ import { DistroNotFoundView } from "../components/distro_not_found_view.slint";
 component DistroList inherits VerticalLayout {
     in property <[Distro]> distros;
     in-out property <string> expanded_distro: "";
-    
+
     // Callbacks - all must be passed through
     callback start_distro(string);
     callback stop_distro(string);
@@ -28,6 +28,7 @@ component DistroList inherits VerticalLayout {
     callback configs_clicked(string);
     callback compress_clicked(string);
     callback sparse_clicked(string);
+    callback reorder_distros(int, int);
 
     padding-top: 0px;
     padding-bottom: 0px;
@@ -35,61 +36,69 @@ component DistroList inherits VerticalLayout {
     padding-right: AppI18n.is-rtl ? 4px : 16px;
     spacing: 12px;
     alignment: start;
-    for d in distros: DistroCard {
-        distro: d;
-        sole_distro: distros.length == 1;
-        expanded: root.expanded_distro == d.name;
-        expand_clicked => {
-            if (root.expanded_distro == d.name) {
-                root.expanded_distro = "";
-            } else {
-                root.expanded_distro = d.name;
+
+    for d[index] in distros: drop_wrapper := DropArea {
+        width: 100%;
+        height: d.name == root.expanded_distro ? 96px : 48px;
+        animate height { duration: 200ms; easing: ease-out-quad; }
+
+        // Accept only move actions
+        can-drop(event) => {
+            return DragAction.move;
+        }
+        dropped(event) => {
+            let from_idx = AppApi.read-transfer(event.data);
+            if (from_idx != index) {
+                root.reorder_distros(from_idx, index);
             }
+            return event.proposed-action;
         }
-        start_clicked => {
-            root.start_distro(d.name);
+
+        // Visual drop indicator: blue left border when a drag hovers here
+        Rectangle {
+            x: AppI18n.is-rtl ? parent.width - 3px : 0px;
+            y: 0;
+            width: 3px;
+            height: 100%;
+            background: drop_wrapper.has-drag ? Theme.main_color : transparent;
+            border-radius: 2px;
+            animate background { duration: 100ms; }
         }
-        stop_clicked => {
-            root.stop_distro(d.name);
-        }
-        restart_clicked => {
-            root.restart_distro(d.name);
-        }
-        terminal_clicked => {
-            root.terminal_distro(d.name);
-        }
-        folder_clicked => {
-            root.folder_distro(d.name);
-        }
-        vscode_clicked => {
-            root.vscode_distro(d.name);
-        }
-        export_clicked => {
-            root.open_export_dialog(d.name);
-        }
-        clone_clicked => {
-            root.open_clone_dialog(d.name);
-        }
-        move_clicked => {
-            root.open_move_dialog(d.name);
-        }
-        edit_bashrc_clicked => {
-            root.edit_bashrc_distro(d.name);
-        }
-        information_clicked => {
-            root.information_clicked(d.name);
-        }
-        delete_clicked => {
-            root.delete_clicked(d.name);
-        }
-        settings_clicked => {
-            root.settings_clicked(d.name);
-        }
-        configs_clicked => {
-            root.configs_clicked(d.name);
-        }
-        compress_clicked => {
-            root.compress_clicked(d.name);
+
+        DistroCard {
+            x: 0;
+            y: 0;
+            width: 100%;
+            distro: d;
+            sole_distro: distros.length == 1;
+            expanded: root.expanded_distro == d.name;
+            card_index: index;
+            // Dim when a drag is hovering over this slot
+            opacity: drop_wrapper.has-drag ? 0.6 : 1.0;
+            animate opacity { duration: 100ms; }
+
+            expand_clicked => {
+                if (root.expanded_distro == d.name) {
+                    root.expanded_distro = "";
+                } else {
+                    root.expanded_distro = d.name;
+                }
+            }
+            start_clicked => { root.start_distro(d.name); }
+            stop_clicked => { root.stop_distro(d.name); }
+            restart_clicked => { root.restart_distro(d.name); }
+            terminal_clicked => { root.terminal_distro(d.name); }
+            folder_clicked => { root.folder_distro(d.name); }
+            vscode_clicked => { root.vscode_distro(d.name); }
+            export_clicked => { root.open_export_dialog(d.name); }
+            clone_clicked => { root.open_clone_dialog(d.name); }
+            move_clicked => { root.open_move_dialog(d.name); }
+            edit_bashrc_clicked => { root.edit_bashrc_distro(d.name); }
+            information_clicked => { root.information_clicked(d.name); }
+            delete_clicked => { root.delete_clicked(d.name); }
+            settings_clicked => { root.settings_clicked(d.name); }
+            configs_clicked => { root.configs_clicked(d.name); }
+            compress_clicked => { root.compress_clicked(d.name); }
         }
     }
 }
@@ -116,6 +125,7 @@ export component MainView inherits VerticalLayout {
     callback settings_clicked(string);
     callback configs_clicked(string);
     callback compress_clicked(string);
+    callback reorder_distros(int, int);
 
     in-out property <string> distro_to_delete;
     in-out property <bool> show_delete_confirmation;
@@ -139,6 +149,7 @@ export component MainView inherits VerticalLayout {
 
         if (!root.has_error): Rectangle {
             flick := Flickable {
+                interactive: false;
                 viewport-height: distro_list.preferred-height;
                 width: parent.width;
                 height: 100%;
@@ -191,6 +202,9 @@ export component MainView inherits VerticalLayout {
                     }
                     compress_clicked(n) => {
                         root.compress_clicked(n);
+                    }
+                    reorder_distros(from, to) => {
+                        root.reorder_distros(from, to);
                     }
                 }
             }

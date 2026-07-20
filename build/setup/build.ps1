@@ -20,6 +20,10 @@ if ([string]::IsNullOrWhiteSpace($Version)) {
 } else {
     $VERSION = $Version
 }
+
+# Strip pre-release suffix (e.g. "0.10.0-alpha.1" -> "0.10.0") for version info fields
+$numericVersion = $VERSION -replace '-.*$', ''
+
 $APP_NAME = "wsldashboard"
 
 Write-Host "--- Starting Build Process for $APP_NAME v$VERSION ---" -ForegroundColor Cyan
@@ -59,7 +63,7 @@ Write-Host "Found ISCC at: $ISCC" -ForegroundColor Gray
 
 # 3. Build the installer
 Write-Host "Step 3: Generating Installer..." -ForegroundColor Yellow
-& $ISCC /DAppVersion=$VERSION "$PSScriptRoot\config.iss"
+& $ISCC /DAppVersion=$VERSION /DAppVersionNumeric=$numericVersion "$PSScriptRoot\config.iss"
 if ($LASTEXITCODE -ne 0) {
     Write-Error "Inno Setup build failed!"
     exit 1

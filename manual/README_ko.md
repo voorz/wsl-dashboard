@@ -192,7 +192,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 📦 설치 가이드
 
-### 옵션 1: 빌드된 바이너리 다운로드
+### 옵션 1: 프로젝트 웹사이트 방문 (권장)
+
+더 원활한 다운로드 경험을 위해 여러 미러 링크를 제공하는 공식 웹사이트를 방문할 것을 권장합니다:
+
+[다운로드 페이지](https://www.wslui.com/download/)로 이동하여 해당 지역에 맞는 미러를 선택하세요.
+
+### 옵션 2: winget으로 설치
+
+모니커(moniker) 또는 전체 패키지 식별자를 사용하여 Windows 패키지 관리자(winget)에서 직접 WSLDashboard를 설치할 수 있습니다:
+
+```powershell
+# 검색 (대소문자 구분 없음)
+winget search wsl-dashboard
+# 또는
+winget search WSLDashboard
+
+# 설치 (하나를 선택)
+winget install wsl-dashboard
+# 또는
+winget install Owu.WSLDashboard
+```
+
+> winget 패키지 식별자는 `Owu.WSLDashboard`이고 모니커는 `wsl-dashboard`입니다 (대소문자 구분 없음). 둘 다 사용 가능합니다.
+
+자세한 내용은 [WinGet 커뮤니티 리포지토리](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard)를 방문하세요.
+
+### 옵션 3: 빌드된 바이너리 다운로드
 
 가장 쉬운 방법은 미리 컴파일된 릴리스 인스턴스를 사용하는 것입니다.
 
@@ -202,7 +228,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 별도의 설치 프로그램이 필요하지 않으며, 앱은 단일 포터블 바이너리로 제공됩니다.
 
-### 옵션 2: 소스에서 빌드
+### 옵션 4: 소스에서 빌드
 
 Rust 툴체인(Rust 1.92 이상)이 설치되어 있는지 확인하세요.
 

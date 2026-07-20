@@ -192,7 +192,33 @@ Ana rubuta fayilolin log zuwa buɗaɗɗen log, kuma ana iya haɗa su lokacin bay
 
 ## 📦 Jagoran Shigarwa
 
-### Hanyar 1: Saukar da Binary da aka gina
+### Hanyar 1: Ziyarci gidan yanar gizon aikin (Ana bada shawara)
+
+Muna bada shawarar ziyartar gidan yanar gizon don saukewa, saboda yana ba da hanyoyin haɗin madogara da yawa don ingantaccen kwarewa:
+
+Je zuwa [shafin saukewa](https://www.wslui.com/download/) kuma zaɓi madogaran da ya dace da yankinku.
+
+### Hanyar 2: Shigar ta hanyar winget
+
+Kuna iya shigar da WSLDashboard kai tsaye daga Windows Package Manager (winget), ta amfani da moniker ko cikakken mai gano kunshin:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> Mai gano kunshin winget shine `Owu.WSLDashboard` kuma moniker shine `wsl-dashboard` (case-insensitive). Kowane ɗayan yana aiki.
+
+Don ƙarin bayani, ziyarci [ma'ajiyar WinGet community](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Hanyar 3: Saukar da Binary da aka gina
 
 Mafi sauƙin hanyar ita ce amfani da ingantacciyar sigar:
 
@@ -202,7 +228,7 @@ Mafi sauƙin hanyar ita ce amfani da ingantacciyar sigar:
 
 Ba buƙatar shigarwa, wannan app shine shirin amfani guda ɗaya.
 
-### Hanyar 2: Gina daga Tushe
+### Hanyar 4: Gina daga Tushe
 
 Tabbatar da an shigar da kayan aikin Rust (Rust 1.92+ ko sabuwar sigar).
 

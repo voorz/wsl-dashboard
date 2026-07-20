@@ -192,7 +192,33 @@ Fail log ditulis ke direktori log yang dikonfigurasikan dan boleh dilampirkan se
 
 ## 📦 Panduan Pemasangan
 
-### Kaedah 1: Muat Turun Binari Sedia Bina
+### Kaedah 1: Lawati laman web projek (Disyorkan)
+
+Kami mengesyorkan melawati laman web rasmi untuk memuat turun, kerana ia menawarkan berbilang pautan cermin untuk pengalaman yang lebih lancar:
+
+Pergi ke [halaman Muat Turun](https://www.wslui.com/download/) dan pilih cermin yang sesuai untuk rantau anda.
+
+### Kaedah 2: Pasang melalui winget
+
+Anda boleh memasang WSLDashboard terus dari Windows Package Manager (winget), menggunakan moniker atau pengecam pakej penuh:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Kaedah 3: Muat Turun Binari Sedia Bina
 
 Cara paling mudah untuk bermula ialah menggunakan versi sedia bina:
 
@@ -202,7 +228,7 @@ Cara paling mudah untuk bermula ialah menggunakan versi sedia bina:
 
 Pemasangan tidak diperlukan — aplikasi ini adalah program mudah alih satu fail.
 
-### Kaedah 2: Bina dari Kod Sumber
+### Kaedah 4: Bina dari Kod Sumber
 
 Pastikan anda telah memasang Rust toolchain (Rust 1.92+ atau lebih baharu).
 

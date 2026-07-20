@@ -64,17 +64,16 @@ export component ProxyHelpDialog inherits Rectangle {
             spacing: 16px;
             alignment: AppI18n.is-rtl ? end : start;
             
-            // RTL: Text then Icon
-            if (AppI18n.is-rtl): VerticalLayout {
+            VerticalLayout {
                 spacing: 12px;
                 
                 Text {
                     text: AppI18n.t("dialog.http_proxy_helper_desc1", []);
                     font-size: 14px * LayoutConstants.font-scale;
                     font-family: Theme.default_font;
-                    color: Theme.text_primary;
+                    color: Theme.text_secondary;
                     wrap: word-wrap;
-                    horizontal-alignment: right;
+                    horizontal-alignment: AppI18n.is-rtl ? right : left;
                 }
 
                 Text {
@@ -83,47 +82,7 @@ export component ProxyHelpDialog inherits Rectangle {
                     font-family: Theme.default_font;
                     color: Theme.text_secondary;
                     wrap: word-wrap;
-                    horizontal-alignment: right;
-                }
-            }
-
-            // Icon in a blue circle
-            Rectangle {
-                width: 32px;
-                height: 32px;
-                border-radius: 16px;
-                background: Theme.accent;
-                
-                Text {
-                    text: "\u{E9ce}"; // Question mark
-                    font-family: Theme.icon_font;
-                    font-size: 18px;
-                    color: white;
-                    vertical-alignment: center;
-                    horizontal-alignment: center;
-                }
-            }
-
-            // LTR: Icon then Text
-            if (!AppI18n.is-rtl): VerticalLayout {
-                spacing: 12px;
-                
-                Text {
-                    text: AppI18n.t("dialog.http_proxy_helper_desc1", []);
-                    font-size: 14px * LayoutConstants.font-scale;
-                    font-family: Theme.default_font;
-                    color: Theme.text_primary;
-                    wrap: word-wrap;
-                    horizontal-alignment: left;
-                }
-
-                Text {
-                    text: AppI18n.t("dialog.http_proxy_helper_desc2", []);
-                    font-size: 14px * LayoutConstants.font-scale;
-                    font-family: Theme.default_font;
-                    color: Theme.text_secondary;
-                    wrap: word-wrap;
-                    horizontal-alignment: left;
+                    horizontal-alignment: AppI18n.is-rtl ? right : left;
                 }
             }
         }

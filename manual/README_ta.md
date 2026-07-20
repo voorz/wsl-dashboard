@@ -191,7 +191,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 📦 நிறுவல் வழிகாட்டி
 
-### முறை 1: முன்கட்டமைக்கப்பட்ட பைனரிகளைப் பதிவிறக்கவும்
+### முறை 1: திட்ட இணையதளத்தைப் பார்வையிடவும் (பரிந்துரைக்கப்படுகிறது)
+
+அதிகாரப்பூர்வ இணையதளத்தைப் பார்வையிட்டு பதிவிறக்கம் செய்ய பரிந்துரைக்கிறோம், ஏனெனில் இது பல மிரர் இணைப்புகளை வழங்குகிறது:
+
+[பதிவிறக்க பக்கம்](https://www.wslui.com/download/) க்குச் சென்று உங்கள் பிராந்தியத்திற்கு ஏற்ற மிரரைத் தேர்ந்தெடுக்கவும்.
+
+### முறை 2: winget மூலம் நிறுவவும்
+
+நீங்கள் WSLDashboard ஐ நேரடியாக Windows Package Manager (winget) மூலம் நிறுவலாம், மோனிக்கர் அல்லது முழு தொகுப்பு அடையாளங்காட்டியைப் பயன்படுத்தி:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### முறை 3: முன்கட்டமைக்கப்பட்ட பைனரிகளைப் பதிவிறக்கவும்
 
 எளிதான வழி கட்டமைக்கப்பட்ட பதிப்பைப் பயன்படுத்துவது:
 
@@ -201,7 +227,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 நிறுவல் தேவையில்லை, இந்த பயன்பாடு ஒற்றை கோப்பு போர்ட்டபிள் நிரல்.
 
-### முறை 2: மூலத்திலிருந்து கட்டமைக்கவும்
+### முறை 4: மூலத்திலிருந்து கட்டமைக்கவும்
 
 Rust கருவித்தொகுப்பு (Rust 1.92+ அல்லது புதிய பதிப்பு) நிறுவப்பட்டிருப்பதை உறுதிசெய்யுங்கள்.
 

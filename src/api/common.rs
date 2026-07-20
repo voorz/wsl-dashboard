@@ -19,6 +19,8 @@ static HELPER_MIRRORS_CACHE: LazyLock<std::sync::Mutex<Option<CacheEntry<MirrorL
 static HELPER_DONATE_CACHE:  LazyLock<std::sync::Mutex<Option<CacheEntry<DonateData>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
 static HELPER_SYNC_CACHE:   LazyLock<std::sync::Mutex<Option<CacheEntry<HelperSyncData>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
 static HELPER_BOOTSTRAP_CACHE: LazyLock<std::sync::Mutex<Option<CacheEntry<HelperBootstrapData>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
+#[allow(dead_code)]
+static HELPER_SCHEDULER_CACHE: LazyLock<std::sync::Mutex<Option<CacheEntry<HelperSchedulerData>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
 
 // Get wslui latest version
 pub fn wslui_latest_version() -> Result<ReleaseData, String> {
@@ -222,3 +224,24 @@ pub fn wslui_helper_bootstrap() -> HelperBootstrapData {
     }
 }
 
+// Get helper scheduler information (cron schedule help link)
+#[allow(dead_code)]
+pub fn wslui_helper_scheduler() -> HelperSchedulerData {
+    if let Some(data) = try_get_cache(&HELPER_SCHEDULER_CACHE) {
+        debug!("Returning cached helper scheduler data");
+        return data;
+    }
+
+    let client = WslUiClient::new();
+    match client.request_api1::<HelperSchedulerData>("GET", "/desktop/v1/helper/scheduler", None) {
+        Ok((resp, _)) => {
+            debug!("Obtained helper crontab from wslui: {:?}", resp.data);
+            set_cache(&HELPER_SCHEDULER_CACHE, resp.data.clone(), CACHE_TTL_LONG);
+            resp.data
+        }
+        Err(e) => {
+            error!("Failed to get helper crontab from wslui: {}. Using default data.", e);
+            HelperSchedulerData::default()
+        }
+    }
+}

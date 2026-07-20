@@ -365,7 +365,7 @@ ShutdownBlockReasonUninstallingApp=Uninstalling %1.
 
 [CustomMessages]
 
-CreateSchedulerTask=Create Task Scheduler task (for auto-start distros, USB auto-connect, port forwarding)
+CreateSchedulerTask=Create Task Scheduler (for auto-start distros, USB auto-connect, port forwarding)
 SchedulerTaskNote1=└ Optional during installation; skipping does not affect future use.
 SchedulerTaskNote2=└ Can be triggered manually at any time after the software is opened.
 SchedulerTaskNote3=└ Due to lack of EV certificate, this action may trigger false positives by AV software; please allow it.

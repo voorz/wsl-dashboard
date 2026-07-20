@@ -1,0 +1,157 @@
+// SPDX-FileCopyrightText: Copyright (c) 2026 owu <wqh@live.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
+import { Theme, AppI18n, LayoutConstants, SchedulerTaskUI } from "../theme.slint";
+import { CustomButton } from "../components/form_widgets.slint";
+import { CustomScrollbar } from "../components/scrollbar.slint";
+import { SchedulerCard } from "../components/scheduler_card.slint";
+
+export component SchedulerView inherits Rectangle {
+    in property <[SchedulerTaskUI]> tasks: [];
+    in property <bool> is_loading: false;
+    in property <string> busy_task_id: "";
+
+    callback add_task_clicked();
+    callback edit_task(string);
+    callback delete_task(string);
+    callback toggle_task(string);
+    callback run_task(string);
+
+    VerticalLayout {
+        padding: 0px;
+        spacing: 0px;
+
+        // Content area with scroll
+        Rectangle {
+            vertical-stretch: 1;
+            clip: true;
+
+            flick := Flickable {
+                viewport-height: container.preferred-height;
+                width: parent.width;
+                height: 100%;
+
+                container := VerticalLayout {
+                    spacing: 8px;
+                    padding-top: 4px;
+                    padding-bottom: 6px;
+                    padding-left: 4px;
+                    padding-right: 16px;
+
+                    // Task list
+                    for task in root.tasks: SchedulerCard {
+                        task: task;
+                        busy: root.busy_task_id == task.task_id;
+                        edit_clicked(id) => {
+                            root.edit_task(id);
+                        }
+                        delete_clicked(id) => {
+                            root.delete_task(id);
+                        }
+                        toggle_clicked(id) => {
+                            root.toggle_task(id);
+                        }
+                        run_clicked(id) => {
+                            root.run_task(id);
+                        }
+                    }
+
+                    // Empty state
+                    if (root.tasks.length == 0 && !root.is_loading): VerticalLayout {
+                        alignment: center;
+                        spacing: 12px;
+                        padding: 60px;
+                        Text {
+                            text: "\u{E917}";
+                            font-family: Theme.icon_font;
+                            color: Theme.accent;
+                            font-size: 32px;
+                            horizontal-alignment: center;
+                            opacity: 0.3;
+                        }
+                        Text {
+                            text: AppI18n.t("scheduler.no_tasks", [AppI18n.version]);
+                            horizontal-alignment: center;
+                            color: Theme.text_secondary;
+                            font-family: Theme.default_font;
+                            font-size: 14px * LayoutConstants.font-scale;
+                        }
+                    }
+
+                    // Loading state
+                    if (root.is_loading): VerticalLayout {
+                        alignment: center;
+                        spacing: 12px;
+                        padding: 60px;
+                        Text {
+                            text: "\u{E917}";
+                            font-family: Theme.icon_font;
+                            color: Theme.accent;
+                            font-size: 32px;
+                            horizontal-alignment: center;
+                            opacity: 0.3;
+                        }
+                        Text {
+                            text: AppI18n.t("scheduler.loading", [AppI18n.version]);
+                            horizontal-alignment: center;
+                            color: Theme.text_secondary;
+                            font-family: Theme.default_font;
+                            font-size: 14px * LayoutConstants.font-scale;
+                        }
+                    }
+                }
+            }
+
+            CustomScrollbar {
+                opacity: (flick.viewport-height > flick.height) ? 1 : 0;
+                visible: flick.viewport-height > flick.height;
+                x: AppI18n.is-rtl ? 2px : parent.width - 8px;
+                y: 0;
+                width: 8px;
+                height: 100%;
+                maximum: flick.viewport-height - flick.height;
+                page_size: flick.height;
+                value: -flick.viewport-y;
+                scroll_to(v) => {
+                    flick.viewport-y = -v;
+                }
+            }
+        }
+
+        // Bottom Bar - Add Task button
+        HorizontalLayout {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-right: AppI18n.is-rtl ? 4px : 12px;
+            padding-left: AppI18n.is-rtl ? 12px : 4px;
+
+            if (!AppI18n.is-rtl): Rectangle {
+                horizontal-stretch: 1;
+            }
+
+            if (!AppI18n.is-rtl): CustomButton {
+                text: AppI18n.t("scheduler.add_btn", [AppI18n.version]);
+                primary: true;
+                show_shield: true;
+                height: 32px;
+                clicked => {
+                    root.add_task_clicked();
+                }
+            }
+
+            if (AppI18n.is-rtl): CustomButton {
+                text: AppI18n.t("scheduler.add_btn", [AppI18n.version]);
+                primary: true;
+                show_shield: true;
+                height: 32px;
+                clicked => {
+                    root.add_task_clicked();
+                }
+            }
+
+            if (AppI18n.is-rtl): Rectangle {
+                horizontal-stretch: 1;
+            }
+        }
+    }
+}

@@ -8,14 +8,25 @@ use slint::Model;
 use crate::{AppWindow, AppState, i18n};
 use crate::ui::data::refresh_distros_ui;
 use crate::ui::handlers::instance;
+use crate::utils::system::copy_to_clipboard;
 
 pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc<Mutex<AppState>>) {
-    // Handle message link click
+    // Handle message link click (supports clipboard copy when url is "clipboard")
     {
         let ah = app_handle.clone();
         app.on_message_link_clicked(move || {
             if let Some(app) = ah.upgrade() {
-                let mut link = app.get_current_message_url().to_string();
+                let url = app.get_current_message_url().to_string();
+
+                if url == "clipboard" {
+                    let cmd = app.get_current_message_link().to_string();
+                    if !cmd.is_empty() {
+                        let _ = copy_to_clipboard(&cmd);
+                    }
+                    return;
+                }
+
+                let mut link = url;
                 if link.is_empty() {
                     link = app.get_current_message_link().to_string();
                 }

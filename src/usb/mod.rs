@@ -5,6 +5,9 @@ use serde::{Deserialize, Serialize};
 use std::process::Command;
 use tracing::{info, trace};
 
+pub mod detail;
+pub mod vendor_ids;
+
 #[cfg(windows)]
 use std::os::windows::process::CommandExt;
 #[cfg(windows)]
@@ -124,9 +127,13 @@ impl UsbManager {
     }
 
     // Perform the bind operation (directly with elevation as it always requires it)
-    pub async fn bind(bus_id: &str) -> Result<(), String> {
-        info!("Binding device with elevation: {}", bus_id);
-        crate::utils::system::run_command_with_elevation("usbipd", vec!["bind".to_string(), "--busid".to_string(), bus_id.to_string()])
+    pub async fn bind(bus_id: &str, force: bool) -> Result<(), String> {
+        info!("Binding device with elevation: {} (force={})", bus_id, force);
+        let mut args = vec!["bind".to_string(), "--busid".to_string(), bus_id.to_string()];
+        if force {
+            args.push("--force".to_string());
+        }
+        crate::utils::system::run_command_with_elevation("usbipd", args)
     }
 
     // Perform the unbind operation (directly with elevation as it always requires it)
@@ -137,8 +144,8 @@ impl UsbManager {
 
     // Perform the attach operation (directly with elevation)
     // This now includes an implicit 'bind' step to support "Not Shared" -> "Attached" in one click.
-    pub async fn attach(bus_id: &str, distro: &str) -> Result<(), String> {
-        info!("Attaching device {} to distro {} (with implicit bind check)", bus_id, distro);
+    pub async fn attach(bus_id: &str, distro: &str, force: bool, auto_attach: bool, is_usbipd_outdated: bool) -> Result<(), String> {
+        info!("Attaching device {} to distro {} (with implicit bind check, force={}, auto_attach={}, is_usbipd_outdated={})", bus_id, distro, force, auto_attach, is_usbipd_outdated);
 
         // Pre-check: Ensure at least one WSL 2 distribution is running.
         // usbipd attach requires a running WSL 2 instance to work.
@@ -173,13 +180,37 @@ impl UsbManager {
         
         // Chain bind and attach so it works even if the device is currently "Not Shared"
         // We use 'cmd /c' to run both commands under a single UAC prompt.
-        let cmd_args = if distro.is_empty() {
-            format!("usbipd bind --busid {0} & usbipd attach --wsl --busid {0}", bus_id)
+        let force_flag = if force { " --force" } else { "" };
+        // Version compatibility: usbipd-win < 4.0.0 does not support --auto-attach, silently downgrade
+        let auto_attach_flag = if auto_attach && !is_usbipd_outdated { " --auto-attach" } else { "" };
+        let display_command = if distro.is_empty() {
+            format!("usbipd bind --busid {0}{1} & usbipd attach --wsl --busid {0}{2}", bus_id, force_flag, auto_attach_flag)
         } else {
-            format!("usbipd bind --busid {0} & usbipd attach --wsl \"{1}\" --busid {0}", bus_id, distro)
+            format!("usbipd bind --busid {0}{1} & usbipd attach --wsl \"{2}\" --busid {0}{3}", bus_id, force_flag, distro, auto_attach_flag)
         };
 
-        crate::utils::system::run_command_with_elevation("cmd", vec!["/c".to_string(), cmd_args])
+        // Capture output to a temp file so we can detect errors
+        let output_file = std::env::temp_dir().join(format!("wsld_usbipd_attach_{}.log", bus_id.replace('-', "_")));
+        let output_path = output_file.to_string_lossy().to_string();
+
+        // Redirect stdout+stderr to the temp file
+        let cmd_with_output = format!("{} > \"{}\" 2>&1", display_command, output_path);
+
+        crate::utils::system::run_command_with_elevation("cmd", vec!["/c".to_string(), cmd_with_output])?;
+
+        // Read the captured output
+        let captured = std::fs::read_to_string(&output_file).unwrap_or_default();
+        let _ = std::fs::remove_file(&output_file);
+
+        // Check if the output indicates an error (case-insensitive)
+        if captured.to_lowercase().contains("error") {
+            return Err(format!(
+                "usb_attach_failed:COMMAND:{}\n\nOUTPUT:{}",
+                display_command, captured
+            ));
+        }
+
+        Ok(())
     }
 
     // Perform the detach operation
@@ -202,5 +233,10 @@ impl UsbManager {
         }
 
         Ok(())
+    }
+
+    // Get device detailed info from SetupAPI
+    pub async fn get_device_detail(instance_id: &str) -> Result<Option<detail::UsbDeviceDetail>, String> {
+        detail::get_device_detail(instance_id).await
     }
 }

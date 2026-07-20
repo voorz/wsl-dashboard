@@ -192,7 +192,33 @@ Lokitiedostot kirjoitetaan määritettyyn lokihakemistoon ja ne voidaan liittä�
 
 ## 📦 Asennusopas
 
-### Vaihtoehto 1: Lataa valmiiksi koottu binääri
+### Vaihtoehto 1: Käy projektin verkkosivustolla (Suositeltu)
+
+Suosittelemme käymään virallisella verkkosivustolla lataamista varten, sillä se tarjoaa useita peililinkkejä sujuvampaa käyttökokemusta varten:
+
+Siirry [Lataussivulle](https://www.wslui.com/download/) ja valitse alueellesi sopiva peili.
+
+### Vaihtoehto 2: Asenna wingetillä
+
+Voit asentaa WSLDashboardin suoraan Windows Package Managerin (winget) kautta käyttämällä joko monikeria tai täyttä pakettitunnistetta:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> Winget-pakettitunniste on `Owu.WSLDashboard` ja moniker on `wsl-dashboard` (kirjainkoosta riippumaton). Kummatkin toimivat.
+
+Lisätietoja saat [WinGet-yhteisön arkistosta](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Vaihtoehto 3: Lataa valmiiksi koottu binääri
 
 Helpoin tapa aloittaa on käyttää valmiiksi käännettyä julkaisua:
 
@@ -202,7 +228,7 @@ Helpoin tapa aloittaa on käyttää valmiiksi käännettyä julkaisua:
 
 Asennusohjelmaa ei tarvita; sovellus on yksi kannettava binääritiedosto.
 
-### Vaihtoehto 2: Kokoa lähdekoodista
+### Vaihtoehto 4: Kokoa lähdekoodista
 
 Varmista, että sinulla on Rust-työkalukehys (Rust 1.92+ tai uudempi) asennettuna.
 

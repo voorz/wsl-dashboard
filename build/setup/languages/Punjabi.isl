@@ -194,7 +194,7 @@ ButtonStopDownload=&ਰੋਕੋ
 StopDownload=ਕੀ ਤੁਸੀਂ ਯਕੀਨੀ ਤੌਰ ਤੇ ਡਾਊਨਲੋਡ ਰੋਕਣਾ ਚਾਹੁੰਦੇ ਹੋ?
 ErrorDownloadAborted=ਡਾਊਨਲੋਡ ਰੱਦ ਕੀਤਾ ਗਿਆ
 ErrorDownloadFailed=ਡਾਊਨਲੋਡ ਅਸਫਲ: %1 %2
-ErrorSizeCheckFailed=ਸਾਈਜ਼ ਜਾਂਚ ਅਸਫਲ: %1 %2
+ErrorDownloadSizeFailed=ਸਾਈਜ਼ ਜਾਂਚ ਅਸਫਲ: %1 %2
 ErrorProgress=ਅਵੈਧ ਪ੍ਰਗਰੈੱਸ: %1 / %2
 ErrorFileSize=ਅਵੈਧ ਫਾਈਲ ਸਾਈਜ਼: ਉਮੀਦ %1, ਮਿਲਿਆ %2
 

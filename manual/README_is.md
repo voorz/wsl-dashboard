@@ -193,7 +193,33 @@ Annálaskrár eru skrifaðar í stillta möppu og má láta þær fylgja með þ
 
 ## 📦 Uppsetningarleiðbeiningar
 
-### Valkostur 1: Sækja tilbúna keyrsluskrá
+### Valkostur 1: Heimsækja vefsíðu verkefnisins (Mælt með)
+
+Við mælum með að heimsækja opinberu vefsíðuna til að sækja, þar sem hún býður upp á marga speglatengla fyrir sléttari upplifun:
+
+Farðu á [Niðurhalssíðuna](https://www.wslui.com/download/) og veldu spegilinn sem hentar þínu svæði.
+
+### Valkostur 2: Uppsetning í gegnum winget
+
+Þú getur sett upp WSLDashboard beint frá Windows Package Manager (winget), með því að nota annað hvort moniker eða fulla pakkaauðkennið:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> Winget pakkaauðkennið er `Owu.WSLDashboard` og moniker er `wsl-dashboard` (háð ekki stafastöðu). Hvor tveggja virkar.
+
+Fyrir frekari upplýsingar, heimsæktu [WinGet samfélagsgeymsluna](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Valkostur 3: Sækja tilbúna keyrsluskrá
 
 Auðveldasta leiðin til að byrja er að nota tilbúna útgáfu:
 
@@ -203,7 +229,7 @@ Auðveldasta leiðin til að byrja er að nota tilbúna útgáfu:
 
 Engin uppsetning er nauðsynleg; forritið er ein sjálfstæð keyrsluskrá.
 
-### Valkostur 2: Smíða úr frumkóða
+### Valkostur 4: Smíða úr frumkóða
 
 Gakktu úr skugga um að þú hafir Rust tækjapakkann (Rust 1.92+ eða nýrri) uppsettan.
 

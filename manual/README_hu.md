@@ -192,7 +192,33 @@ A naplófájlok a konfigurált könyvtárba íródnak, és csatolhatók hiba jel
 
 ## 📦 Telepítési útmutató
 
-### 1. opció: Előre fordított bináris letöltése
+### 1. lehetőség: Látogassa meg a projekt weboldalát (Ajánlott)
+
+Azt javasoljuk, hogy a hivatalos weboldalt látogassa meg a letöltéshez, mivel az több tükörlinket kínál a gördülékenyebb élmény érdekében:
+
+Látogasson el a [Letöltési oldalra](https://www.wslui.com/download/), és válassza ki az Ön régiójának megfelelő tükröt.
+
+### 2. lehetőség: Telepítés winget segítségével
+
+A WSLDashboard közvetlenül telepíthető a Windows Package Manager (winget) segítségével, akár a moniker, akár a teljes csomagazonosító használatával:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> A winget csomagazonosítója `Owu.WSLDashboard`, a moniker pedig `wsl-dashboard` (kis- és nagybetű nem számít). Bármelyik működik.
+
+További információért látogassa meg a [WinGet közösségi tárolót](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### 3. lehetőség: Előre fordított bináris letöltése
 
 A legegyszerűbb módja a kezdésnek az előre fordított kiadás használata:
 
@@ -202,7 +228,7 @@ A legegyszerűbb módja a kezdésnek az előre fordított kiadás használata:
 
 Nincs szükség telepítőre; az alkalmazás egyetlen hordozható bináris fájl.
 
-### 2. opció: Fordítás forráskódból
+### 4. lehetőség: Fordítás forráskódból
 
 Győződjön meg arról, hogy a Rust eszközkészlet (Rust 1.92+ vagy újabb) telepítve van.
 

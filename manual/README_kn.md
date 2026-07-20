@@ -192,7 +192,33 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 ## 📦 ಸ್ಥಾಪನಾ ಮಾರ್ಗದರ್ಶಿ
 
-### ವಿಧಾನ 1: ಪೂರ್ವ-ನಿರ್ಮಿತ ಬೈನರಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ
+### ಆಯ್ಕೆ 1: ಯೋಜನೆಯ ವೆಬ್‌ಸೈಟ್ ಭೇಟಿ ಮಾಡಿ (ಶಿಫಾರಸು ಮಾಡಲಾಗಿದೆ)
+
+ನಾವು ಅಧಿಕೃತ ವೆಬ್‌ಸೈಟ್‌ಗೆ ಭೇಟಿ ನೀಡಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಲು ಶಿಫಾರಸು ಮಾಡುತ್ತೇವೆ, ಏಕೆಂದರೆ ಇದು ಸುಗಮ ಅನುಭವಕ್ಕಾಗಿ ಅನೇಕ ಮಿರರ್ ಲಿಂಕ್‌ಗಳನ್ನು ನೀಡುತ್ತದೆ:
+
+[ಡೌನ್‌ಲೋಡ್ ಪುಟ](https://www.wslui.com/download/) ಗೆ ಹೋಗಿ ಮತ್ತು ನಿಮ್ಮ ಪ್ರದೇಶಕ್ಕೆ ಸೂಕ್ತವಾದ ಮಿರರ್ ಆಯ್ಕೆಮಾಡಿ.
+
+### ಆಯ್ಕೆ 2: winget ಮೂಲಕ ಸ್ಥಾಪಿಸಿ
+
+ನೀವು WSLDashboard ಅನ್ನು ನೇರವಾಗಿ Windows Package Manager (winget) ಮೂಲಕ ಸ್ಥಾಪಿಸಬಹುದು, ಮಾನಿಕರ್ ಅಥವಾ ಪೂರ್ಣ ಪ್ಯಾಕೇಜ್ ಗುರುತಿಸುವಿಕೆಯನ್ನು ಬಳಸಿ:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### ಆಯ್ಕೆ 3: ಪೂರ್ವ-ನಿರ್ಮಿತ ಬೈನರಿ ಡೌನ್‌ಲೋಡ್ ಮಾಡಿ
 
 ಆರಂಭಿಸಲು ಸುಲಭ ಮಾರ್ಗವೆಂದರೆ ನಿರ್ಮಿತ ಆವೃತ್ತಿಯನ್ನು ಬಳಸುವುದು:
 
@@ -202,7 +228,7 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 ಸ್ಥಾಪನೆ ಅಗತ್ಯವಿಲ್ಲ, ಈ ॲಪ್ ಸಿಂಗಲ್-ಫೈಲ್ ಪೋರ್ಟಬಲ್ ಪ್ರೋಗ್ರಾಂ ಆಗಿದೆ.
 
-### ವಿಧಾನ 2: ಮೂಲದಿಂದ ನಿರ್ಮಿಸಿ
+### ಆಯ್ಕೆ 4: ಮೂಲದಿಂದ ನಿರ್ಮಿಸಿ
 
 Rust ಟೂಲ್‌ಚೈನ್ (Rust 1.92+ ಅಥವಾ ಹೊಸದು) ಸ್ಥಾಪಿಸಲಾಗಿದೆ ಎಂದು ಖಚಿತಪಡಿಸಿಕೊಳ್ಳಿ.
 

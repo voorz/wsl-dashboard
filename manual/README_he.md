@@ -192,7 +192,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 📦 מדריך התקנה
 
-### אפשרות 1: הורדת קובץ בינארי מוכן
+### אפשרות 1: בקר באתר הפרויקט (מומלץ)
+
+אנו ממליצים לבקר באתר הרשמי להורדה, מכיוון שהוא מציע קישורי מראה מרובים לחווייה חלקה יותר:
+
+עבור אל [דף ההורדה](https://www.wslui.com/download/) ובחר את המראה המתאימה לאזור שלך.
+
+### אפשרות 2: התקנה באמצעות winget
+
+ניתן להתקין את WSLDashboard ישירות ממנהל החבילות של Windows (winget), באמצעות ה-moniker או מזהה החבילה המלא:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> מזהה החבילה של winget הוא `Owu.WSLDashboard` וה-moniker הוא `wsl-dashboard` (לא תלוי רישיות). כל אחד מהם עובד.
+
+למידע נוסף, בקר ב-[מאגר הקהילה של WinGet](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### אפשרות 3: הורדת קובץ בינארי מוכן
 
 הדרך הקלה ביותר להתחיל היא להשתמש בגרסה המקומפלת מראש:
 
@@ -202,7 +228,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 אין צורך במתקין; האפליקציה היא קובץ בינארי נייד יחיד.
 
-### אפשרות 2: בנייה מקוד המקור
+### אפשרות 4: בנייה מקוד המקור
 
 ודא שמותקנת אצלך ערכת הכלים של Rust (גרסה 1.92 ומעלה).
 

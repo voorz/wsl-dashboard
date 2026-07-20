@@ -365,7 +365,7 @@ ShutdownBlockReasonUninstallingApp=Ini-uninstall ang %1.
 
 [CustomMessages]
 
-CreateSchedulerTask=Gumawa ng Task Scheduler task (para sa auto-start distro, USB auto-connect, port forwarding)
+CreateSchedulerTask=Gumawa ng Task Scheduler (para sa auto-start distro, USB auto-connect, port forwarding)
 SchedulerTaskNote1=└ Opsyonal sa installation; ang pag-skip ay hindi makakaapekto sa paggamit sa hinaharap.
 SchedulerTaskNote2=└ Maaaring i-trigger nang manu-mano anumang oras pagkatapos buksan ang software.
 SchedulerTaskNote3=└ Dahil sa kakulangan ng EV certificate, ang aksyong ito ay maaaring mag-trigger ng false positives ng AV software; mangyaring payagan ito.

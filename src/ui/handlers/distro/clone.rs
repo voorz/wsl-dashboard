@@ -4,10 +4,9 @@
 use std::sync::Arc;
 use tokio::sync::Mutex;
 use tracing::{info, error};
-use rand::Rng;
-use rand::distr::Alphanumeric;
 use slint::{ComponentHandle, Model};
 use crate::{AppWindow, AppState, i18n};
+use super::{sanitize_instance_name, generate_random_suffix};
 
 pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc<Mutex<AppState>>) {
     // Clone process
@@ -57,14 +56,8 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                             app.set_show_message_dialog(true);
                             return;
                         }
-                        // Generate 4-character random alphanumeric string
-                        let random_suffix: String = rand::rng()
-                            .sample_iter(&Alphanumeric)
-                            .take(4)
-                            .map(char::from)
-                            .collect();
-                        
-                        let target_name = format!("{}_{}", name_str, random_suffix);
+                        // Generate 4-character random alphanumeric string (same as install)
+                        let target_name = sanitize_instance_name(&generate_random_suffix(&name_str));
                         let distro_location = app.get_distro_location();
                         let target_path = std::path::Path::new(&distro_location.to_string())
                             .join(&target_name)

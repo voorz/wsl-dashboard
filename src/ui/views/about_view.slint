@@ -30,23 +30,27 @@ export component AboutView inherits VerticalLayout {
         clip: true;
 
         flick := Flickable {
-            viewport-height: card.preferred-height;
+            viewport-height: cards_container.preferred-height;
             width: parent.width;
             height: 100%;
 
-            card := Rectangle {
+            cards_container := VerticalLayout {
                 width: flick.width;
-                background: Theme.card_bg;
-                border-radius: 8px;
-                border-width: 0px;
-                VerticalLayout {
-                    spacing: 12px;
-                    padding-left: AppI18n.is-rtl ? 24px : 12px;
-                    padding-right: AppI18n.is-rtl ? 12px : 24px;
-                    padding-top: 8px;
-                    padding-bottom: 6px;
+                spacing: 12px;
+                padding-left: AppI18n.is-rtl ? 10px : 0px;
+                padding-right: AppI18n.is-rtl ? 0px : 10px;
+
+                card_top := Rectangle {
+                    background: Theme.dark_mode ? Theme.card_bg : Theme.card_bg_muted;
+                    border-radius: 8px;
+                    border-width: 0px;
                     VerticalLayout {
                         spacing: 14px;
+                        padding-left: AppI18n.is-rtl ? 24px : 12px;
+                        padding-right: AppI18n.is-rtl ? 12px : 24px;
+                        padding-top: 8px;
+                        padding-bottom: 6px;
+
                         Text {
                             text: root.strings.title;
                             font-size: 14px * LayoutConstants.font-scale;
@@ -66,14 +70,19 @@ export component AboutView inherits VerticalLayout {
                             horizontal-alignment: AppI18n.is-rtl ? right : left;
                         }
                     }
+                }
 
-                    Rectangle {
-                        height: 1px;
-                        background: Theme.border_color;
-                    }
-
+                card_mid := Rectangle {
+                    background: Theme.dark_mode ? Theme.card_bg : Theme.card_bg_muted;
+                    border-radius: 8px;
+                    border-width: 0px;
                     VerticalLayout {
                         spacing: 18px;
+                        padding-left: AppI18n.is-rtl ? 24px : 12px;
+                        padding-right: AppI18n.is-rtl ? 12px : 24px;
+                        padding-top: 8px;
+                        padding-bottom: 6px;
+
                         HorizontalLayout {
                             spacing: 12px;
                             if (!AppI18n.is-rtl): Rectangle {
@@ -243,9 +252,99 @@ export component AboutView inherits VerticalLayout {
                             }
                         }
 
+                        // Project repository
+                        HorizontalLayout {
+                            spacing: 12px;
+                            if (!AppI18n.is-rtl): Rectangle {
+                                width: 20px;
+                                ThemedIcon {
+                                    y: 1px;
+                                    icon_code: "\u{e943}";
+                                    icon_type: "navigation";
+                                    font-size: 15px;
+                                }
+                            }
+                            HorizontalLayout {
+                                spacing: 4px;
+                                alignment: AppI18n.is-rtl ? end : start;
+                                Text {
+                                    text: root.strings.repository + ":";
+                                    font-size: 13px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    font-weight: 500;
+                                    color: Theme.text_primary;
+                                }
+
+                                Text {
+                                    text: AppInfo.project_repository;
+                                    font-size: 13px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.accent;
+                                    TouchArea {
+                                        mouse-cursor: pointer;
+                                        clicked => {
+                                            root.open_url(AppInfo.project_repository);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (AppI18n.is-rtl): Rectangle {
+                                width: 20px;
+                                ThemedIcon {
+                                    y: 1px;
+                                    icon_code: "\u{e943}";
+                                    icon_type: "navigation";
+                                    font-size: 15px;
+                                }
+                            }
+                        }
+
                         Rectangle {
                             height: 1px;
                             background: Theme.border_color;
+                        }
+
+                        
+                        // Issues
+                        HorizontalLayout {
+                            alignment: AppI18n.is-rtl ? end : start;
+                            spacing: 12px;
+                            if (!AppI18n.is-rtl): Rectangle {
+                                width: 20px;
+                                ThemedIcon {
+                                    y: 1px;
+                                    icon_code: "\u{ebe8}";
+                                    icon_type: "danger";
+                                    font-size: 15px;
+                                }
+                            }
+                            VerticalLayout {
+                                alignment: center;
+                                Text {
+                                    text: root.strings.issues;
+                                    font-size: 13px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.text_primary;
+                                    horizontal-alignment: AppI18n.is-rtl ? right : left;
+                                    TouchArea {
+                                        mouse-cursor: pointer;
+                                        clicked => {
+                                            root.open_url(AppInfo.issues_url);
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (AppI18n.is-rtl): Rectangle {
+                                width: 20px;
+                                ThemedIcon {
+                                    y: 1px;
+                                    icon_code: "\u{ebe8}";
+                                    icon_type: "danger";
+                                    font-size: 15px;
+                                }
+                            }
                         }
 
                         // Project Links Grid
@@ -435,235 +534,154 @@ export component AboutView inherits VerticalLayout {
                                 }
                             }
                         }
-                        
+                    }
+                }
+
+                card_bottom := Rectangle {
+                    background: Theme.dark_mode ? Theme.card_bg : Theme.card_bg_muted;
+                    border-radius: 8px;
+                    border-width: 0px;
+                    VerticalLayout {
+                        spacing: 12px;
+                        padding-left: AppI18n.is-rtl ? 24px : 12px;
+                        padding-right: AppI18n.is-rtl ? 12px : 24px;
+                        padding-top: 8px;
+                        padding-bottom: 6px;
+
+                        // Labor of love
+                        HorizontalLayout {
+                            spacing: 12px;
+                            if (!AppI18n.is-rtl): Rectangle {
+                                width: 20px;
+                                ThemedIcon {
+                                    y: 1px;
+                                    icon_code: "\u{e735}";
+                                    icon_type: "gold";
+                                    font-size: 15px * LayoutConstants.font-scale;
+                                }
+                            }
+                            VerticalLayout {
+                                spacing: 4px;
+
+                                Text {
+                                    text: root.strings.love;
+                                    font-size: 14px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    font-weight: 500;
+                                    color: Theme.text_primary;
+                                    horizontal-alignment: AppI18n.is-rtl ? right : left;
+                                }
+
+                                Text {
+                                    text: root.strings.star;
+                                    font-size: 13px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.text_secondary;
+                                    wrap: word-wrap;
+                                    horizontal-alignment: AppI18n.is-rtl ? right : left;
+                                }
+                            }
+
+                            if (AppI18n.is-rtl): Rectangle {
+                                width: 20px;
+                                ThemedIcon {
+                                    y: 1px;
+                                    icon_code: "\u{e735}";
+                                    icon_type: "gold";
+                                    font-size: 15px * LayoutConstants.font-scale;
+                                }
+                            }
+                        }
+
+                        // Copyright & License
                         Rectangle {
                             height: 1px;
                             background: Theme.border_color;
                         }
 
-                        // Project repository
-                        HorizontalLayout {
-                            spacing: 12px;
-                            if (!AppI18n.is-rtl): Rectangle {
-                                width: 20px;
-                                ThemedIcon {
-                                    y: 1px;
-                                    icon_code: "\u{e943}";
-                                    icon_type: "navigation";
-                                    font-size: 15px;
-                                }
-                            }
-                            HorizontalLayout {
-                                spacing: 4px;
-                                alignment: AppI18n.is-rtl ? end : start;
-                                Text {
-                                    text: root.strings.repository + ":";
-                                    font-size: 13px * LayoutConstants.font-scale;
-                                    font-family: Theme.default_font;
-                                    font-weight: 500;
-                                    color: Theme.text_primary;
-                                }
-
-                                Text {
-                                    text: AppInfo.project_repository;
-                                    font-size: 13px * LayoutConstants.font-scale;
-                                    font-family: Theme.default_font;
-                                    color: Theme.accent;
-                                    TouchArea {
-                                        mouse-cursor: pointer;
-                                        clicked => {
-                                            root.open_url(AppInfo.project_repository);
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (AppI18n.is-rtl): Rectangle {
-                                width: 20px;
-                                ThemedIcon {
-                                    y: 1px;
-                                    icon_code: "\u{e943}";
-                                    icon_type: "navigation";
-                                    font-size: 15px;
-                                }
-                            }
-                        }
-
-                        // Issues
-                        HorizontalLayout {
-                            alignment: AppI18n.is-rtl ? end : start;
-                            spacing: 12px;
-                            if (!AppI18n.is-rtl): Rectangle {
-                                width: 20px;
-                                ThemedIcon {
-                                    y: 1px;
-                                    icon_code: "\u{ebe8}";
-                                    icon_type: "danger";
-                                    font-size: 15px;
-                                }
-                            }
-                            VerticalLayout {
-                                alignment: center;
-                                Text {
-                                    text: root.strings.issues;
-                                    font-size: 13px * LayoutConstants.font-scale;
-                                    font-family: Theme.default_font;
-                                    color: Theme.text_primary;
-                                    horizontal-alignment: AppI18n.is-rtl ? right : left;
-                                    TouchArea {
-                                        mouse-cursor: pointer;
-                                        clicked => {
-                                            root.open_url(AppInfo.issues_url);
-                                        }
-                                    }
-                                }
-                            }
-
-                            if (AppI18n.is-rtl): Rectangle {
-                                width: 20px;
-                                ThemedIcon {
-                                    y: 1px;
-                                    icon_code: "\u{ebe8}";
-                                    icon_type: "danger";
-                                    font-size: 15px;
-                                }
-                            }
-                        }
-                    }
-
-                    // Labor of love
-                    HorizontalLayout {
-                        spacing: 12px;
-                        if (!AppI18n.is-rtl): Rectangle {
-                            width: 20px;
-                            ThemedIcon {
-                                y: 1px;
-                                icon_code: "\u{e735}";
-                                icon_type: "gold";
-                                font-size: 15px * LayoutConstants.font-scale;
-                            }
-                        }
                         VerticalLayout {
                             spacing: 4px;
+                            padding-top: 0px;
+                            padding-bottom: 2px;
 
                             Text {
-                                text: root.strings.love;
-                                font-size: 14px * LayoutConstants.font-scale;
-                                font-family: Theme.default_font;
-                                font-weight: 500;
-                                color: Theme.text_primary;
-                                horizontal-alignment: AppI18n.is-rtl ? right : left;
-                            }
-
-                            Text {
-                                text: root.strings.star;
-                                font-size: 13px * LayoutConstants.font-scale;
+                                text: root.strings.copyright;
+                                font-size: 12px * LayoutConstants.font-scale;
                                 font-family: Theme.default_font;
                                 color: Theme.text_secondary;
                                 wrap: word-wrap;
-                                horizontal-alignment: AppI18n.is-rtl ? right : left;
-                            }
-                        }
-
-                        if (AppI18n.is-rtl): Rectangle {
-                            width: 20px;
-                            ThemedIcon {
-                                y: 1px;
-                                icon_code: "\u{e735}";
-                                icon_type: "gold";
-                                font-size: 15px * LayoutConstants.font-scale;
-                            }
-                        }
-                    }
-
-                    // Copyright & License
-                    Rectangle {
-                        height: 1px;
-                        background: Theme.border_color;
-                    }
-
-                    VerticalLayout {
-                        spacing: 4px;
-                        padding-top: 0px;
-                        padding-bottom: 2px;
-
-                        Text {
-                            text: root.strings.copyright;
-                            font-size: 12px * LayoutConstants.font-scale;
-                            font-family: Theme.default_font;
-                            color: Theme.text_secondary;
-                            wrap: word-wrap;
-                            horizontal-alignment: center;
-                            vertical-alignment: center;
-                        }
-
-                        HorizontalLayout {
-                            alignment: center;
-                            spacing: 4px;
-
-                            Text {
-                                y: -1.5px;
-                                text: "\u{e8a1}";
-                                font-size: 12px;
-                                font-family: Theme.icon_font;
-                                color: Theme.icon_color_slate;
+                                horizontal-alignment: center;
                                 vertical-alignment: center;
                             }
 
-                            Text {
-                                text: root.strings.license;
-                                font-size: 12px * LayoutConstants.font-scale;
-                                font-family: Theme.default_font;
-                                color: Theme.accent;
-                                vertical-alignment: center;
-                                TouchArea {
-                                    mouse-cursor: pointer;
-                                    clicked => {
-                                        root.open_url(AppInfo.license_url);
+                            HorizontalLayout {
+                                alignment: center;
+                                spacing: 4px;
+
+                                Text {
+                                    y: -1.5px;
+                                    text: "\u{e8a1}";
+                                    font-size: 12px;
+                                    font-family: Theme.icon_font;
+                                    color: Theme.icon_color_slate;
+                                    vertical-alignment: center;
+                                }
+
+                                Text {
+                                    text: root.strings.license;
+                                    font-size: 12px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.accent;
+                                    vertical-alignment: center;
+                                    TouchArea {
+                                        mouse-cursor: pointer;
+                                        clicked => {
+                                            root.open_url(AppInfo.license_url);
+                                        }
                                     }
                                 }
-                            }
 
-                            Text {
-                                text: "|";
-                                font-size: 12px * LayoutConstants.font-scale;
-                                font-family: Theme.default_font;
-                                color: Theme.text_secondary;
-                                vertical-alignment: center;
-                            }
+                                Text {
+                                    text: "|";
+                                    font-size: 12px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.text_secondary;
+                                    vertical-alignment: center;
+                                }
 
-                            Text {
-                                text: root.strings.privacy_policy;
-                                font-size: 12px * LayoutConstants.font-scale;
-                                font-family: Theme.default_font;
-                                color: Theme.accent;
-                                vertical-alignment: center;
-                                TouchArea {
-                                    mouse-cursor: pointer;
-                                    clicked => {
-                                        root.open_url(AppInfo.project_website + "/privacy/");
+                                Text {
+                                    text: root.strings.privacy_policy;
+                                    font-size: 12px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.accent;
+                                    vertical-alignment: center;
+                                    TouchArea {
+                                        mouse-cursor: pointer;
+                                        clicked => {
+                                            root.open_url(AppInfo.project_website + "/privacy/");
+                                        }
                                     }
                                 }
-                            }
 
-                            Text {
-                                text: "|";
-                                font-size: 12px * LayoutConstants.font-scale;
-                                font-family: Theme.default_font;
-                                color: Theme.text_secondary;
-                                vertical-alignment: center;
-                            }
+                                Text {
+                                    text: "|";
+                                    font-size: 12px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.text_secondary;
+                                    vertical-alignment: center;
+                                }
 
-                            Text {
-                                text: root.strings.terms_of_service;
-                                font-size: 12px * LayoutConstants.font-scale;
-                                font-family: Theme.default_font;
-                                color: Theme.accent;
-                                vertical-alignment: center;
-                                TouchArea {
-                                    mouse-cursor: pointer;
-                                    clicked => {
-                                        root.open_url(AppInfo.project_website + "/terms/");
+                                Text {
+                                    text: root.strings.terms_of_service;
+                                    font-size: 12px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.accent;
+                                    vertical-alignment: center;
+                                    TouchArea {
+                                        mouse-cursor: pointer;
+                                        clicked => {
+                                            root.open_url(AppInfo.project_website + "/terms/");
+                                        }
                                     }
                                 }
                             }

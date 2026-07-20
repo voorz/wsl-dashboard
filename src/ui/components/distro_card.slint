@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 import { ActionIcon } from "common.slint";
-import { Theme, Distro, AppI18n, LayoutConstants } from "../theme.slint";
+import { Theme, Distro, AppI18n, LayoutConstants, AppApi } from "../theme.slint";
 
 // Distribution information display component
 component DistroInfo inherits VerticalLayout {
@@ -293,6 +293,7 @@ export component DistroCard inherits Rectangle {
     in property <Distro> distro;
     in property <bool> expanded: false;
     in property <bool> sole_distro: false;
+    in property <int> card_index: -1;
     callback start_clicked();
     callback stop_clicked();
     callback restart_clicked();
@@ -314,6 +315,7 @@ export component DistroCard inherits Rectangle {
     border-radius: 6px;
     border-width: 1px;
     border-color: Theme.border_color;
+    opacity: 1.0;
     animate height {
         duration: 200ms;
         easing: ease-out-quad;
@@ -325,10 +327,36 @@ export component DistroCard inherits Rectangle {
         Rectangle {
             height: 48px;
             HorizontalLayout {
-                padding-left: 12px;
-                padding-right: 12px;
+                padding-left: 4px;
+                padding-right: 4px;
                 spacing: 0px; // Use Spacer to control spacing
- 
+
+                // --- LTR branch: drag handle on left ---
+                if (!AppI18n.is-rtl && AppApi.show_drag): Rectangle {
+                    width: 20px;
+                    height: 100%;
+                    VerticalLayout {
+                        alignment: center;
+                        Text {
+                            text: "\u{E7C4}";
+                            font-family: Theme.icon_font;
+                            font-size: 12px;
+                            color: Theme.text_secondary;
+                            horizontal-alignment: center;
+                        }
+                    }
+                    TouchArea {
+                        mouse-cursor: grab;
+                        // Forward drag somehow? No, just for cursor. Wait, if TouchArea is here, it blocks DragArea!
+                        // Let's put TouchArea behind DragArea? No, if DragArea is on top, it blocks hover.
+                        // Actually, just placing it before DragArea in the Rectangle.
+                    }
+                    DragArea {
+                        allow-move: true;
+                        data: AppApi.make-transfer(root.card_index);
+                    }
+                }
+
                 // --- RTL branch: Icons on left, text on right ---
                 if (AppI18n.is-rtl): QuickActionIcons {
                     expanded: root.expanded;
@@ -373,6 +401,7 @@ export component DistroCard inherits Rectangle {
                 // --- LTR branch: Text on left, icons on right ---
                 if (!AppI18n.is-rtl): HorizontalLayout {
                     spacing: 8px;
+                    padding-left: 4px;
                     StartStopButton {
                         distro: root.distro;
                         start => {
@@ -408,6 +437,29 @@ export component DistroCard inherits Rectangle {
                     }
                     expand => {
                         root.expand_clicked();
+                    }
+                }
+
+                // --- RTL branch: drag handle on right ---
+                if (AppI18n.is-rtl && AppApi.show_drag): Rectangle {
+                    width: 20px;
+                    height: 100%;
+                    VerticalLayout {
+                        alignment: center;
+                        Text {
+                            text: "\u{E7C4}";
+                            font-family: Theme.icon_font;
+                            font-size: 12px;
+                            color: Theme.text_secondary;
+                            horizontal-alignment: center;
+                        }
+                    }
+                    TouchArea {
+                        mouse-cursor: grab;
+                    }
+                    DragArea {
+                        allow-move: true;
+                        data: AppApi.make-transfer(root.card_index);
                     }
                 }
             }

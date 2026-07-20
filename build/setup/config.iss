@@ -5,6 +5,9 @@
 #ifndef AppVersion
   #define AppVersion "0.8.0"
 #endif
+#ifndef AppVersionNumeric
+  #define AppVersionNumeric AppVersion
+#endif
 #define AppPublisher "https://github.com/owu"
 #define AppURL "https://www.wslui.com"
 #define AppExeName "wsldashboard.exe"
@@ -24,8 +27,8 @@ VersionInfoCompany=WSL Dashboard
 VersionInfoCopyright=2026 WSL Dashboard. All rights reserved.
 VersionInfoDescription=https://github.com/owu/wsl-dashboard
 VersionInfoProductName=WSL Dashboard Setup
-VersionInfoProductVersion={#AppVersion}.0
-VersionInfoVersion={#AppVersion}.0
+VersionInfoProductVersion={#AppVersionNumeric}.0
+VersionInfoVersion={#AppVersionNumeric}.0
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 LicenseFile=..\..\LICENSE
@@ -230,6 +233,10 @@ begin
   WizardForm.BringToFront;
   SetForegroundWindow(WizardForm.Handle);
 
+  // Scale wizard window to 85% of default size
+  WizardForm.ClientWidth := MulDiv(WizardForm.ClientWidth, 85, 100);
+  WizardForm.ClientHeight := MulDiv(WizardForm.ClientHeight, 85, 100);
+
   // Insert link label in the area below the wizard bottom bevel (separator)
   URLLabel := TNewStaticText.Create(WizardForm);
   URLLabel.Parent := WizardForm;
@@ -268,6 +275,8 @@ begin
   SchedulerNote3.Font.Color := clGray;
 
   // Reduce ReadyMemo height to make room for agreement checkbox
+  WizardForm.ReadyMemo.WordWrap := True;
+  WizardForm.ReadyMemo.Scrollbars := ssVertical;
   WizardForm.ReadyMemo.Height := WizardForm.ReadyMemo.Height - ScaleY(30);
 
   // Create agreement checkbox on Ready to Install page
@@ -548,6 +557,7 @@ var
   YesButton, NoButton: TNewButton;
   ResultCode: Integer;
   ExecParams: String;
+  hMenu: LongWord;
 begin
   Result := False;
 
@@ -593,6 +603,17 @@ begin
   UninstallForm.Caption := FmtMessage(CustomMessage('UninstallerName'), ['{#AppName}']);
   UninstallForm.Position := poScreenCenter;
   
+  // Remove system menu items (Restore, Size, Maximize)
+  begin
+    hMenu := GetSystemMenu(UninstallForm.Handle, False);
+    if hMenu <> 0 then
+    begin
+      DeleteMenu(hMenu, $F120, $0); // SC_RESTORE
+      DeleteMenu(hMenu, $F000, $0); // SC_SIZE
+      DeleteMenu(hMenu, $F030, $0); // SC_MAXIMIZE
+    end;
+  end;
+  
   // Set taskbar visibility
   SetWindowLong(UninstallForm.Handle, GWL_EXSTYLE, GetWindowLong(UninstallForm.Handle, GWL_EXSTYLE) or WS_EX_APPWINDOW);
   SetWindowLongPtr(UninstallForm.Handle, GWL_HWNDPARENT, 0);
@@ -622,9 +643,10 @@ begin
   CleanupLabel.AutoSize := False;
   CleanupLabel.WordWrap := True;
   CleanupLabel.Left := CleanupCheckBox.Left + ScaleX(20);
-  CleanupLabel.Top := CleanupCheckBox.Top + ScaleY(2);
+  // Align label text vertically with checkbox center
+  CleanupLabel.Top := CleanupCheckBox.Top;
   CleanupLabel.Width := UninstallForm.ClientWidth - CleanupLabel.Left - ScaleX(20);
-  CleanupLabel.Height := ScaleY(45);
+  CleanupLabel.Height := CleanupCheckBox.Height;
   CleanupLabel.Caption := CustomMessage('CleanupData');
   CleanupLabel.OnClick := @CleanupLabelClick;
   
@@ -680,6 +702,10 @@ begin
   // Execute cleanup logic at the start of uninstall (before file deletion)
   if CurUninstallStep = usUninstall then
   begin
+    // Resize the built-in uninstall progress window to 85% of its default size (same as installer)
+    UninstallProgressForm.ClientWidth := MulDiv(UninstallProgressForm.ClientWidth, 85, 100);
+    UninstallProgressForm.ClientHeight := MulDiv(UninstallProgressForm.ClientHeight, 85, 100);
+
     // System-level cleanup (scheduler tasks, registry, etc.) should always execute regardless of user's cleanup choice
     Params := '/clean';
     if ShouldCleanup then

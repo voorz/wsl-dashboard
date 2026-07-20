@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-only
 
 use serde::{Deserialize, Serialize};
-use ureq;
+use ureq::{Agent, tls::{TlsConfig, TlsProvider}};
 use std::time::Duration;
 use std::thread;
 use tracing::{trace, debug, error};
@@ -18,22 +18,27 @@ pub struct ApiResponse<T> {
 pub struct WslUiClient {
     api1_url: String,
     api2_url: String,
-    agent: ureq::Agent,
+    agent: Agent,
 }
 
 impl WslUiClient {
     pub fn new() -> Self {
-        let mut builder = ureq::builder();
+        let mut config = Agent::config_builder();
         if cfg!(debug_assertions) {
-            if let Ok(tls_connector) = native_tls::TlsConnector::builder()
+            if let Ok(_tls_connector) = native_tls::TlsConnector::builder()
                 .danger_accept_invalid_certs(true)
                 .build()
             {
-                builder = builder.tls_connector(std::sync::Arc::new(tls_connector));
+                config = config.tls_config(
+                    TlsConfig::builder()
+                        .provider(TlsProvider::NativeTls)
+                        .disable_verification(true)
+                        .build()
+                );
                 trace!("Developer mode: HTTPS certificate verification is disabled (-k)");
             }
         }
-        let agent = builder.build();
+        let agent = Agent::new_with_config(config.build());
 
         Self {
             api1_url: crate::app::API1_URL.to_string(),
@@ -88,22 +93,31 @@ impl WslUiClient {
         let timeout = Duration::from_millis(timeout_ms.unwrap_or(5000));
         let do_request = || -> Result<(ApiResponse<T>, Option<String>), String> {
             trace!("WSLUI API Request: method={}, url={}, body={:?}", method, url, body);
-            
-            let mut req = match method.to_uppercase().as_str() {
-                "POST" => self.agent.post(url),
-                _ => self.agent.get(url),
-            };
 
-            req = req.timeout(timeout)
-                     .set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36");
+            let is_post = method.to_uppercase().as_str() == "POST";
+
+            let req = if is_post {
+                self.agent.post(url)
+                    .config()
+                    .timeout_global(Some(timeout))
+                    .build()
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+            } else {
+                self.agent.get(url)
+                    .config()
+                    .timeout_global(Some(timeout))
+                    .build()
+                    .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                    .force_send_body()
+            };
 
             let resp = if let Some(ref b) = body {
                 req.send_json(b)
             } else {
-                req.call()
+                req.send_empty()
             };
 
-            let resp = resp.map_err(|e| {
+            let mut resp = resp.map_err(|e: ureq::Error| {
                 let error_msg = e.to_string();
                 if Self::is_timeout_error(&error_msg) {
                     error!("WSLUI API Timeout Error: {}", error_msg);
@@ -114,10 +128,12 @@ impl WslUiClient {
                 }
             })?;
 
-            let date_header = resp.header("Date").map(|s| s.to_string());
-            let status = resp.status();
-            
-            let resp_text = resp.into_string().map_err(|e| {
+            let date_header = resp.headers().get("Date")
+                .and_then(|v: &ureq::http::HeaderValue| v.to_str().ok())
+                .map(|s: &str| s.to_string());
+            let status = resp.status().as_u16();
+
+            let resp_text = resp.body_mut().read_to_string().map_err(|e: ureq::Error| {
                 error!("WSLUI API Read Body Error: {}", e);
                 e.to_string()
             })?;
@@ -126,7 +142,7 @@ impl WslUiClient {
                 .and_then(|v| serde_json::to_string(&v))
                 .unwrap_or(resp_text.clone());
             debug!("WSLUI API Response: status={}, body={}", status, compact_body);
-    
+
             let clean_text = resp_text.trim_start_matches('\u{FEFF}').trim();
 
             let api_resp: ApiResponse<T> = serde_json::from_str(clean_text).map_err(|e| {

@@ -18,20 +18,20 @@ param(
 # Generates manifest files for winget-pkgs submission
 
 $PACKAGE_ID = "Owu.WSLDashboard"
-$PUBLISHER = "owu"
+$PUBLISHER = "https://github.com/owu"
 $PACKAGE_NAME = "WSL Dashboard"
 $AUTHOR = "owu"
 $LICENSE = "GPL-3.0"
 $LICENSE_URL = "https://github.com/owu/wsl-dashboard/blob/main/LICENSE"
-$COPYRIGHT = "Copyright 2026 WSL Dashboard"
+$COPYRIGHT = "2026 WSL Dashboard. All rights reserved."
 $HOMEPAGE = "https://www.wslui.com"
+$PRIVACY_URL = "https://www.wslui.com/privacy/"
 $REPO = "https://github.com/owu/wsl-dashboard"
 $SHORT_DESCRIPTION = "A modern, high-performance, lightweight, and low-memory WSL instance management dashboard."
 $TAGS = @("wsl", "windows-subsystem-for-linux", "linux", "dashboard", "gui", "management", "rust")
 $INSTALLER_TYPE = "inno"
 $ARCH = "x64"
 $SCOPE = "machine"
-$MIN_WINDOWS_VERSION = "10.0.17763.0"  # Windows 10 1809+
 
 # Read version from Cargo.toml if not provided
 if ([string]::IsNullOrWhiteSpace($Version)) {
@@ -114,17 +114,16 @@ if (-not (Test-Path $OutputDir)) {
 }
 Write-Host "Step 3: Output directory: $OutputDir" -ForegroundColor Gray
 
-# 4. Construct installer URL (GitHub release)
-$INSTALLER_URL = "$REPO/releases/download/v$VERSION/WSLDashboard.$VERSION.Setup.x64.exe"
-
 # 5. Generate version manifest
 $versionManifest = @"
-# yaml-language-server: `$schema=https://aka.ms/winget-manifest.version.1.9.0.schema.json
+# Created using wingetcreate 1.12.8.0
+# yaml-language-server: `$schema=https://aka.ms/winget-manifest.version.1.12.0.schema.json
+
 PackageIdentifier: $PACKAGE_ID
 PackageVersion: $VERSION
 DefaultLocale: en-US
 ManifestType: version
-ManifestVersion: 1.9.0
+ManifestVersion: 1.12.0
 "@
 
 $versionFile = Join-Path $OutputDir "$PACKAGE_ID.yaml"
@@ -133,31 +132,28 @@ Write-Host "Generated: $versionFile" -ForegroundColor Green
 
 # 6. Generate installer manifest
 $installerManifest = @"
-# yaml-language-server: `$schema=https://aka.ms/winget-manifest.installer.1.9.0.schema.json
+# Created using wingetcreate 1.12.8.0
+# yaml-language-server: `$schema=https://aka.ms/winget-manifest.installer.1.12.0.schema.json
+
 PackageIdentifier: $PACKAGE_ID
 PackageVersion: $VERSION
-Platform:
-- Windows.Desktop
-MinimumOSVersion: $MIN_WINDOWS_VERSION
 InstallerType: $INSTALLER_TYPE
 Scope: $SCOPE
-InstallModes:
-- interactive
-- silent
-- silentWithProgress
 InstallerSwitches:
-  Silent: /VERYSILENT /LANG=english
-  SilentWithProgress: /SILENT /LANG=english
-  Custom: /NORESTART
-UpgradeBehavior: install
+  Silent: /VERYSILENT /LANG=english /NORESTART /SUPPRESSMSGBOXES
+  SilentWithProgress: /SILENT /LANG=english /NORESTART /SUPPRESSMSGBOXES
 ElevationRequirement: elevationRequired
-ProductCode: "{5CCAB770-FE6B-4A69-9486-74C5D24D3860}_is1"
+Dependencies:
+  PackageDependencies:
+    - PackageIdentifier: Microsoft.VCRedist.2015+.x64
+      MinimumVersion: 14.40.33810
 Installers:
 - Architecture: $ARCH
-  InstallerUrl: $INSTALLER_URL
+  InstallerUrl: $REPO/releases/download/v$VERSION/WSLDashboard.$VERSION.Setup.x64.exe
   InstallerSha256: $hash
 ManifestType: installer
-ManifestVersion: 1.9.0
+ManifestVersion: 1.12.0
+ReleaseDate: $(Get-Date -Format 'yyyy-MM-dd')
 "@
 
 $installerFile = Join-Path $OutputDir "$PACKAGE_ID.installer.yaml"
@@ -166,13 +162,16 @@ Write-Host "Generated: $installerFile" -ForegroundColor Green
 
 # 7. Generate en-US locale manifest
 $localeEn = @"
-# yaml-language-server: `$schema=https://aka.ms/winget-manifest.defaultLocale.1.9.0.schema.json
+# Created using wingetcreate 1.12.8.0
+# yaml-language-server: `$schema=https://aka.ms/winget-manifest.defaultLocale.1.12.0.schema.json
+
 PackageIdentifier: $PACKAGE_ID
 PackageVersion: $VERSION
 PackageLocale: en-US
 Publisher: $PUBLISHER
 PublisherUrl: $REPO
 PublisherSupportUrl: $REPO/issues
+PrivacyUrl: $PRIVACY_URL
 Author: $AUTHOR
 PackageName: $PACKAGE_NAME
 PackageUrl: $HOMEPAGE
@@ -180,61 +179,18 @@ License: $LICENSE
 LicenseUrl: $LICENSE_URL
 Copyright: $COPYRIGHT
 ShortDescription: $SHORT_DESCRIPTION
-Description: >-
-  WSL Dashboard is a modern, high-performance, lightweight, and low-memory
-  WSL (Windows Subsystem for Linux) instance management dashboard built with
-  Rust and Slint UI. It provides a native Windows GUI for managing your WSL
-  distributions, including creating, deleting, cloning, exporting, importing,
-  compressing, and moving WSL instances. Features also include network port
-  forwarding management, HTTP proxy configuration, USB device passthrough,
-  and multi-language support with 50+ languages.
+Description: WSL Dashboard is a modern, high-performance, lightweight, and low-memory WSL instance management dashboard built with Rust and Slint UI.
+Moniker: wsl-dashboard
 Tags:
 - $($TAGS -join "`n- ")
 ReleaseNotesUrl: $REPO/releases/tag/v$VERSION
 ManifestType: defaultLocale
-ManifestVersion: 1.9.0
+ManifestVersion: 1.12.0
 "@
 
 $localeFile = Join-Path $OutputDir "$PACKAGE_ID.locale.en-US.yaml"
 Set-Content -Path $localeFile -Value $localeEn -Encoding UTF8
 Write-Host "Generated: $localeFile" -ForegroundColor Green
-
-# 8. Generate zh-CN locale manifest (optional, primary user base)
-$localeZhCn = @"
-# yaml-language-server: `$schema=https://aka.ms/winget-manifest.locale.1.9.0.schema.json
-PackageIdentifier: $PACKAGE_ID
-PackageVersion: $VERSION
-PackageLocale: zh-CN
-Publisher: $PUBLISHER
-PublisherUrl: $REPO
-PublisherSupportUrl: $REPO/issues
-Author: $AUTHOR
-PackageName: $PACKAGE_NAME
-PackageUrl: $HOMEPAGE
-License: $LICENSE
-LicenseUrl: $LICENSE_URL
-Copyright: $COPYRIGHT
-ShortDescription: "一款现代、高性能、轻量级且低内存占用的 WSL 实例管理仪表板。基于 Rust 和 Slint 构建，提供顶级的原生体验。"
-Description: >-
-  WSL Dashboard 是一款基于 Rust 和 Slint UI 构建的现代化 WSL 实例管理面板。
-  提供原生 Windows 图形界面，支持创建、删除、克隆、导出、导入、压缩和迁移
-  WSL 发行版。还支持网络端口转发管理、HTTP 代理配置、USB 设备直通，
-  以及 50+ 语言的多语言支持。
-Tags:
-- wsl
-- windows-subsystem-for-linux
-- linux
-- dashboard
-- gui
-- management
-ReleaseNotesUrl: $REPO/releases/tag/v$VERSION
-ManifestType: locale
-ManifestVersion: 1.9.0
-"@
-
-$localeZhCnFile = Join-Path $OutputDir "$PACKAGE_ID.locale.zh-CN.yaml"
-Set-Content -Path $localeZhCnFile -Value $localeZhCn -Encoding UTF8
-Write-Host "Generated: $localeZhCnFile" -ForegroundColor Green
 
 Write-Host "`n--- Winget manifest generation complete! ---" -ForegroundColor Green
 Write-Host "Files generated in: $OutputDir" -ForegroundColor Cyan

@@ -67,14 +67,8 @@ pub async fn set_dashboard_autostart(enable: bool, start_minimized: bool) -> Res
         }
     } else {
         info!("Disabling dashboard autostart in registry...");
-        let reg_res = crate::utils::registry::delete_reg_value(windows::Win32::System::Registry::HKEY_CURRENT_USER, run_subkey, value_name);
-        
-        if let Err(e) = reg_res {
-            let err_msg = e.to_string();
-            if !err_msg.contains("not found") && !err_msg.contains("system cannot find the file") {
-                return Err(err_msg.into());
-            }
-        }
+        // Delete registry value (no-op if not exists, errors are best-effort)
+        let _ = crate::utils::registry::delete_reg_value(windows::Win32::System::Registry::HKEY_CURRENT_USER, run_subkey, value_name);
 
         info!("Dashboard autostart disabled.");
         Ok(())

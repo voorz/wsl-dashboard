@@ -192,7 +192,33 @@ Log ဖိုင်များကို ဖွဲ့စည်းထားသေ
 
 ## 📦 ထည့်သွင်းမှု လမ်းညွှန်
 
-### နည်းလမ်း 1: Pre-compiled Binary ဒေါင်းလုဒ်လုပ်ခြင်း
+### နည်းလမ်း 1: ပရောဂျက် ဝဘ်ဆိုက်သို့ သွားရောက်ပါ (အကြံပြုထားသည်)
+
+ကျွန်ုပ်တို့သည် တရားဝင် ဝဘ်ဆိုက်မှ ဒေါင်းလုဒ်လုပ်ရန် အကြံပြုပါသည်၊ ၎င်းသည် ပိုမိုချောမွေ့သော အတွေ့အကြုံအတွက် mirror လင့်ခ်များစွာ ပေးဆောင်ထားသောကြောင့်ဖြစ်သည်:
+
+[ဒေါင်းလုဒ်စာမျက်နှာ](https://www.wslui.com/download/) သို့ သွားကာ သင့်ဒေသအတွက် သင့်လျော်သော mirror ကို ရွေးချယ်ပါ။
+
+### နည်းလမ်း 2: winget မှတစ်ဆင့် ထည့်သွင်းပါ
+
+သင်သည် Windows Package Manager (winget) မှ WSLDashboard ကို တိုက်ရိုက်ထည့်သွင်းနိုင်သည်၊ moniker သို့မဟုတ် package identifier အပြည့်အစုံကို အသုံးပြုနိုင်သည်:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> winget package identifier သည် `Owu.WSLDashboard` ဖြစ်ပြီး moniker သည် `wsl-dashboard` ဖြစ်သည် (case-insensitive)။ တစ်ခုခုကိုသုံး၍ရပါသည်။
+
+နောက်ထပ်အချက်အလက်များအတွက် [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard) သို့ သွားရောက်ပါ။
+
+### နည်းလမ်း 3: Pre-compiled Binary ဒေါင်းလုဒ်လုပ်ခြင်း
 
 အလွယ်ဆုံးနည်းလမ်းမှာ ကြိုတင် compile လုပ်ထားသော version ကို အသုံးပြုခြင်းဖြစ်သည်:
 
@@ -202,7 +228,7 @@ Log ဖိုင်များကို ဖွဲ့စည်းထားသေ
 
 ထည့်သွင်းရန် မလိုအပ်ပါ၊ ဤ app သည် တစ်ခုတည်းသော file portable program ဖြစ်သည်။
 
-### နည်းလမ်း 2: Source Code မှ Build လုပ်ခြင်း
+### နည်းလမ်း 4: Source Code မှ Build လုပ်ခြင်း
 
 Rust toolchain (Rust 1.92+ သို့မဟုတ် နောက်ဆုံး version) ထည့်သွင်းထားကြောင်း သေချာပါစေ။
 

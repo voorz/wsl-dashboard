@@ -56,10 +56,38 @@ jobs:
           echo "VERSION=$version" >> $env:GITHUB_OUTPUT
           Write-Host "Version: $version"
 
-      - name: Submit WinGet package
-        uses: vedantmgoyal9/winget-releaser@v2
-        with:
-          identifier: Owu.WSLDashboard
-          version: ${{ steps.get_version.outputs.VERSION }}
-          installers-regex: 'WSLDashboard.*\.Setup\.x64\.exe$'
-          token: ${{ secrets.WINGET_GITHUB_TOKEN }}
+      - name: Download installer
+        shell: pwsh
+        run: |
+          $version = "${{ steps.get_version.outputs.VERSION }}"
+          $url = "https://github.com/owu/wsl-dashboard/releases/download/v$version/WSLDashboard.$version.Setup.x64.exe"
+          $dest = "build\releases\WSLDashboard.$version.Setup.x64.exe"
+          New-Item -ItemType Directory -Path (Split-Path $dest) -Force | Out-Null
+          Write-Host "Downloading installer from: $url"
+          Invoke-WebRequest -Uri $url -OutFile $dest
+          Write-Host "Downloaded to: $dest"
+
+      - name: Generate winget manifests
+        shell: pwsh
+        run: |
+          .\build\winget\build.ps1 -Version "${{ steps.get_version.outputs.VERSION }}"
+
+      - name: Submit to winget-pkgs
+        shell: pwsh
+        run: |
+          $version = "${{ steps.get_version.outputs.VERSION }}"
+          $manifestDir = "build\winget\Owu.WSLDashboard"
+
+          Write-Host "Downloading wingetcreate..."
+          $wingetcreatePath = Join-Path $env:TEMP "wingetcreate.exe"
+          Invoke-WebRequest -Uri "https://aka.ms/wingetcreate/latest" -OutFile $wingetcreatePath
+
+          Write-Host "Submitting manifests from: $manifestDir"
+          & $wingetcreatePath submit $manifestDir --token "${{ secrets.WINGET_GITHUB_TOKEN }}"
+
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "wingetcreate submission failed!"
+            exit 1
+          }
+
+          Write-Host "Successfully submitted WSL Dashboard v$version to winget-pkgs!"

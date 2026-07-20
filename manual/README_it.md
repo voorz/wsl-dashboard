@@ -192,7 +192,33 @@ I file di log vengono scritti nella directory configurata e possono essere alleg
 
 ## 📦 Guida all'Installazione
 
-### Opzione 1: Scarica il binario precompilato
+### Opzione 1: Visita il sito web del progetto (Consigliato)
+
+Consigliamo di visitare il sito web ufficiale per il download, poiché offre molteplici collegamenti mirror per un'esperienza più fluida:
+
+Vai alla [pagina di Download](https://www.wslui.com/download/) e scegli il mirror adatto alla tua regione.
+
+### Opzione 2: Installa tramite winget
+
+Puoi installare WSLDashboard direttamente dal Windows Package Manager (winget), utilizzando il moniker o l'identificatore completo del pacchetto:
+
+```powershell
+# Cerca (senza distinzione maiuscole/minuscole)
+winget search wsl-dashboard
+# oppure
+winget search WSLDashboard
+
+# Installa (scegli uno)
+winget install wsl-dashboard
+# oppure
+winget install Owu.WSLDashboard
+```
+
+> L'identificatore del pacchetto winget è `Owu.WSLDashboard` e il moniker è `wsl-dashboard` (senza distinzione maiuscole/minuscole). Entrambi funzionano.
+
+Per maggiori informazioni, visita il [repository della community WinGet](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Opzione 3: Scarica il binario precompilato
 
 Il modo più semplice per iniziare è utilizzare la versione precompilata:
 
@@ -202,7 +228,7 @@ Il modo più semplice per iniziare è utilizzare la versione precompilata:
 
 Non è richiesto alcun programma di installazione; l'app è un unico binario portatile.
 
-### Opzione 2: Compila dai sorgenti
+### Opzione 4: Compila dai sorgenti
 
 Assicurati di avere installato la toolchain Rust (Rust 1.92+ o successivo).
 

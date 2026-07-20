@@ -192,7 +192,33 @@ Tệp nhật ký sẽ được ghi vào thư mục nhật ký đã cấu hình, 
 
 ## 📦 Hướng dẫn cài đặt
 
-### Cách 1: Tải tệp nhị phân đã biên dịch sẵn
+### Cách 1: Truy cập trang web dự án (Khuyến nghị)
+
+Chúng tôi khuyên bạn nên truy cập trang web chính thức để tải xuống, vì trang này cung cấp nhiều đường dẫn mirror để có trải nghiệm mượt mà hơn:
+
+Truy cập [Trang tải xuống](https://www.wslui.com/download/) và chọn mirror phù hợp với khu vực của bạn.
+
+### Cách 2: Cài đặt qua winget
+
+Bạn có thể cài đặt WSLDashboard trực tiếp từ Windows Package Manager (winget), sử dụng tên gọi (moniker) hoặc mã định danh gói đầy đủ:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> Mã định danh gói winget là `Owu.WSLDashboard` và tên gọi là `wsl-dashboard` (không phân biệt chữ hoa/thường). Cả hai đều hoạt động.
+
+Để biết thêm thông tin, hãy truy cập [kho lưu trữ cộng đồng WinGet](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Cách 3: Tải tệp nhị phân đã biên dịch sẵn
 
 Cách dễ nhất để bắt đầu là sử dụng phiên bản đã biên dịch:
 
@@ -202,7 +228,7 @@ Cách dễ nhất để bắt đầu là sử dụng phiên bản đã biên d�
 
 Không cần cài đặt, ứng dụng là chương trình di động một tệp duy nhất.
 
-### Cách 2: Biên dịch từ mã nguồn
+### Cách 4: Biên dịch từ mã nguồn
 
 Đảm bảo bạn đã cài đặt Rust toolchain (Rust 1.92+ hoặc mới hơn).
 

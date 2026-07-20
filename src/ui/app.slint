@@ -10,11 +10,14 @@ import {
     RootFSHelpItem,
     UsbDevice,
     PortProxyRuleUI,
+    SchedulerTaskUI,
     MessageData,
-    AppI18n,
     SettingsStrings,
     AboutStrings,
     DonateStrings,
+    AppApi,
+    AppI18n,
+    UsbDeviceDetailInfo,
 } from "theme.slint";
 import { AppConstants } from "constants.slint";
 import { TitleBar } from "components/title_bar.slint";
@@ -25,16 +28,19 @@ import { MainView } from "views/main_view.slint";
 import { AddInstanceView } from "views/add_view.slint";
 import { UsbView } from "views/usb_view.slint";
 import { NetworkView } from "views/network/mod.slint";
+import { SchedulerView } from "views/scheduler_view.slint";
+import { SchedulerDialog } from "components/dialogs/scheduler_dialog.slint";
 import { SettingsView } from "views/settings/mod.slint";
 import { AboutView } from "views/about_view.slint";
 import { DonateView } from "views/donate_view.slint";
 import { TaskStatusToast } from "components/task_status_toast.slint";
 
 
-export { Theme, Distro, InstallableDistro, AppInfo, RootFSHelpItem, UsbDevice, PortProxyRuleUI, AppI18n }
+export { Theme, Distro, InstallableDistro, AppInfo, RootFSHelpItem, UsbDevice, PortProxyRuleUI, AppI18n, AppApi }
 
 export component AppWindow inherits Window {
     title: "WSL_DASHBOARD_WINDOW_UI";
+
     width: 800px;
     height: 600px;
     background: transparent;
@@ -225,6 +231,28 @@ export component AppWindow inherits Window {
     in-out property <bool> show_compress_dialog: false;
     in-out property <string> compress_distro_name: "";
 
+    // --- Crontab Properties ---
+    in property <[SchedulerTaskUI]> scheduler_tasks: [];
+    in property <bool> scheduler_loading: false;
+    in property <string> scheduler_error: "";
+    in-out property <bool> show_scheduler_dialog: false;
+    in-out property <bool> scheduler_dialog_is_edit: false;
+    in-out property <string> scheduler_dialog_task_id: "";
+    in-out property <string> scheduler_dialog_task_name: "";
+    in-out property <string> scheduler_dialog_command: "";
+    in-out property <string> scheduler_dialog_arguments: "";
+    in-out property <string> scheduler_dialog_cron_expr: "";
+    in-out property <string> scheduler_dialog_cron_help_url: "";
+    in-out property <string> scheduler_dialog_command_help_url: "";
+    in-out property <string> scheduler_dialog_name_error: "";
+    in-out property <string> scheduler_dialog_command_error: "";
+    in-out property <string> scheduler_dialog_cron_error: "";
+    in-out property <bool> scheduler_dialog_admin_mode: false;
+    in-out property <bool> scheduler_dialog_submitting: false;
+
+    in-out property <string> scheduler_busy_task_id: "";
+    in-out property <bool> sidebar_scheduler: true;
+
     // WSL Compat Dialog properties
     in-out property <bool> show_wsl_compat_dialog: false;
     in-out property <string> wsl_compat_msg1: "";
@@ -347,6 +375,7 @@ export component AppWindow inherits Window {
     callback close_vscode_startup();
     callback close_task_status();
     callback configs_clicked(string);
+    callback reorder_distros(int, int);
     callback save_wsl_config();
     callback save_wsl_config_and_restart();
     callback request_wsl_config_preview();
@@ -365,12 +394,24 @@ export component AppWindow inherits Window {
     callback check_proxy_connection(string);
     // USB callbacks
     callback refresh_usb(bool);
-    callback usb_bind(string);
+    callback usb_bind(string, string);
     callback usb_unbind(string);
-    callback usb_attach(string);
+    callback usb_attach(string, string);
     callback usb_detach(string);
-    callback usb_toggle_auto_attach(string);
     callback usb_copy_info(UsbDevice);
+    callback usb_device_info(UsbDevice);
+    callback usb_save_device_settings(string, string, bool, bool, bool);
+
+    // USB Settings Dialog state
+    in-out property <bool> show_usb_settings: false;
+    in-out property <UsbDevice> usb_settings_device;
+    in-out property <bool> usb_settings_force_bind: false;
+    in-out property <bool> usb_settings_boot_attach: false;
+    in-out property <bool> usb_settings_auto_attach: false;
+
+    // USB Device Info Dialog state
+    in-out property <bool> show_usb_device_info: false;
+    in-out property <UsbDeviceDetailInfo> usb_device_info_data;
     
     // Donate callbacks
     callback donate_qr_clicked(string);
@@ -379,6 +420,22 @@ export component AppWindow inherits Window {
     // Compress callbacks
     callback open_compress_dialog(string);
     callback confirm_compress(string, bool, bool, bool, string);
+
+    // Crontab callbacks
+    callback refresh_scheduler_tasks();
+    callback add_scheduler_task();
+    callback edit_scheduler_task(string);
+    callback delete_scheduler_task(string);
+    callback toggle_scheduler_task(string);
+    callback run_scheduler_task(string);
+    callback save_scheduler_task(string, string, string, string);
+    callback close_scheduler_dialog();
+    callback browse_scheduler_command();
+    callback open_scheduler_help(string);
+    callback scheduler_name_changed(string);
+    callback scheduler_command_changed(string);
+    callback scheduler_arguments_changed(string);
+    callback scheduler_cron_changed(string);
 
     // Language Dialog callbacks
     callback language_selected(int);
@@ -520,6 +577,7 @@ export component AppWindow inherits Window {
                     add_text: AppI18n.t("sidebar.add", [AppI18n.version]);
                     usb_text: AppI18n.t("sidebar.usb", [AppI18n.version]);
                     network_text: AppI18n.t("sidebar.network", [AppI18n.version]);
+                    scheduler_text: AppI18n.t("sidebar.scheduler", [AppI18n.version]);
                     settings_text: AppI18n.t("sidebar.settings", [AppI18n.version]);
                     about_text: AppI18n.t("sidebar.about", [AppI18n.version]);
                     donate_text: AppI18n.t("sidebar.donate", [AppI18n.version]);
@@ -527,6 +585,7 @@ export component AppWindow inherits Window {
                     show_toggle: root.sidebar_toggle;
                     show_usb: root.sidebar_usb;
                     show_network: root.sidebar_network;
+                    show_scheduler: root.sidebar_scheduler;
                     show_donate: root.sidebar_donate;
                     show_about: root.sidebar_about;
                     tab_selected(idx) => {
@@ -614,6 +673,9 @@ export component AppWindow inherits Window {
                                 compress_clicked(n) => {
                                     root.open_compress_dialog(n);
                                 }
+                                reorder_distros(from, to) => {
+                                    root.reorder_distros(from, to);
+                                }
                             }
 
                             AddInstanceView {
@@ -686,23 +748,30 @@ export component AppWindow inherits Window {
                                 refresh_usb(m) => {
                                     root.refresh_usb(m);
                                 }
-                                bind_clicked(id) => {
-                                    root.usb_bind(id);
+                                bind_clicked(id, vp) => {
+                                    root.usb_bind(id, vp);
                                 }
                                 unbind_clicked(id) => {
                                     root.usb_unbind(id);
                                 }
-                                attach_clicked(id) => {
-                                    root.usb_attach(id);
+                                attach_clicked(id, vp) => {
+                                    root.usb_attach(id, vp);
                                 }
                                 detach_clicked(id) => {
                                     root.usb_detach(id);
                                 }
-                                toggle_auto_attach(id) => {
-                                    root.usb_toggle_auto_attach(id);
-                                }
                                 copy_info_clicked(d) => {
                                     root.usb_copy_info(d);
+                                }
+                                info_clicked(d) => {
+                                    root.usb_device_info(d);
+                                }
+                                device_settings_clicked(d) => {
+                                    root.usb_settings_device = d;
+                                    root.usb_settings_force_bind = d.force-bind;
+                                    root.usb_settings_boot_attach = d.boot-attach;
+                                    root.usb_settings_auto_attach = d.auto-attach;
+                                    root.show_usb_settings = true;
                                 }
                                 open_url(url) => {
                                     root.open_url(url);
@@ -765,11 +834,36 @@ export component AppWindow inherits Window {
                                 }
                             }
 
-                            DonateView {
+                            SchedulerView {
                                 visible: true;
                                 opacity: selected_tab == 4 ? 1 : 0;
-                                z: 4;
+                                z: 9;
                                 x: selected_tab == 4 ? 0px : 10000px;
+                                tasks: root.scheduler_tasks;
+                                is_loading: root.scheduler_loading;
+                                busy_task_id: root.scheduler_busy_task_id;
+                                add_task_clicked => {
+                                    root.add_scheduler_task();
+                                }
+                                edit_task(id) => {
+                                    root.edit_scheduler_task(id);
+                                }
+                                delete_task(id) => {
+                                    root.delete_scheduler_task(id);
+                                }
+                                toggle_task(id) => {
+                                    root.toggle_scheduler_task(id);
+                                }
+                                run_task(id) => {
+                                    root.run_scheduler_task(id);
+                                }
+                            }
+
+                            DonateView {
+                                visible: true;
+                                opacity: selected_tab == 5 ? 1 : 0;
+                                z: 5;
+                                x: selected_tab == 5 ? 0px : 10000px;
                                 title_text: AppI18n.t("donate.title", [AppI18n.version]);
                                 license_intro_text: AppI18n.t("donate.license_intro", [AppI18n.version]);
                                 maintain_note_text: AppI18n.t("donate.maintain_note", [AppI18n.version]);
@@ -799,9 +893,9 @@ export component AppWindow inherits Window {
 
                             SettingsView {
                                 visible: true;
-                                opacity: selected_tab == 5 ? 1 : 0;
-                                z: 5;
-                                x: selected_tab == 5 ? 0px : 10000px;
+                                opacity: selected_tab == 6 ? 1 : 0;
+                                z: 6;
+                                x: selected_tab == 6 ? 0px : 10000px;
                                 strings: root.settings_strings;
                                 show_language_dialog <=> root.show_language_dialog;
                                 language_selected(lang_code) => {
@@ -814,6 +908,7 @@ export component AppWindow inherits Window {
                                 colorful_icons <=> root.colorful_icons;
                                 mail_icon_always <=> root.mail_icon_always;
                                 hide_pin_icon <=> root.hide_pin_icon;
+                                show_drag <=> AppApi.show_drag;
                                 ui_language <=> root.ui_language;
                                 distro_location <=> root.distro_location;
                                 logs_location <=> root.logs_location;
@@ -827,6 +922,7 @@ export component AppWindow inherits Window {
                                 sidebar_toggle <=> root.sidebar_toggle;
                                 sidebar_usb <=> root.sidebar_usb;
                                 sidebar_network <=> root.sidebar_network;
+                                sidebar_scheduler <=> root.sidebar_scheduler;
                                 sidebar_donate <=> root.sidebar_donate;
                                 sidebar_about <=> root.sidebar_about;
                                 sparse_vhd <=> root.sparse_vhd;
@@ -855,9 +951,9 @@ export component AppWindow inherits Window {
 
                             AboutView {
                                 visible: true;
-                                opacity: selected_tab == 6 ? 1 : 0;
-                                z: 6;
-                                x: selected_tab == 6 ? 0px : 10000px;
+                                opacity: selected_tab == 7 ? 1 : 0;
+                                z: 7;
+                                x: selected_tab == 7 ? 0px : 10000px;
                                 strings: root.about_strings;
                                 group_pic: root.about_group_pic;
                                 group_pic_ready: root.about_group_pic_ready;
@@ -1201,6 +1297,27 @@ export component AppWindow inherits Window {
         mail_close => {
             root.show_mail_popup = false;
         }
+
+        // USB Settings Dialog
+        show_usb_settings: root.show_usb_settings;
+        usb_settings_device: root.usb_settings_device;
+        usb_settings_force_bind <=> root.usb_settings_force_bind;
+        usb_settings_boot_attach <=> root.usb_settings_boot_attach;
+        usb_settings_auto_attach <=> root.usb_settings_auto_attach;
+        usb_save_device_settings(bi, vp, fb, ba, aa) => {
+            root.usb_save_device_settings(bi, vp, fb, ba, aa);
+            root.show_usb_settings = false;
+        }
+        close_usb_settings => {
+            root.show_usb_settings = false;
+        }
+
+        // USB Device Info Dialog
+        show_usb_device_info: root.show_usb_device_info;
+        usb_device_info_data: root.usb_device_info_data;
+        close_usb_device_info => {
+            root.show_usb_device_info = false;
+        }
     }
 
     // Official communication group image popup layer (borderless, click anywhere to close)
@@ -1272,6 +1389,54 @@ export component AppWindow inherits Window {
                 height: 100%;
                 image-fit: contain;
             }
+        }
+    }
+
+    // Crontab Dialog
+    if root.show_scheduler_dialog : SchedulerDialog {
+        z: 100;
+        width: 100%;
+        height: 100%;
+        is_edit: root.scheduler_dialog_is_edit;
+        task_id: root.scheduler_dialog_task_id;
+        task_name: root.scheduler_dialog_task_name;
+        command: root.scheduler_dialog_command;
+        arguments: root.scheduler_dialog_arguments;
+        cron_expr: root.scheduler_dialog_cron_expr;
+        cron_help_url: root.scheduler_dialog_cron_help_url;
+        command_help_url: root.scheduler_dialog_command_help_url;
+        name_error: root.scheduler_dialog_name_error;
+        command_error: root.scheduler_dialog_command_error;
+        cron_error: root.scheduler_dialog_cron_error;
+        admin_mode <=> root.scheduler_dialog_admin_mode;
+        submitting <=> root.scheduler_dialog_submitting;
+
+        close_clicked => {
+            root.close_scheduler_dialog();
+        }
+        save_clicked(name, cmd, args, cron) => {
+            root.save_scheduler_task(name, cmd, args, cron);
+        }
+        name_changed(name) => {
+            root.scheduler_name_changed(name);
+        }
+        command_changed(cmd) => {
+            root.scheduler_command_changed(cmd);
+        }
+        arguments_changed(args) => {
+            root.scheduler_arguments_changed(args);
+        }
+        cron_changed(cron) => {
+            root.scheduler_cron_changed(cron);
+        }
+        browse_clicked => {
+            root.browse_scheduler_command();
+        }
+        cron_help_clicked => {
+            root.open_scheduler_help(root.scheduler_dialog_cron_help_url);
+        }
+        command_help_clicked => {
+            root.open_scheduler_help(root.scheduler_dialog_command_help_url);
         }
     }
 }

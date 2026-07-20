@@ -192,7 +192,33 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 ## 📦 स्थापना मार्गदर्शक
 
-### पद्धत 1: पूर्व-निर्मित बायनरी डाउनलोड करा
+### पद्धत 1: प्रकल्प वेबसाइटला भेट द्या (शिफारस केलेली)
+
+आम्ही अधिकृत वेबसाइटला भेट देऊन डाउनलोड करण्याची शिफारस करतो, कारण ती अनेक मिरर लिंक्स प्रदान करते:
+
+या [डाउनलोड पृष्ठ](https://www.wslui.com/download/) वर जा आणि तुमच्या प्रदेशासाठी योग्य मिरर निवडा.
+
+### पद्धत 2: winget द्वारे स्थापित करा
+
+तुम्ही Windows पॅकेज मॅनेजर (winget) द्वारे WSLDashboard स्थापित करू शकता, मोनिकर किंवा पूर्ण पॅकेज आयडेंटिफायर वापरून:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> winget पॅकेज आयडेंटिफायर `Owu.WSLDashboard` आहे आणि मोनिकर `wsl-dashboard` आहे (केस-इनसेन्सिटिव्ह). दोन्हीपैकी कोणतेही कार्य करते.
+
+अधिक माहितीसाठी, [WinGet समुदाय रिपॉझिटरी](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard) ला भेट द्या.
+
+### पद्धत 3: पूर्व-निर्मित बायनरी डाउनलोड करा
 
 सर्वात सोपी पद्धत बिल्ट आवृत्ती वापरणे:
 
@@ -202,7 +228,7 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 स्थापना आवश्यक नाही, हे ॲप सिंगल-फाइल पोर्टेबल प्रोग्राम आहे.
 
-### पद्धत 2: स्रोतावरून बिल्ड करा
+### पद्धत 4: स्रोतावरून बिल्ड करा
 
 Rust टूलचेन (Rust 1.92+ किंवा नवीनतम) स्थापित असल्याची खात्री करा.
 

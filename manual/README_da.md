@@ -192,7 +192,33 @@ Logfiler skrives til den konfigurerede logmappe og kan vedlægges ved rapporteri
 
 ## 📦 Installationsvejledning
 
-### Mulighed 1: Download færdigbygget binær fil
+### Mulighed 1: Besøg projektets hjemmeside (Anbefalet)
+
+Vi anbefaler at besøge den officielle hjemmeside for at downloade, da den tilbyder flere spejllinks for en mere jævn oplevelse:
+
+Gå til [Downloadsiden](https://www.wslui.com/download/) og vælg det spejl, der passer til din region.
+
+### Mulighed 2: Installer via winget
+
+Du kan installere WSLDashboard direkte fra Windows Package Manager (winget) ved at bruge enten moniker eller den fulde pakkeidentifikator:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> Winget-pakkeidentifikatoren er `Owu.WSLDashboard` og moniker er `wsl-dashboard` (uafhængig af store/små bogstaver). Begge fungerer.
+
+For mere information, besøg [WinGet-fællesskabslageret](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Mulighed 3: Download færdigbygget binær fil
 
 Den nemmeste måde at komme i gang på er at bruge den prækompilerede udgivelse:
 
@@ -202,7 +228,7 @@ Den nemmeste måde at komme i gang på er at bruge den prækompilerede udgivelse
 
 Der kræves ingen installation; appen er en enkelt bærbar binær fil.
 
-### Mulighed 2: Byg fra kildekode
+### Mulighed 4: Byg fra kildekode
 
 Sørg for, at du har Rust-værktøjskæden (Rust 1.92+ eller nyere) installeret.
 

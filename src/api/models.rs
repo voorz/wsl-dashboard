@@ -340,3 +340,21 @@ pub struct HelperBootstrapData {
     pub unix_time: i64,
 }
 
+// ============================================================
+// 9. wslui_helper_scheduler data structure
+// ============================================================
+
+#[derive(Debug, Deserialize, Clone, Default)]
+#[allow(dead_code)]
+pub struct CronExpressionLink {
+    pub name: String,
+    pub url: String,
+}
+
+#[derive(Debug, Deserialize, Clone, Default)]
+#[allow(dead_code)]
+pub struct HelperSchedulerData {
+    pub cron_expression: Option<CronExpressionLink>,
+    pub command_docs: Option<CronExpressionLink>,
+}
+

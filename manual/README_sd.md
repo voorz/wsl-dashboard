@@ -192,7 +192,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 📦 انسٽاليشن گائيڊ
 
-### طريقو 1: پري ڪمپائيل بائنري ڊائونلوڊ
+### طريقو 1: پروجيڪٽ ويب سائيٽ جو دورو ڪريو (سفارش ڪيل)
+
+اسان سرڪاري ويب سائيٽ تي وڃي ڊائونلوڊ ڪرڻ جي سفارش ڪريون ٿا، ڇو ته اهو هموار تجربي لاءِ ڪيترائي mirror لنڪس فراهم ڪري ٿو:
+
+[ڊائونلوڊ صفحي](https://www.wslui.com/download/) تي وڃو ۽ پنهنجي علائقي لاءِ مناسب mirror چونڊيو.
+
+### طريقو 2: winget ذريعي انسٽال ڪريو
+
+توهان Windows Package Manager (winget) ذريعي سڌو سنئون WSLDashboard انسٽال ڪري سگهو ٿا، moniker يا مڪمل پيڪيج آئيڊينٽيفائر استعمال ڪندي:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> winget پيڪيج آئيڊينٽيفائر `Owu.WSLDashboard` آهي ۽ moniker `wsl-dashboard` آهي (case-insensitive). ٻنهي مان ڪو به ڪم ڪري ٿو.
+
+وڌيڪ معلومات لاءِ، [WinGet ڪميونٽي رپوزٽري](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard) جو دورو ڪريو.
+
+### طريقو 3: پري ڪمپائيل بائنري ڊائونلوڊ
 
 سڀ کان سهلو طريقو ڪمپائيل ورزن استعمال ڪرڻ آهي:
 
@@ -202,7 +228,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 انسٽاليشن جي ضرورت ناهي، هن اپ هڪ سنگل فائيل پورٽيبل پروگرام آهي۔
 
-### طريقو 2: سورس مان بلڊ ڪريو
+### طريقو 4: سورس مان بلڊ ڪريو
 
 Rust ٽول چين (Rust 1.92+ يا نئين ورزن) انسٽال آهي تي يقيني ڪريو۔
 

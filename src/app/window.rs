@@ -6,7 +6,9 @@ use tracing::{info, error};
 use crate::AppWindow;
 
 #[cfg(target_os = "windows")]
-use windows::Win32::Foundation::{BOOL, HWND, LPARAM, RECT};
+use windows::Win32::Foundation::{HWND, LPARAM, RECT};
+#[cfg(target_os = "windows")]
+use windows::core::BOOL;
 #[cfg(target_os = "windows")]
 use windows::Win32::UI::WindowsAndMessaging::{
     EnumWindows, GetWindowRect, GetWindowThreadProcessId, 
@@ -116,7 +118,7 @@ fn hide_window_completely(hwnd: HWND) {
         ex_style |= WS_EX_LAYERED.0;
         let _ = SetWindowLongW(hwnd, GWL_EXSTYLE, ex_style as i32);
         let _ = SetLayeredWindowAttributes(hwnd, windows::Win32::Foundation::COLORREF(0), 0, LWA_ALPHA);
-        let _ = SetWindowPos(hwnd, HWND(std::ptr::null_mut()), -32000, -32000, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+        let _ = SetWindowPos(hwnd, Some(HWND(std::ptr::null_mut())), -32000, -32000, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
         // 3. Remove from taskbar
         let mut ex_style = GetWindowLongW(hwnd, GWL_EXSTYLE) as u32;
@@ -124,7 +126,7 @@ fn hide_window_completely(hwnd: HWND) {
         ex_style &= !WS_EX_APPWINDOW.0;
         SetWindowLongW(hwnd, GWL_EXSTYLE, ex_style as i32);
         
-        let _ = SetWindowPos(hwnd, HWND(std::ptr::null_mut()), 0, 0, 0, 0, 
+        let _ = SetWindowPos(hwnd, Some(HWND(std::ptr::null_mut())), 0, 0, 0, 0, 
                             SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
         info!("Window logically and physically hidden from desktop and taskbar.");
     }
@@ -138,7 +140,7 @@ pub fn set_always_on_top(top: bool) {
             let insert_after = if top { HWND_TOPMOST } else { HWND_NOTOPMOST };
             let _ = SetWindowPos(
                 hwnd,
-                insert_after,
+                Some(insert_after),
                 0, 0, 0, 0,
                 SWP_NOMOVE | SWP_NOSIZE,
             );
@@ -170,7 +172,7 @@ pub fn set_skip_taskbar(_app: &crate::AppWindow, skip: bool) {
                         ex_style |= WS_EX_APPWINDOW.0;
                         SetWindowLongW(hwnd, GWL_EXSTYLE, ex_style as i32);
                         
-                        let _ = SetWindowPos(hwnd, HWND(std::ptr::null_mut()), 0, 0, 0, 0, 
+                        let _ = SetWindowPos(hwnd, Some(HWND(std::ptr::null_mut())), 0, 0, 0, 0, 
                                             SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
                         
                         let _ = ShowWindow(hwnd, SW_RESTORE);
@@ -237,7 +239,7 @@ pub fn show_and_center(app: &AppWindow, silent: bool) {
             if let Some(hwnd) = find_main_window() {
                 set_window_opacity_by_hwnd(hwnd, 0);
                 unsafe {
-                    let _ = SetWindowPos(hwnd, HWND(std::ptr::null_mut()), -32000, -32000, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+                    let _ = SetWindowPos(hwnd, Some(HWND(std::ptr::null_mut())), -32000, -32000, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
                 }
                 break;
             }
@@ -283,7 +285,7 @@ pub fn show_and_center(app: &AppWindow, silent: bool) {
                                     let y = mr.top + (mr.bottom - mr.top - h) / 2;
                                     
                                     // C. Move to center AND bring to top layer
-                                    let _ = SetWindowPos(hwnd, HWND_TOP, x, y, 0, 0, SWP_NOSIZE | SWP_FRAMECHANGED);
+                                    let _ = SetWindowPos(hwnd, Some(HWND_TOP), x, y, 0, 0, SWP_NOSIZE | SWP_FRAMECHANGED);
                                     
                                     // D. RENAME (Internal bookkeeping)
                                     rename_app_windows();
@@ -298,7 +300,7 @@ pub fn show_and_center(app: &AppWindow, silent: bool) {
 
                                     // G. Restore always-on-top if pinned
                                     if is_pinned {
-                                        let _ = SetWindowPos(hwnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+                                        let _ = SetWindowPos(hwnd, Some(HWND_TOPMOST), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
                                         info!("Window pin state restored: always-on-top");
                                     }
 
@@ -355,11 +357,11 @@ pub fn activate_window_by_hwnd(hwnd: HWND) {
                     let x = mr.left + (mr.right - mr.left - w) / 2;
                     let y = mr.top + (mr.bottom - mr.top - h) / 2;
                     
-                    let _ = SetWindowPos(hwnd, HWND_TOP, x, y, 0, 0, SWP_NOSIZE | SWP_FRAMECHANGED);
+                    let _ = SetWindowPos(hwnd, Some(HWND_TOP), x, y, 0, 0, SWP_NOSIZE | SWP_FRAMECHANGED);
                 }
             } else {
                 // Already in a reasonable position, just refresh frame and bring to top position
-                let _ = SetWindowPos(hwnd, HWND_TOP, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
+                let _ = SetWindowPos(hwnd, Some(HWND_TOP), 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_FRAMECHANGED);
             }
         }
         
@@ -413,7 +415,7 @@ unsafe extern "system" fn rename_windows_final_proc(hwnd: HWND, lparam: LPARAM) 
                 ex_style &= !WS_EX_APPWINDOW.0;
                 unsafe {
                     SetWindowLongW(hwnd, GWL_EXSTYLE, ex_style as i32);
-                    let _ = SetWindowPos(hwnd, HWND(std::ptr::null_mut()), 0, 0, 0, 0, 
+                    let _ = SetWindowPos(hwnd, Some(HWND(std::ptr::null_mut())), 0, 0, 0, 0, 
                                         SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
                     
                     // Explicitly hide to force taskbar refresh

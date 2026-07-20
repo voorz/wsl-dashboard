@@ -127,7 +127,7 @@ UserInfoNameRequired=Musisz wprowadzić nazwę.
 
 ; *** "Select Destination Location" wizard page
 WizardSelectDir=Wybierz lokalizację docelową
-SelectDesc=Gdzie powinien zostać zainstalowany [name]?
+SelectDirDesc=Gdzie powinien zostać zainstalowany [name]?
 SelectDirLabel3=Instalator zainstaluje [name] w następującym folderze.
 SelectDirBrowseLabel=Aby kontynuować, kliknij Dalej. Jeżeli chcesz wybrać inny folder, kliknij Przeglądaj.
 DiskSpaceGBLabel=Wymagane jest co najmniej [gb] GB wolnego miejsca na dysku.

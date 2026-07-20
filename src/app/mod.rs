@@ -13,6 +13,7 @@ pub mod uninstall;
 pub mod initialize;
 pub mod scheduler;
 pub mod task_scheduler;
+pub mod scheduler_task;
 pub mod popup;
 pub mod runner;
 pub mod cli;

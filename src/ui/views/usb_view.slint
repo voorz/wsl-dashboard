@@ -12,12 +12,13 @@ component UsbDeviceList inherits VerticalLayout {
     in property <[UsbDevice]> devices;
     in-out property <string> expanded_bus_id: "";
     in property <bool> is_task_exists: true;
-    callback bind_clicked(string);
+    callback bind_clicked(string, string);
     callback unbind_clicked(string);
-    callback attach_clicked(string);
+    callback attach_clicked(string, string);
     callback detach_clicked(string);
-    callback toggle_auto_attach(string);
     callback copy_info_clicked(UsbDevice);
+    callback info_clicked(UsbDevice);
+    callback device_settings_clicked(UsbDevice);
     padding-top: 0px;
     padding-bottom: 0px;
     padding-left: AppI18n.is-rtl ? 16px : 4px;
@@ -34,23 +35,26 @@ component UsbDeviceList inherits VerticalLayout {
                 root.expanded_bus_id = d.bus_id;
             }
         }
-        bind_clicked(id) => {
-            root.bind_clicked(id);
+        bind_clicked(id, vp) => {
+            root.bind_clicked(id, vp);
         }
         unbind_clicked(id) => {
             root.unbind_clicked(id);
         }
-        attach_clicked(id) => {
-            root.attach_clicked(id);
+        attach_clicked(id, vp) => {
+            root.attach_clicked(id, vp);
         }
         detach_clicked(id) => {
             root.detach_clicked(id);
         }
-        toggle_auto_attach(id) => {
-            root.toggle_auto_attach(id);
-        }
         copy_info_clicked(d) => {
             root.copy_info_clicked(d);
+        }
+        info_clicked(d) => {
+            root.info_clicked(d);
+        }
+        device_settings_clicked(d) => {
+            root.device_settings_clicked(d);
         }
         is_task_exists: root.is_task_exists;
     }
@@ -64,12 +68,13 @@ export component UsbView inherits VerticalLayout {
     in property <bool> is_usbipd_outdated: false;
     in property <bool> is_task_exists: true;
     callback refresh_usb(bool);
-    callback bind_clicked(string);
+    callback bind_clicked(string, string);
     callback unbind_clicked(string);
-    callback attach_clicked(string);
+    callback attach_clicked(string, string);
     callback detach_clicked(string);
-    callback toggle_auto_attach(string);
     callback copy_info_clicked(UsbDevice);
+    callback info_clicked(UsbDevice);
+    callback device_settings_clicked(UsbDevice);
     callback open_url(string);
     private property <string> expanded_bus_id: "";
     private property <bool> is_missing_usbipd: usb_error == "not_found" || is_usbipd_outdated;
@@ -202,23 +207,26 @@ export component UsbView inherits VerticalLayout {
                 usb_list := UsbDeviceList {
                     devices: root.devices;
                     expanded_bus_id <=> root.expanded_bus_id;
-                    bind_clicked(id) => {
-                        root.bind_clicked(id);
+                    bind_clicked(id, vp) => {
+                        root.bind_clicked(id, vp);
                     }
                     unbind_clicked(id) => {
                         root.unbind_clicked(id);
                     }
-                    attach_clicked(id) => {
-                        root.attach_clicked(id);
+                    attach_clicked(id, vp) => {
+                        root.attach_clicked(id, vp);
                     }
                     detach_clicked(id) => {
                         root.detach_clicked(id);
                     }
-                    toggle_auto_attach(id) => {
-                        root.toggle_auto_attach(id);
-                    }
                     copy_info_clicked(d) => {
                         root.copy_info_clicked(d);
+                    }
+                    info_clicked(d) => {
+                        root.info_clicked(d);
+                    }
+                    device_settings_clicked(d) => {
+                        root.device_settings_clicked(d);
                     }
                     is_task_exists: root.is_task_exists;
                 }

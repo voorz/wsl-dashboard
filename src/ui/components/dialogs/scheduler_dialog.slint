@@ -1,0 +1,322 @@
+// SPDX-FileCopyrightText: Copyright (c) 2026 owu <wqh@live.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
+import { Theme, AppI18n, LayoutConstants } from "../../theme.slint";
+import { CustomButton, CustomLineEdit, CustomCheckBox } from "../form_widgets.slint";
+import { CustomScrollbar } from "../scrollbar.slint";
+
+export component SchedulerDialog inherits Rectangle {
+    in property <bool> is_edit: false;
+    in property <string> task_id: "";
+    in-out property <string> task_name: "";
+    in-out property <string> command: "";
+    in-out property <string> arguments: "";
+    in-out property <string> cron_expr: "* * * * *";
+    in property <string> cron_help_url: "";
+    in property <string> command_help_url: "";
+    in property <string> name_error: "";
+    in property <string> command_error: "";
+    in property <string> cron_error: "";
+    in-out property <bool> admin_mode: false;
+    in-out property <bool> submitting: false;
+
+
+    callback close_clicked();
+    callback save_clicked(string, string, string, string);
+    callback name_changed(string);
+    callback command_changed(string);
+    callback arguments_changed(string);
+    callback cron_changed(string);
+    callback browse_clicked();
+    callback cron_help_clicked();
+    callback command_help_clicked();
+
+    background: #00000080;
+
+    // Trap clicks
+    TouchArea { }
+
+    // Dialog Box
+    Rectangle {
+        width: 500px;
+        height: min(440px, layout.preferred-height);
+        background: Theme.card_bg;
+        border-radius: 8px;
+        border-width: 1px;
+        border-color: Theme.border_color;
+        TouchArea { /* prevent click through */ }
+
+        layout := VerticalLayout {
+            padding: 24px;
+            spacing: 8px;
+
+            // Header: title + close button
+            Rectangle {
+                height: 24px;
+                Text {
+                    x: AppI18n.is-rtl ? 32px : 0;
+                    width: parent.width - 32px;
+                    text: is_edit ? AppI18n.t("scheduler.dialog_edit_title", [AppI18n.version]) : AppI18n.t("scheduler.dialog_add_title", [AppI18n.version]);
+                    font-size: 18px * LayoutConstants.font-scale;
+                    font-family: Theme.default_font;
+                    font-weight: 500;
+                    color: Theme.text_primary;
+                    horizontal-alignment: AppI18n.is-rtl ? right : left;
+                    vertical-alignment: center;
+                }
+                TouchArea {
+                    x: AppI18n.is-rtl ? 0 : parent.width - self.width;
+                    width: 24px;
+                    height: 24px;
+                    clicked => { root.close_clicked(); }
+                    Rectangle {
+                        background: parent.has-hover ? Theme.hover_bg : transparent;
+                        border-radius: 4px;
+                        Text {
+                            text: "\u{E8BB}";
+                            font-family: Theme.icon_font;
+                            font-size: 14px;
+                            color: Theme.text_primary;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                    }
+                }
+            }
+
+            // Divider
+            Rectangle {
+                height: 1px;
+                background: Theme.border_color;
+            }
+
+            // Content Container with Scrolling
+            Rectangle {
+                vertical-stretch: 1;
+                height: min(280px, flick.viewport-height);
+                clip: true;
+                flick := Flickable {
+                    viewport-height: content.preferred-height;
+                    viewport-width: self.width;
+                    width: 100%;
+                    height: 100%;
+
+                    content := VerticalLayout {
+                        width: flick.width;
+                        padding-left: AppI18n.is-rtl ? 16px : 0px;
+                        padding-right: AppI18n.is-rtl ? 0px : 16px;
+                        spacing: 10px;
+                        alignment: start;
+
+                        // Task Name
+                        VerticalLayout {
+                            spacing: 4px;
+                            Text {
+                                text: AppI18n.t("scheduler.dialog_task_name", [AppI18n.version]);
+                                font-size: 13px * LayoutConstants.font-scale;
+                                font-family: Theme.default_font;
+                                color: Theme.text_primary;
+                            }
+                            CustomLineEdit {
+                                text: root.task_name;
+                                placeholder-text: "";
+                                enabled: !root.is_edit;
+                                edited(text) => {
+                                    root.task_name = text;
+                                    root.name_changed(text);
+                                }
+                            }
+                            if (root.name_error != ""): Text {
+                                text: root.name_error;
+                                font-size: 11px * LayoutConstants.font-scale;
+                                font-family: Theme.default_font;
+                                color: #ff3333;
+                            }
+                        }
+
+                        // Command
+                        VerticalLayout {
+                            spacing: 4px;
+                            HorizontalLayout {
+                                spacing: 4px;
+                                alignment: start;
+                                Text {
+                                    text: AppI18n.t("scheduler.dialog_command", [AppI18n.version]);
+                                    font-size: 13px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.text_primary;
+                                    vertical-alignment: center;
+                                }
+                                Rectangle {
+                                    width: 16px;
+                                    height: 16px;
+                                    border-radius: 8px;
+                                    background: command_help_area.has-hover ? #0078D420 : transparent;
+
+                                    Text {
+                                        text: "?";
+                                        font-size: 11px;
+                                        font-weight: 600;
+                                        font-family: Theme.default_font;
+                                        color: Theme.accent;
+                                        horizontal-alignment: center;
+                                        vertical-alignment: center;
+                                    }
+
+                                    command_help_area := TouchArea {
+                                        clicked => {
+                                            root.command_help_clicked();
+                                        }
+                                    }
+                                }
+                            }
+                            HorizontalLayout {
+                                spacing: 8px;
+                                width: parent.width;
+                                CustomLineEdit {
+                                    text: root.command;
+                                    horizontal-stretch: 1;
+                                    placeholder-text: "D:\\linux\\scripts\\example.bat";
+                                    edited(text) => {
+                                        root.command = text;
+                                        root.command_changed(text);
+                                    }
+                                }
+                                CustomButton {
+                                    text: AppI18n.t("scheduler.dialog_browse", [AppI18n.version]);
+                                    height: 32px;
+                                    clicked => {
+                                        root.browse_clicked();
+                                    }
+                                }
+                            }
+                            if (root.command_error != ""): Text {
+                                text: root.command_error;
+                                font-size: 11px * LayoutConstants.font-scale;
+                                font-family: Theme.default_font;
+                                color: #ff3333;
+                            }
+                        }
+
+                        // Arguments
+                        VerticalLayout {
+                            spacing: 4px;
+                            Text {
+                                text: AppI18n.t("scheduler.dialog_arguments", [AppI18n.version]);
+                                font-size: 13px * LayoutConstants.font-scale;
+                                font-family: Theme.default_font;
+                                color: Theme.text_primary;
+                            }
+                            CustomLineEdit {
+                                text: root.arguments;
+                                placeholder-text: "";
+                                edited(text) => {
+                                    root.arguments = text;
+                                    root.arguments_changed(text);
+                                }
+                            }
+                        }
+
+                        // Cron Expression
+                        VerticalLayout {
+                            spacing: 4px;
+                            HorizontalLayout {
+                                spacing: 4px;
+                                alignment: start;
+                                Text {
+                                    text: AppI18n.t("scheduler.dialog_cron_expr", [AppI18n.version]);
+                                    font-size: 13px * LayoutConstants.font-scale;
+                                    font-family: Theme.default_font;
+                                    color: Theme.text_primary;
+                                    vertical-alignment: center;
+                                }
+                                Rectangle {
+                                    width: 16px;
+                                    height: 16px;
+                                    border-radius: 8px;
+                                    background: cron_help_area.has-hover ? #0078D420 : transparent;
+
+                                    Text {
+                                        text: "?";
+                                        font-size: 11px;
+                                        font-weight: 600;
+                                        font-family: Theme.default_font;
+                                        color: Theme.accent;
+                                        horizontal-alignment: center;
+                                        vertical-alignment: center;
+                                    }
+
+                                    cron_help_area := TouchArea {
+                                        clicked => {
+                                            root.cron_help_clicked();
+                                        }
+                                    }
+                                }
+                            }
+                            CustomLineEdit {
+                                text: root.cron_expr;
+                                placeholder-text: "20 1 * * *";
+                                edited(text) => {
+                                    root.cron_expr = text;
+                                    root.cron_changed(text);
+                                }
+                            }
+                            if (root.cron_error != ""): Text {
+                                text: root.cron_error;
+                                font-size: 11px * LayoutConstants.font-scale;
+                                font-family: Theme.default_font;
+                                color: #ff3333;
+                            }
+                        }
+
+                        // Admin Mode Checkbox
+                        CustomCheckBox {
+                            text: AppI18n.t("scheduler.dialog_admin_mode", [AppI18n.version]);
+                            checked <=> root.admin_mode;
+                        }
+                    }
+                }
+
+                CustomScrollbar {
+                    opacity: (flick.viewport-height > flick.height) ? 1 : 0;
+                    visible: flick.viewport-height > flick.height;
+                    x: AppI18n.is-rtl ? 2px : parent.width - 8px;
+                    y: 0;
+                    width: 8px;
+                    height: 100%;
+                    maximum: flick.viewport-height - flick.height;
+                    page_size: flick.height;
+                    value: -flick.viewport-y;
+                    scroll_to(v) => {
+                        flick.viewport-y = -v;
+                    }
+                }
+            }
+
+            // Footer with save button
+            Rectangle {
+                height: 32px;
+                HorizontalLayout {
+                    padding-left: AppI18n.is-rtl ? 2px : 16px;
+                    padding-right: AppI18n.is-rtl ? 16px : 1px;
+                    alignment: AppI18n.is-rtl ? start : end;
+                    CustomButton {
+                        text: root.is_edit ? AppI18n.t("dialog.save", [AppI18n.version]) : AppI18n.t("dialog.add", [AppI18n.version]);
+                        primary: true;
+                        height: 32px;
+                        enabled: !root.submitting;
+                        // Create mode: show shield when admin_mode is enabled
+                        // Edit mode: show shield when created by another user or admin_mode changed
+                        show_shield: true;
+                        clicked => {
+                            if (!root.submitting) {
+                                root.submitting = true;
+                                root.save_clicked(root.task_name, root.command, root.arguments, root.cron_expr);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

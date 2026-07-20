@@ -1,0 +1,210 @@
+// SPDX-FileCopyrightText: Copyright (c) 2026 owu <wqh@live.com>
+// SPDX-License-Identifier: GPL-3.0-only
+
+import {
+    Theme,
+    UsbDeviceDetailInfo,
+    AppI18n,
+    LayoutConstants,
+} from "../../theme.slint";
+
+component InfoRow inherits Rectangle {
+    in property <string> label;
+    in property <string> value;
+    in property <color> value_color: Theme.text_primary;
+    in property <bool> clickable: false;
+    in property <bool> is_pill: false;
+    callback clicked;
+    height: 24px;
+    Text {
+        x: AppI18n.is-rtl ? parent.width - self.width : 0;
+        text: root.label + ":" + (AppI18n.is-rtl ? "\u{200F}" : "");
+        width: 110px;
+        color: Theme.text_secondary;
+        font-size: 13px * LayoutConstants.font-scale;
+        font-family: Theme.default_font;
+        vertical-alignment: center;
+        horizontal-alignment: AppI18n.is-rtl ? right : left;
+    }
+
+    if (!is_pill): touch_area := TouchArea {
+        x: AppI18n.is-rtl ? 0 : 122px;
+        width: parent.width - 122px;
+        mouse-cursor: root.clickable ? pointer : default;
+        clicked => {
+            if (root.clickable) {
+                root.clicked();
+            }
+        }
+        Rectangle {
+            background: (root.clickable && touch_area.has-hover) ? (Theme.dark_mode ? #2D2D30 : #F0F0F0) : transparent;
+            border-radius: 4px;
+            Text {
+                text: root.value;
+                color: (root.clickable && touch_area.has-hover) ? Theme.accent : root.value_color;
+                font-size: 13px * LayoutConstants.font-scale;
+                font-family: Theme.default_font;
+                font-weight: 500;
+                vertical-alignment: center;
+                horizontal-alignment: AppI18n.is-rtl ? left : left; // Keep values left-aligned for consistency
+                overflow: elide;
+                width: 100%;
+            }
+        }
+    }
+    if (is_pill): Rectangle {
+        x: AppI18n.is-rtl ? 0 : 122px;
+        width: pill_text.width + 16px;
+        height: 20px;
+        y: (parent.height - self.height) / 2;
+        background: Theme.dark_mode ? #1E1E1E : #F3F3F3;
+        border-radius: 4px;
+        pill_text := Text {
+            text: root.value;
+            color: Theme.accent;
+            font-family: Theme.default_font;
+            font-size: 12px * LayoutConstants.font-scale;
+            font-weight: 500;
+            vertical-alignment: center;
+            horizontal-alignment: center;
+        }
+    }
+}
+
+export component UsbDeviceInfoDialog inherits Rectangle {
+    in property <UsbDeviceDetailInfo> info;
+    callback close;
+    
+    // Background mask
+    background: #00000080;
+    
+    // Close on mask click
+    TouchArea {
+        clicked => {
+            root.close();
+        }
+    }
+
+    // Dialog Box
+    Rectangle {
+        width: 460px;
+        height: layout.preferred-height;
+        background: Theme.card_bg;
+        border-radius: 8px;
+        border-width: 1px;
+        border-color: Theme.border_color;
+        TouchArea { /* prevent click through */ }
+
+        layout := VerticalLayout {
+            padding: 24px;
+            spacing: 8px;
+            
+            // Header
+            Rectangle {
+                height: 24px;
+                Text {
+                    x: AppI18n.is-rtl ? 32px : 0;
+                    width: parent.width - 32px;
+                    text: AppI18n.t("usb.device_info", [AppI18n.version]);
+                    font-size: 18px * LayoutConstants.font-scale;
+                    font-family: Theme.default_font;
+                    font-weight: 500;
+                    color: Theme.text_primary;
+                    horizontal-alignment: AppI18n.is-rtl ? right : left;
+                    vertical-alignment: center;
+                }
+
+                TouchArea {
+                    x: AppI18n.is-rtl ? 0 : parent.width - self.width;
+                    width: 24px;
+                    height: 24px;
+                    clicked => {
+                        root.close();
+                    }
+                    Rectangle {
+                        background: parent.has-hover ? Theme.hover_bg : transparent;
+                        border-radius: 4px;
+                        Text {
+                            text: "\u{E8BB}";
+                            font-family: Theme.icon_font;
+                            font-size: 14px;
+                            color: Theme.text_primary;
+                            horizontal-alignment: center;
+                            vertical-alignment: center;
+                        }
+                    }
+                }
+            }
+
+            Rectangle {
+                height: 1px;
+                background: Theme.border_color;
+            }
+
+            // Content
+            VerticalLayout {
+                spacing: 4px;
+                alignment: start;
+                
+                InfoRow {
+                    label: "BusId";
+                    value: root.info.bus_id != "" ? root.info.bus_id : "-";
+                }
+                InfoRow {
+                    label: "VID:PID";
+                    value: root.info.vid_pid != "" ? root.info.vid_pid : "-";
+                }
+                InfoRow {
+                    label: AppI18n.t("usb.detail.sn", [AppI18n.version]);
+                    value: root.info.serial_number != "" ? root.info.serial_number : "-";
+                }
+                InfoRow {
+                    label: AppI18n.t("usb.detail.manufacturer", [AppI18n.version]);
+                    value: root.info.manufacturer != "" ? root.info.manufacturer : "-";
+                }
+                InfoRow {
+                    label: AppI18n.t("usb.detail.product", [AppI18n.version]);
+                    value: root.info.product_name != "" ? root.info.product_name : "-";
+                }
+                InfoRow {
+                    label: AppI18n.t("usb.detail.class_guid", [AppI18n.version]);
+                    value: root.info.class_guid != "" ? root.info.class_guid : "-";
+                }
+                InfoRow {
+                    label: AppI18n.t("usb.detail.hardware_ids", [AppI18n.version]);
+                    value: root.info.hardware_ids != "" ? root.info.hardware_ids : "-";
+                }
+                InfoRow {
+                    label: AppI18n.t("usb.detail.instance_id", [AppI18n.version]);
+                    value: root.info.instance_id != "" ? root.info.instance_id : "-";
+                }
+            }
+
+            // Footer
+            HorizontalLayout {
+                alignment: AppI18n.is-rtl ? start : end;
+                Rectangle {
+                    width: 90px;
+                    height: 32px;
+                    background: Theme.accent;
+                    border-radius: 6px;
+                    Text {
+                        text: AppI18n.t("dialog.confirm", [AppI18n.version]);
+                        color: white;
+                        font-size: 13px * LayoutConstants.font-scale;
+                        font-family: Theme.default_font;
+                        font-weight: 500;
+                        horizontal-alignment: center;
+                        vertical-alignment: center;
+                    }
+
+                    TouchArea {
+                        clicked => {
+                            root.close();
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

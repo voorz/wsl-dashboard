@@ -11,7 +11,7 @@ use serde_json::json;
 use crate::utils::system::copy_to_clipboard;
 
 // Convert backend USB device model to Slint model
-fn to_slint_device(dev: &crate::usb::UsbDeviceModel, auto_attach_list: &[crate::config::models::UsbAutoAttachDevice]) -> UsbDevice {
+fn to_slint_device(dev: &crate::usb::UsbDeviceModel, usb_config: &crate::config::models::UsbConfigFile) -> UsbDevice {
     let full_instance_id = dev.instance_id.clone().unwrap_or_default();
     let sn_part = full_instance_id.split('\\').last().unwrap_or("").to_string();
     let is_real_sn = !sn_part.contains('&') && !sn_part.is_empty();
@@ -50,16 +50,25 @@ fn to_slint_device(dev: &crate::usb::UsbDeviceModel, auto_attach_list: &[crate::
         }
     }
 
-    // Determine if auto-attach is enabled in our configuration
-    // Use Bus ID for exact mapping as the user interacts with specific instances
     let vid_pid = format!("{}:{}", vid.as_deref().unwrap_or(""), pid.as_deref().unwrap_or(""));
-    let is_in_config = auto_attach_list.iter().any(|a| {
-        a.bus_id == dev.bus_id.as_deref().unwrap_or_default()
-    });
-    
-    // Auto-attach only works if the device is currently Shared or Attached.
-    // If it's NotShared, the 'Auto' tag shouldn't be effectively 'active'.
-    let is_auto = is_in_config && status != "NotShared";
+
+    // Determine if boot-attach is enabled in usb.toml
+    let is_boot = usb_config.usb.get(&vid_pid)
+        .map(|d| d.boot_attach)
+        .unwrap_or(false);
+
+    // boot-attach reflects the config value regardless of device bind/attach status
+    let is_boot_active = is_boot;
+
+    // Determine if auto-attach is enabled in usb.toml
+    let is_auto_attach = usb_config.usb.get(&vid_pid)
+        .map(|d| d.auto_attach)
+        .unwrap_or(false);
+
+    // Check if this device has force-bind enabled
+    let is_force_bind = usb_config.usb.get(&vid_pid)
+        .map(|d| d.force_bind)
+        .unwrap_or(false);
 
     UsbDevice {
         bus_id: dev.bus_id.clone().unwrap_or_default().into(),
@@ -80,10 +89,12 @@ fn to_slint_device(dev: &crate::usb::UsbDeviceModel, auto_attach_list: &[crate::
         stub_id: dev.stub_instance_id.clone().unwrap_or_default().into(),
         is_forced: dev.is_forced,
         vid_pid: vid_pid.into(),
-        auto_attach: is_auto,
+        boot_attach: is_boot_active,
+        auto_attach: is_auto_attach,
         status: status.into(),
         is_attached: status == "Attached",
         attached_distro: slint::SharedString::default(),
+        force_bind: is_force_bind,
     }
 }
 
@@ -125,6 +136,29 @@ where
                             // Set common message dialog properties
                             let msg = crate::ui::data::get_i18n_text("usb.no_wsl2_running");
                             app.set_current_message(msg.into());
+                            app.set_show_message_dialog(true);
+                        }
+                    } else if e.starts_with("usb_attach_failed:") {
+                        // usbipd attach command failed with output containing "error".
+                        // Show a message dialog with the command as a clickable link
+                        // that the user can click to copy and run in an administrator PowerShell.
+                        error!("USB attach failed with error output: {}", e);
+                        if let Some(app) = ah_inner.upgrade() {
+                            app.set_usb_loading(false);
+                            // Parse the error to extract command text
+                            let body = e.trim_start_matches("usb_attach_failed:");
+                            let cmd_text = if let Some(pos) = body.find("\n\n") {
+                                body[..pos].trim_start_matches("COMMAND:").to_string()
+                            } else {
+                                body.to_string()
+                            };
+
+                            let i18n = app.global::<crate::AppI18n>();
+                            let hint = i18n.invoke_t("usb.attach_failed_hint".into(), slint::ModelRc::from(std::rc::Rc::new(slint::VecModel::from(vec![slint::SharedString::default()]))));
+
+                            app.set_current_message(hint.into());
+                            app.set_current_message_link(cmd_text.into());
+                            app.set_current_message_url("clipboard".into());
                             app.set_show_message_dialog(true);
                         }
                     } else {
@@ -176,10 +210,10 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
         // 2) Run blocking command on tokio thread pool
         let ah_bg = ah.clone();
         tokio::spawn(async move {
-            // Get current auto-attach list from config
-            let auto_attach_list = {
+            // Get current USB config from usb.toml
+            let usb_config = {
                 let state = as_ptr.lock().await;
-                state.config_manager.get_usb_config().auto_attach_list.clone()
+                state.config_manager.get_usb_config()
             };
             // First check version
             let version_res = crate::usb::UsbManager::get_version().await;
@@ -246,7 +280,7 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
 
                             let slint_devices: Vec<UsbDevice> = devices.iter()
                                 .filter(|d| d.bus_id.is_some())
-                                .map(|d| to_slint_device(d, &auto_attach_list))
+                                .map(|d| to_slint_device(d, &usb_config))
                                 .collect();
                             let model = std::rc::Rc::new(slint::VecModel::from(slint_devices));
                             app.set_usb_devices(model.into());
@@ -268,12 +302,20 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
 
     // Bind
     let ah = app_handle.clone();
-    app.on_usb_bind(move |bus_id| {
+    let as_ptr = app_state.clone();
+    app.on_usb_bind(move |bus_id, vid_pid| {
         let bus_id = bus_id.to_string();
-        info!("USB bind requested for {}", bus_id);
+        let vid_pid = vid_pid.to_string();
+        let as_ptr = as_ptr.clone();
+        let ah = ah.clone();
+        info!("USB bind requested for {} (vid_pid={})", bus_id, vid_pid);
         if let Some(app) = ah.upgrade() { app.set_usb_loading(true); }
         spawn_usb_task(ah.clone(), move || async move {
-            crate::usb::UsbManager::bind(&bus_id).await
+            let force = {
+                let state = as_ptr.lock().await;
+                state.config_manager.is_force_bind(&vid_pid)
+            };
+            crate::usb::UsbManager::bind(&bus_id, force).await
         });
     });
 
@@ -290,12 +332,118 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
 
     // Attach
     let ah = app_handle.clone();
-    app.on_usb_attach(move |bus_id| {
+    let as_ptr = app_state.clone();
+    app.on_usb_attach(move |bus_id, vid_pid| {
         let bus_id = bus_id.to_string();
-        info!("USB attach requested for {}", bus_id);
+        let vid_pid = vid_pid.to_string();
+        let as_ptr = as_ptr.clone();
+        let ah = ah.clone();
+        info!("USB attach requested for {} (vid_pid={})", bus_id, vid_pid);
         if let Some(app) = ah.upgrade() { app.set_usb_loading(true); }
         spawn_usb_task(ah.clone(), move || async move {
-            crate::usb::UsbManager::attach(&bus_id, "").await
+            let (force, auto_attach, is_outdated) = {
+                let state = as_ptr.lock().await;
+                let force = state.config_manager.is_force_bind(&vid_pid);
+                let auto_attach = state.config_manager.get_usb_config().usb.get(&vid_pid)
+                    .map(|d| d.auto_attach)
+                    .unwrap_or(false);
+                let is_outdated = if let Some(app) = ah.upgrade() {
+                    app.get_is_usbipd_outdated()
+                } else {
+                    false
+                };
+                (force, auto_attach, is_outdated)
+            };
+            crate::usb::UsbManager::attach(&bus_id, "", force, auto_attach, is_outdated).await
+        });
+    });
+
+    // Save device settings (force-bind + boot-attach + auto_attach toggles)
+    let ah = app_handle.clone();
+    let as_ptr = app_state.clone();
+    app.on_usb_save_device_settings(move |bus_id, vid_pid, force_bind, boot_attach, auto_attach| {
+        let bus_id = bus_id.to_string();
+        let vid_pid = vid_pid.to_string();
+        let as_ptr = as_ptr.clone();
+        let ah = ah.clone();
+        info!("USB save device settings: bus_id={}, vid_pid={}, force_bind={}, boot_attach={}, auto_attach={}", bus_id, vid_pid, force_bind, boot_attach, auto_attach);
+        tokio::spawn(async move {
+            let result = {
+                let mut state = as_ptr.lock().await;
+                // Toggle force_bind if needed
+                let current_fb = state.config_manager.is_force_bind(&vid_pid);
+                if current_fb != force_bind {
+                    if let Err(e) = state.config_manager.toggle_force_bind(&vid_pid) {
+                        error!("Failed to toggle force-bind for {}: {}", vid_pid, e);
+                    }
+                }
+                // Set boot_attach explicitly (with bus_id for scheduler)
+                if let Err(e) = state.config_manager.set_usb_boot_attach(&vid_pid, &bus_id, boot_attach) {
+                    error!("Failed to set boot-attach for {}: {}", vid_pid, e);
+                }
+                // Set auto_attach explicitly
+                state.config_manager.set_usb_auto_attach(&vid_pid, auto_attach)
+            };
+            match result {
+                Ok(_) => {
+                    info!("Device settings saved for {}", vid_pid);
+
+                    // If boot_attach is enabled, ensure the Windows scheduled task is registered
+                    if boot_attach {
+                        if !crate::network::scheduler::check_task_exists() {
+                            info!("Boot-attach enabled but scheduled task not found, registering with elevation...");
+                            match crate::network::scheduler::register_task_with_elevation() {
+                                Ok(_) => {
+                                    info!("Successfully registered boot-attach scheduled task via elevation.");
+                                    let ah_toast = ah.clone();
+                                    let _ = slint::invoke_from_event_loop(move || {
+                                        if let Some(app) = ah_toast.upgrade() {
+                                            app.set_task_status_text("Boot-attach task scheduled".into());
+                                            app.set_task_status_visible(true);
+                                            let ah_hide = ah_toast.clone();
+                                            slint::Timer::single_shot(std::time::Duration::from_secs(3), move || {
+                                                if let Some(app_h) = ah_hide.upgrade() {
+                                                    app_h.set_task_status_visible(false);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                                Err(e) => {
+                                    error!("Failed to register boot-attach scheduled task: {}", e);
+                                    let ah_toast = ah.clone();
+                                    let _ = slint::invoke_from_event_loop(move || {
+                                        if let Some(app) = ah_toast.upgrade() {
+                                            let err_msg = if e.contains("denied") || e.contains("Access") {
+                                                "Boot-attach: UAC permission denied".to_string()
+                                            } else {
+                                                format!("Boot-attach: failed to schedule - {}", e)
+                                            };
+                                            app.set_task_status_text(err_msg.into());
+                                            app.set_task_status_visible(true);
+                                            let ah_hide = ah_toast.clone();
+                                            slint::Timer::single_shot(std::time::Duration::from_secs(5), move || {
+                                                if let Some(app_h) = ah_hide.upgrade() {
+                                                    app_h.set_task_status_visible(false);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        } else {
+                            info!("Boot-attach scheduled task already exists, skipping registration.");
+                        }
+                    }
+
+                    let _ = slint::invoke_from_event_loop(move || {
+                        if let Some(app) = ah.upgrade() {
+                            app.invoke_refresh_usb(true);
+                        }
+                    });
+                }
+                Err(e) => error!("Failed to save device settings: {}", e),
+            }
         });
     });
 
@@ -307,79 +455,6 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
         if let Some(app) = ah.upgrade() { app.set_usb_loading(true); }
         spawn_usb_task(ah.clone(), move || async move {
             crate::usb::UsbManager::detach(&bus_id).await
-        });
-    });
-
-    // Toggle auto-attach (placeholder for now)
-    // Toggle auto-attach
-    let ah = app_handle.clone();
-    let as_ptr = app_state.clone();
-    app.on_usb_toggle_auto_attach(move |bus_id| {
-        let ah = ah.clone();
-        let as_ptr = as_ptr.clone();
-        let bus_id_str = bus_id.to_string(); // Clone as String for the async task
-        
-        info!("USB toggle auto-attach requested for {}", bus_id_str);
-        
-        spawn_usb_task(ah.clone(), move || async move {
-            // 1. Get device details (VID:PID) asynchronously
-            let devices = crate::usb::UsbManager::list_devices().await?;
-            let (target_vid_pid, target_distro) = if let Some(dev) = devices.iter().find(|d| d.bus_id.as_deref().unwrap_or("") == bus_id_str) {
-                // Ensure we also perform deep VID/PID extraction here (align with list logic)
-                let mut vid = dev.vid.clone();
-                let mut pid = dev.pid.clone();
-                let full_instance_id = dev.instance_id.clone().unwrap_or_default();
-                
-                if (vid.is_none() || pid.is_none()) && full_instance_id.contains("VID_") {
-                    if let Some(v_start) = full_instance_id.find("VID_") {
-                        if full_instance_id.len() >= v_start + 8 {
-                            vid = Some(full_instance_id[v_start + 4..v_start + 8].to_lowercase());
-                        }
-                    }
-                    if let Some(p_start) = full_instance_id.find("PID_") {
-                        if full_instance_id.len() >= p_start + 8 {
-                            pid = Some(full_instance_id[p_start + 4..p_start + 8].to_lowercase());
-                        }
-                    }
-                }
-                
-                let vp = format!("{}:{}", vid.as_deref().unwrap_or(""), pid.as_deref().unwrap_or(""));
-                (vp, "".to_string())
-            } else {
-                 return Err(format!("Device {} not found", bus_id_str));
-            };
-
-            // 2. Ensure Task Scheduler task exists (for elevated auto-attach background worker)
-            let task_exists = crate::network::scheduler::check_task_exists();
-            if !task_exists {
-                info!("Scheduled task not found, attempting to register with elevation before enabling auto-attach");
-                // Attempt to register (will trigger UAC)
-                if let Err(e) = crate::network::scheduler::register_task_with_elevation() {
-                    error!("Failed to register scheduled task: {}", e);
-                    // We continue anyway so the preference is still saved even if task creation fails/cancels
-                }
-                
-                // Update UI state regardless of result to reflect current reality
-                let exists_now = crate::network::scheduler::check_task_exists();
-                let ah_ui = ah.clone();
-                let _ = slint::invoke_from_event_loop(move || {
-                    if let Some(app) = ah_ui.upgrade() {
-                        app.set_network_is_helper_installed(exists_now);
-                    }
-                });
-            }
-
-            // 3. Update config (requires lock)
-            {
-               let mut state = as_ptr.lock().await;
-               let _ = state.config_manager.toggle_usb_auto_attach(&bus_id_str, &target_vid_pid, &target_distro);
-            }
-            
-            // 3. Trigger refresh on UI thread
-            if let Some(app) = ah.upgrade() {
-                 app.invoke_refresh_usb(true);
-            }
-            Ok(())
         });
     });
 
@@ -420,5 +495,70 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                 error!("Failed to copy USB info to clipboard: {}", e);
             }
         }
+    });
+
+    // Device Info
+    let ah = app_handle.clone();
+    app.on_usb_device_info(move |device| {
+        let ah_inner = ah.clone();
+        let instance_id = device.instance_id.to_string();
+        let bus_id = device.bus_id.to_string();
+        // vid_pid and serial_number come from the device model, not SetupAPI
+        let vid_pid = device.vid_pid.to_string();
+        // Serial number is the last path component of instance_id (e.g. USB\VID_xxx\SERIAL)
+        let serial_number = instance_id.split('\\').last().unwrap_or("").to_string();
+        // Only treat it as a real serial number if it doesn't look like a hardware-generated ID
+        let serial_number = if serial_number.contains('&') { String::new() } else { serial_number };
+        
+        // Check if the device is bound
+        let status = device.status.to_string();
+        if status != "NotShared" {
+            if let Some(app) = ah_inner.upgrade() {
+                let msg = crate::ui::data::get_i18n_text("usb.info_unbind_hint");
+                app.set_current_message(msg.into());
+                app.set_show_message_dialog(true);
+            }
+            return;
+        }
+        
+        tokio::spawn(async move {
+            match crate::usb::UsbManager::get_device_detail(&instance_id).await {
+                Ok(Some(detail)) => {
+                    let _ = slint::invoke_from_event_loop(move || {
+                        if let Some(app) = ah_inner.upgrade() {
+                            let ui_detail = crate::UsbDeviceDetailInfo {
+                                bus_id: bus_id.clone().into(),
+                                vid_pid: vid_pid.clone().into(),
+                                serial_number: serial_number.clone().into(),
+                                manufacturer: detail.manufacturer.clone().unwrap_or_default().into(),
+                                product_name: detail.product_name.clone().unwrap_or_default().into(),
+                                class_guid: detail.class_guid.clone().unwrap_or_default().into(),
+                                hardware_ids: detail.hardware_ids.clone().join("\n").into(),
+                                instance_id: detail.instance_id.clone().unwrap_or_default().into(),
+                            };
+                            
+                            tracing::debug!(
+                                "USB Device Info: bus_id='{}', vid_pid='{}', serial='{}', manufacturer='{}', product='{}', class='{}', instance='{}', hardware_ids={:?}",
+                                bus_id, vid_pid, serial_number, 
+                                detail.manufacturer.unwrap_or_default(), 
+                                detail.product_name.unwrap_or_default(), 
+                                detail.class_guid.unwrap_or_default(), 
+                                detail.instance_id.unwrap_or_default(),
+                                detail.hardware_ids
+                            );
+                            
+                            app.set_usb_device_info_data(ui_detail);
+                            app.set_show_usb_device_info(true);
+                        }
+                    });
+                }
+                Ok(None) => {
+                    error!("Device detail not found for instance_id: {}", instance_id);
+                }
+                Err(e) => {
+                    error!("Failed to get device detail for {}: {}", instance_id, e);
+                }
+            }
+        });
     });
 }

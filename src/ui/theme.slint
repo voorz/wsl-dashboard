@@ -3,6 +3,12 @@
 
 import { AppConstants } from "constants.slint";
 
+export global AppApi {
+    in-out property <bool> show_drag: true;
+    pure callback make-transfer(int) -> data-transfer;
+    pure callback read-transfer(data-transfer) -> int;
+}
+
 export struct Information {
     distro_name: string,
     wsl_version: string,
@@ -49,8 +55,21 @@ export struct UsbDevice {
     vid_pid: string,
     status: string,      // "NotShared", "Shared", "Attached"
     is_attached: bool,
+    boot_attach: bool,
     auto_attach: bool,
     attached_distro: string,
+    force_bind: bool,
+}
+
+export struct UsbDeviceDetailInfo {
+    bus_id: string,
+    vid_pid: string,
+    serial_number: string,
+    manufacturer: string,
+    product_name: string,
+    class_guid: string,
+    hardware_ids: string,
+    instance_id: string,
 }
 
 export struct PortProxyRuleUI {
@@ -70,6 +89,22 @@ export struct MessageData {
     msg_type: string,
     is_read: bool,
     create_time_text: string,
+}
+
+export struct SchedulerTaskUI {
+    task_id: string,
+    display_name: string,
+    command: string,
+    command_short: string,
+    arguments: string,
+    cron_expr: string,
+    enabled: bool,
+    status: string,
+    last_run: string,
+    next_run: string,
+    trigger_summary: string,
+    admin_mode: bool,
+
 }
 
 export struct SettingsStrings {
@@ -96,6 +131,7 @@ export struct SettingsStrings {
     colorful_icons: string,
     mail_icon_always: string,
     hide_pin_icon: string,
+    show_drag_icon: string,
     stop_wsl: string,
 }
 
@@ -139,6 +175,7 @@ export global Theme {
     out property <color> content_bg: dark_mode ? #1E1E1E : #FFFFFF;
     out property <color> sidebar_bg: transparent;
     out property <color> card_bg: dark_mode ? #2D2D30 : #FFFFFF;
+    out property <color> card_bg_muted: dark_mode ? #2D2D30 : #fdfcfc;
     out property <color> text_primary: dark_mode ? #EEEEEE : #1A1A1A;
     out property <color> text_secondary: dark_mode ? #BBBBBB : #666666;
     out property <color> border_color: dark_mode ? #3E3E42 : #E6E8EB;

@@ -196,10 +196,12 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                 }
             };
             
-            let agent = ureq::AgentBuilder::new()
-                .proxy(proxy_obj)
-                .timeout(std::time::Duration::from_secs(8))
-                .build();
+            let agent = ureq::Agent::new_with_config(
+                ureq::Agent::config_builder()
+                    .proxy(Some(proxy_obj))
+                    .timeout_global(Some(std::time::Duration::from_secs(8)))
+                    .build()
+            );
                 
             let res = agent.get(&url).call();
             

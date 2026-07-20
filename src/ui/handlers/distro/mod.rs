@@ -3,9 +3,10 @@
 
 use std::sync::Arc;
 use tokio::sync::Mutex;
-use rand::{Rng, distr::Alphanumeric};
+use rand::{RngExt, distr::Alphanumeric};
 use std::sync::atomic::{AtomicBool, Ordering};
-use crate::{AppWindow, AppState, i18n};
+use slint::{Model, ComponentHandle};
+use crate::{AppWindow, AppApi, AppState, i18n};
 use uuid;
 
 pub mod lifecycle;
@@ -67,6 +68,43 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
     install::setup(app, app_handle.clone(), app_state.clone());
     move_distro::setup(app, app_handle.clone(), app_state.clone());
     compress::setup(app, app_handle.clone(), app_state.clone());
+
+    // Register DragArea data-transfer callbacks (Slint 1.17)
+    // make-transfer: wraps an integer index into a DataTransfer object
+    app.global::<AppApi>().on_make_transfer(|index: i32| {
+        slint::DataTransfer::from(slint::SharedString::from(index.to_string()))
+    });
+    // read-transfer: extracts the integer index from a DataTransfer object
+    app.global::<AppApi>().on_read_transfer(|dt: slint::DataTransfer| {
+        dt.plain_text()
+            .ok()
+            .and_then(|s| s.as_str().parse::<i32>().ok())
+            .unwrap_or(-1i32)
+    });
+
+    // Drag-and-drop reorder callback
+    let ah = app_handle.clone();
+    app.on_reorder_distros(move |from_index, to_index| {
+        let from = from_index as usize;
+        let to = to_index as usize;
+
+        // Update Slint model in-place via VecModel
+        if let Some(app) = ah.upgrade() {
+            let model_rc = app.get_distros();
+            let len = model_rc.row_count();
+            if from < len && to < len && from != to {
+                if let Some(item) = model_rc.row_data(from) {
+                    if let Some(vec_model) = model_rc.as_any().downcast_ref::<slint::VecModel<crate::Distro>>() {
+                        vec_model.remove(from);
+                        vec_model.insert(to, item);
+                    }
+                }
+            }
+        }
+
+        // Persist to instances.toml
+        crate::ui::data::save_distro_order(from, to);
+    });
 }
 
 pub fn spawn_file_size_monitor(

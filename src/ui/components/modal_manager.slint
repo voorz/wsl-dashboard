@@ -22,10 +22,12 @@ import {
     PopupNoticeDialog,
     PopupImageDialog,
     MessageMailDialog,
+    UsbDeviceInfoDialog,
  } from "dialogs.slint";
 import { ProxyHelpDialog } from "./dialogs/proxy_help_dialog.slint";
 import { CheckProxyDialog } from "./dialogs/check_proxy_dialog.slint";
-import { AppInfo, Information, RootFSHelpItem, MessageData, AppI18n, Theme } from "../theme.slint";
+import { UsbSettingsDialog } from "./dialogs/usb_settings_dialog.slint";
+import { AppInfo, Information, RootFSHelpItem, MessageData, AppI18n, Theme, UsbDevice, UsbDeviceDetailInfo } from "../theme.slint";
 
 export component ModalManager inherits Rectangle {
     // Controls
@@ -89,6 +91,20 @@ export component ModalManager inherits Rectangle {
     in property <bool> show_mail_popup: false;
     in property <[MessageData]> mail_messages: [];
     in property <int> mail_unread_count: 0;
+
+    // USB Settings Dialog
+    in property <bool> show_usb_settings: false;
+    in property <UsbDevice> usb_settings_device;
+    in-out property <bool> usb_settings_force_bind: false;
+    in-out property <bool> usb_settings_boot_attach: false;
+    in-out property <bool> usb_settings_auto_attach: false;
+    callback usb_save_device_settings(string, string, bool, bool, bool);
+    callback close_usb_settings();
+
+    // USB Device Info Dialog
+    in property <bool> show_usb_device_info: false;
+    in property <UsbDeviceDetailInfo> usb_device_info_data;
+    callback close_usb_device_info();
 
     // Data
     in property <string> delete_target_name: "";
@@ -626,6 +642,34 @@ export component ModalManager inherits Rectangle {
             message_clicked(id, url) => { root.mail_message_clicked(id, url); }
             mark_all_read => { root.mail_mark_all_read(); }
             close => { root.mail_close(); }
+        }
+    }
+
+    // USB Settings Dialog
+    if (show_usb_settings): UsbSettingsDialog {
+        z: 100;
+        width: 100%;
+        height: 100%;
+        device: root.usb_settings_device;
+        force_bind <=> root.usb_settings_force_bind;
+        boot_attach <=> root.usb_settings_boot_attach;
+        auto_attach <=> root.usb_settings_auto_attach;
+        close => {
+            root.close_usb_settings();
+        }
+        save(bi, vp, fb, ba, aa) => {
+            root.usb_save_device_settings(bi, vp, fb, ba, aa);
+        }
+    }
+
+    // USB Device Info Dialog
+    if (show_usb_device_info): UsbDeviceInfoDialog {
+        z: 101;
+        width: 100%;
+        height: 100%;
+        info: root.usb_device_info_data;
+        close => {
+            root.close_usb_device_info();
         }
     }
 }

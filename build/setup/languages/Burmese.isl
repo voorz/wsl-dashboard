@@ -365,7 +365,7 @@ ShutdownBlockReasonUninstallingApp=%1 ကို ဖျက်နေသည်။
 
 [CustomMessages]
 
-CreateSchedulerTask=Task Scheduler task ဖန်တီးပါ (အလိုအလျောက် စတင်သော distro များ၊ USB အလိုအလျောက် ချိတ်ဆက်ခြင်း၊ port forwarding အတွက်)
+CreateSchedulerTask=Task Scheduler ဖန်တီးပါ (အလိုအလျောက် စတင်သော distro များ၊ USB အလိုအလျောက် ချိတ်ဆက်ခြင်း၊ port forwarding အတွက်)
 SchedulerTaskNote1=└ ထည့်သွင်းစဉ် ရွေးချယ်နိုင်ပါသည်။ ကျော်လိုက်ခြင်းက နောက်ပိုင်း အသုံးပြုမှုကို မထိခိုက်ပါ။
 SchedulerTaskNote2=└ ဆော့ဖ်ဝဲကို ဖွင့်ပြီးနောက် မည်သည့်အခါမဆို ကိုယ်တိုင် စတင်နိုင်ပါသည်။
 SchedulerTaskNote3=└ EV လက်မှတ် မရှိသောကြောင့် ဤလုပ်ဆောင်ချက်က AV ဆော့ဖ်ဝဲက မှားယွင်းစွာ တုံ့ပြန်နိုင်ပါသည်။ ကျေးဇူးပြု၍ ခွင့်ပြုပါ။

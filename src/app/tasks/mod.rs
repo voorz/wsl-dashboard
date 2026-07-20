@@ -13,7 +13,6 @@ use tokio::sync::Mutex;
 use tracing::{trace};
 use crate::{AppState, AppWindow};
 use crate::ui::data::refresh_distros_ui;
-use crate::config::models::CachedDistro;
 
 pub use sync_task::{PopupSyncTask, MessageSyncTask};
 pub use expiry_task::VersionExpiryTask;
@@ -100,28 +99,6 @@ pub fn spawn_state_listener(app_handle: slint::Weak<AppWindow>, app_state: Arc<M
             trace!("WSL state changed, updating UI...");
             let _ = refresh_distros_ui(app_handle.clone(), app_state.clone()).await;
             
-            // Save updated distro list to cache for fast startup next time
-            let app_state_for_cache = app_state.clone();
-            tokio::spawn(async move {
-                let lock_timeout = std::time::Duration::from_millis(500);
-                let (distros, config_manager) = match tokio::time::timeout(lock_timeout, app_state_for_cache.lock()).await {
-                    Ok(state) => (state.wsl_dashboard.get_distros().await, state.config_manager.clone()),
-                    Err(_) => return,
-                };
-                
-                let cached: Vec<CachedDistro> = distros.into_iter().map(|d| {
-                    CachedDistro {
-                        name: d.name,
-                        status: format!("{:?}", d.status),
-                        version: format!("{:?}", d.version),
-                        is_default: d.is_default,
-                    }
-                }).collect();
-                
-                let _ = config_manager.update_cached_distros(cached);
-                trace!("WSL distro list cache updated.");
-            });
-            
             last_refresh = std::time::Instant::now();
         }
     });
@@ -173,7 +150,7 @@ pub fn spawn_wakeup_listener(app_handle: slint::Weak<AppWindow>) {
     });
 }
 
-/// Block until the main window becomes visible
+// Block until the main window becomes visible
 pub async fn wait_for_window_visible(app_handle: &slint::Weak<crate::AppWindow>) {
     loop {
         let is_visible = {

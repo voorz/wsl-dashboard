@@ -192,7 +192,33 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 ## 📦 راهنمای نصب
 
-### روش 1: دانلود باینری از پیش کامپایل شده
+### گزینه 1: بازدید از وب‌سایت پروژه (توصیه می‌شود)
+
+توصیه می‌کنیم برای دانلود از وب‌سایت رسمی بازدید کنید، زیرا چندین لینک آینه برای تجربه‌ای روان‌تر ارائه می‌دهد:
+
+به [صفحه دانلود](https://www.wslui.com/download/) بروید و آینه مناسب منطقه خود را انتخاب کنید.
+
+### گزینه 2: نصب از طریق winget
+
+می‌توانید WSLDashboard را مستقیماً از Windows Package Manager (winget) نصب کنید، با استفاده از نام مستعار یا شناسه کامل بسته:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### گزینه 3: دانلود باینری از پیش کامپایل شده
 
 ساده‌ترین راه برای شروع استفاده از نسخه کامپایل شده است:
 
@@ -202,7 +228,7 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 نیازی به نصب نیست — برنامه یک نرم‌افزار قابل حمل تک‌فایلی است.
 
-### روش 2: ساخت از کد منبع
+### گزینه 4: ساخت از کد منبع
 
 مطمئن شوید که Rust toolchain (Rust 1.92+ یا جدیدتر) را نصب کرده‌اید.
 
@@ -226,7 +252,7 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
      ```powershell
      .\build\portable\build.ps1
-      ```
+     ```
 
 
 ## 🛠️ فناوری و عملکرد

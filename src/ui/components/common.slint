@@ -276,7 +276,7 @@ export component ActionIcon inherits Rectangle {
         y: parent.height - self.height + 2px;
         z: 10;
         Image {
-            source: @image-url("../../../assets/feat/microsoft-shield.png");
+            source: @image-url("../../../assets/feat/microsoft-shield.svg");
             x: (parent.width - self.width) / 2;
             y: (parent.height - self.height) / 2;
             width: 10px;
@@ -295,15 +295,17 @@ export component WindowControlButton inherits Rectangle {
     in property <string> text;
     in property <brush> hover-color: Theme.selected_bg;
     in property <brush> icon_color: Theme.text_primary;
+    in-out property <bool> has-hover;
     callback clicked;
     width: 46px;
     height: 100%;
     background: touch.has-hover ? hover-color : transparent;
+    has-hover: touch.has-hover;
     Text {
         text: text;
         font-size: 10px;
         font-family: Theme.icon_font;
-        color: touch.has_hover ? (text == "\u{E8BB}" ? white : Theme.text_primary) : icon_color;
+        color: touch.has_hover ? (text == "\u{E8BB}" ? white : icon_color) : icon_color;
         horizontal-alignment: center;
         vertical-alignment: center;
     }

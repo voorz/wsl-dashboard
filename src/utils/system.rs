@@ -106,6 +106,7 @@ pub fn run_command_with_elevation(program_name: &str, args: Vec<String>) -> Resu
 // Execute a command completely invisibly with elevation.
 pub fn run_invisible_elevated_commands(commands: Vec<String>) -> Result<(), String> {
     use tracing::info;
+    use tracing::debug;
     
     if commands.is_empty() { return Ok(()); }
     
@@ -113,6 +114,7 @@ pub fn run_invisible_elevated_commands(commands: Vec<String>) -> Result<(), Stri
     let combined = commands.join(" & ");
     
     info!("Requesting invisible elevated execution for {} commands via cmd.exe", commands.len());
+    debug!("Full elevated command: cmd /c \"{}\"", combined);
     
     run_command_with_elevation("cmd.exe", vec!["/c".to_string(), format!("\"{}\"", combined)])
 }

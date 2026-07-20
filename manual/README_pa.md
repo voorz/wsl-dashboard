@@ -191,7 +191,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 📦 ਇੰਸਟਾਲੇਸ਼ਨ ਗਾਈਡ
 
-### ਤਰੀਕਾ 1: ਪ੍ਰੀ-ਬਿਲਟ ਬਾਈਨਰੀ ਡਾਊਨਲੋਡ ਕਰੋ
+### ਤਰੀਕਾ 1: ਪ੍ਰੋਜੈਕਟ ਵੈੱਬਸਾਈਟ 'ਤੇ ਜਾਓ (ਸਿਫ਼ਾਰਸ਼ੀ)
+
+ਅਸੀਂ ਅਧਿਕਾਰਤ ਵੈੱਬਸਾਈਟ 'ਤੇ ਜਾਣ ਦੀ ਸਿਫ਼ਾਰਸ਼ ਕਰਦੇ ਹਾਂ, ਕਿਉਂਕਿ ਇਹ ਨਿਰਵਿਘਨ ਅਨੁਭਵ ਲਈ ਕਈ ਮਿਰਰ ਲਿੰਕ ਪ੍ਰਦਾਨ ਕਰਦੀ ਹੈ:
+
+[ਡਾਊਨਲੋਡ ਪੇਜ](https://www.wslui.com/download/) 'ਤੇ ਜਾਓ ਅਤੇ ਆਪਣੇ ਖੇਤਰ ਲਈ ਢੁਕਵਾਂ ਮਿਰਰ ਚੁਣੋ.
+
+### ਤਰੀਕਾ 2: winget ਰਾਹੀਂ ਇੰਸਟਾਲ ਕਰੋ
+
+ਤੁਸੀਂ WSLDashboard ਨੂੰ ਸਿੱਧਾ Windows Package Manager (winget) ਰਾਹੀਂ ਇੰਸਟਾਲ ਕਰ ਸਕਦੇ ਹੋ, ਮੋਨੀਕਰ ਜਾਂ ਪੂਰੇ ਪੈਕੇਜ ਪਛਾਣਕਰਤਾ ਦੀ ਵਰਤੋਂ ਕਰਕੇ:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### ਤਰੀਕਾ 3: ਪ੍ਰੀ-ਬਿਲਟ ਬਾਈਨਰੀ ਡਾਊਨਲੋਡ ਕਰੋ
 
 ਸਭ ਤੋਂ ਆਸਾਨ ਤਰੀਕਾ ਬਿਲਟ ਵਰਜ਼ਨ ਵਰਤਣਾ ਹੈ:
 
@@ -201,7 +227,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ਇੰਸਟਾਲੇਸ਼ਨ ਦੀ ਲੋੜ ਨਹੀਂ, ਇਹ ਐਪ ਸਿੰਗਲ-ਫਾਈਲ ਪੋਰਟੇਬਲ ਪ੍ਰੋਗਰਾਮ ਹੈ.
 
-### ਤਰੀਕਾ 2: ਸੋਰਸ ਤੋਂ ਬਿਲਡ ਕਰੋ
+### ਤਰੀਕਾ 4: ਸੋਰਸ ਤੋਂ ਬਿਲਡ ਕਰੋ
 
 Rust ਟੂਲਚੇਨ (Rust 1.92+ ਜਾਂ ਨਵੀਨਤਮ) ਇੰਸਟਾਲ ਹੋਈ ਹੋਣ ਦੀ ਯਕੀਨੀ ਬਣਾਓ.
 

@@ -192,7 +192,33 @@ Protokolldateien werden in das konfigurierte Protokollverzeichnis geschrieben un
 
 ## 📦 Installationsanleitung
 
-### Option 1: Vorkompilierte Binärdatei herunterladen
+### Option 1: Besuchen Sie die Projektwebsite (Empfohlen)
+
+Wir empfehlen, die offizielle Website zu besuchen, um die App herunterzuladen, da sie mehrere Mirror-Links für ein reibungsloseres Erlebnis bietet:
+
+Gehen Sie zur [Download-Seite](https://www.wslui.com/download/) und wählen Sie den für Ihre Region geeigneten Mirror.
+
+### Option 2: Installation über winget
+
+Sie können WSLDashboard direkt über den Windows Package Manager (winget) installieren, entweder mit dem Moniker oder der vollständigen Paketkennung:
+
+```powershell
+# Suche (Groß-/Kleinschreibung nicht beachtet)
+winget search wsl-dashboard
+# oder
+winget search WSLDashboard
+
+# Installation (wählen Sie eine)
+winget install wsl-dashboard
+# oder
+winget install Owu.WSLDashboard
+```
+
+> Die winget-Paketkennung ist `Owu.WSLDashboard` und der Moniker ist `wsl-dashboard` (Groß-/Kleinschreibung nicht beachtet). Beide funktionieren.
+
+Weitere Informationen finden Sie im [WinGet-Community-Repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Option 3: Vorkompilierte Binärdatei herunterladen
 
 Der einfachste Weg, um zu starten, ist die Verwendung des vorkompilierten Releases:
 
@@ -202,7 +228,7 @@ Der einfachste Weg, um zu starten, ist die Verwendung des vorkompilierten Releas
 
 Es ist kein Installer erforderlich; die App ist eine einzelne portable Binärdatei.
 
-### Option 2: Aus dem Quellcode erstellen
+### Option 4: Aus dem Quellcode erstellen
 
 Stellen Sie sicher, dass Sie die Rust-Toolchain (Rust 1.92+ oder neuer) installiert haben.
 

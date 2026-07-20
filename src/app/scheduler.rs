@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Copyright (c) 2026 owu <wqh@live.com>
 // SPDX-License-Identifier: GPL-3.0-only
 
-use tracing::{info, error};
+use tracing::{info, error, debug};
 use crate::config;
 use crate::network;
 use crate::app::WSL_INIT_SCRIPT;
@@ -38,10 +38,12 @@ pub async fn run_scheduler_task(args: &[String], pos: usize, config_manager: &co
             }
         }
 
-        // Source 3: Distros with USB auto-attach configurations
+        // Source 3: Distros with USB boot-attach configurations
         let usb_config = config_manager.get_usb_config();
-        for device in &usb_config.auto_attach_list {
-            target_distros.insert(device.distribution.clone());
+        for device in usb_config.usb.values() {
+            if device.boot_attach && !device.distribution.is_empty() {
+                target_distros.insert(device.distribution.clone());
+            }
         }
     }
 
@@ -61,6 +63,7 @@ pub async fn run_scheduler_task(args: &[String], pos: usize, config_manager: &co
                         .args(&["-d", name, "-u", "root", WSL_INIT_SCRIPT, "start"])
                         .creation_flags(CREATE_NO_WINDOW)
                         .spawn();
+                    debug!("Executed command: wsl -d {} -u root {} start", name, WSL_INIT_SCRIPT);
                     distros_spawned += 1;
                 }
             }
@@ -84,6 +87,7 @@ pub async fn run_scheduler_task(args: &[String], pos: usize, config_manager: &co
         }
         
         info!(">>> Executing elevated sync for '{}' (Total Rules: {})", name, distro_rules.len());
+        debug!("Elevated sync command: sync_port_proxies(distro=\"{}\", rules={})", name, distro_rules.len());
         // sync_port_proxies has internal 10-retry logic for IP fetching
         if let Err(e) = network::port_proxy::sync_port_proxies(&name, &distro_rules) {
             error!("Sync FAILED for '{}': {}", name, e);
@@ -92,13 +96,14 @@ pub async fn run_scheduler_task(args: &[String], pos: usize, config_manager: &co
         }
     }
     
-    // 4.6 Auto-attach USB devices if configured
-    info!(">>> [START] USB auto-attach synchronization <<<");
-    let usb_config = config_manager.get_usb_config().clone();
+    // 4.6 Auto-attach USB devices if configured (boot-attach)
+    info!(">>> [START] USB boot-attach synchronization <<<");
+    let boot_devices = config_manager.get_usb_boot_attach_devices();
     
-    if !usb_config.auto_attach_list.is_empty() {
+    if !boot_devices.is_empty() {
          // Check if any WSL 2 instance is running (required for usbipd attach)
-         let is_any_running = {
+        debug!("Checking running WSL instances via: wsl -l -v");
+        let is_any_running = {
             let mut cmd = std::process::Command::new("wsl");
             cmd.args(["-l", "-v"]);
             #[cfg(windows)]
@@ -126,26 +131,53 @@ pub async fn run_scheduler_task(args: &[String], pos: usize, config_manager: &co
         };
         
         if is_any_running {
-            info!("Found running WSL 2 instance. Processing {} auto-attach device(s)...", usb_config.auto_attach_list.len());
-            for device in &usb_config.auto_attach_list {
-                info!("Auto-attaching USB device: BusId={}, VidPid={}, TargetDistro='{}'", 
+            info!("Found running WSL 2 instance. Processing {} boot-attach device(s)...", boot_devices.len());
+            
+            // Build a single batch of USB attach commands to avoid multiple UAC prompts.
+            // Each device triggers a separate UAC consent dialog via ShellExecuteExW(runas),
+            // so batching all commands into one elevation ensures all devices are processed.
+            let mut batch_commands: Vec<String> = Vec::with_capacity(boot_devices.len());
+            for device in &boot_devices {
+                info!("Boot-attaching USB device: BusId={}, VidPid={}, TargetDistro='{}'", 
                     device.bus_id, device.vid_pid, device.distribution);
                 
-                // UsbManager::attach internally performs 'usbipd bind' then 'usbipd attach'
-                match crate::usb::UsbManager::attach(&device.bus_id, &device.distribution).await {
-                    Ok(_) => info!("SUCCESS: USB device {} attached.", device.bus_id),
-                    Err(e) => {
-                         error!("FAILED to auto-attach USB device {}: {}", device.bus_id, e);
+                let force_flag = if device.force_bind { " --force" } else { "" };
+                let auto_flag = if device.auto_attach { " --auto-attach" } else { "" };
+                let distro_part = if device.distribution.is_empty() {
+                    String::from("--wsl")
+                } else {
+                    format!("--wsl \"{}\"", device.distribution)
+                };
+                
+                let cmd = format!(
+                    "usbipd bind --busid {bus_id}{force} & usbipd attach {distro} --busid {bus_id}{auto}",
+                    bus_id = device.bus_id,
+                    force = force_flag,
+                    distro = distro_part,
+                    auto = auto_flag,
+                );
+                debug!("Queued USB attach command: {}", cmd);
+                batch_commands.push(cmd);
+            }
+            
+            // Execute all commands in a single UAC elevation
+            match crate::utils::system::run_invisible_elevated_commands(batch_commands) {
+                Ok(_) => {
+                    for device in &boot_devices {
+                        info!("SUCCESS: USB device {} attached.", device.bus_id);
                     }
+                }
+                Err(e) => {
+                    error!("FAILED to batch attach USB devices: {}", e);
                 }
             }
         } else {
-            info!("No running WSL 2 instance found. Skipping USB auto-attach.");
+            info!("No running WSL 2 instance found. Skipping USB boot-attach.");
         }
     } else {
-        info!("No USB devices configured for auto-attach.");
+        info!("No USB devices configured for boot-attach.");
     }
-    info!(">>> [FINISH] USB auto-attach synchronization completed. <<<");
+    info!(">>> [FINISH] USB boot-attach synchronization completed. <<<");
     
     info!(">>> [FINISH] All scheduled network tasks completed. <<<");
 }

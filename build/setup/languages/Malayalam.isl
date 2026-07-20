@@ -365,7 +365,7 @@ ShutdownBlockReasonUninstallingApp=%1 അൺഇൻസ്റ്റാൾ ചെ�
 
 [CustomMessages]
 
-CreateSchedulerTask=Task Scheduler task സൃഷ്ടിക്കുക (സ്വയമേവ ആരംഭിക്കുന്ന distro, USB സ്വയമേവ കണക്റ്റ്, port forwarding എന്നിവയ്ക്കായി)
+CreateSchedulerTask=Task Scheduler സൃഷ്ടിക്കുക (സ്വയമേവ ആരംഭിക്കുന്ന distro, USB സ്വയമേവ കണക്റ്റ്, port forwarding എന്നിവയ്ക്കായി)
 SchedulerTaskNote1=└ ഇൻസ്റ്റാളിനിടയിൽ ഓപ്ഷണൽ; ഒഴിവാക്കുന്നത് ഭാവി ഉപയോഗത്തെ ബാധിക്കില്ല.
 SchedulerTaskNote2=└ സോഫ്റ്റ്‌വെയർ തുറന്നതിന് ശേഷം ഏത് സമയത്തും സ്വയം ട്രിഗർ ചെയ്യാം.
 SchedulerTaskNote3=└ EV സർട്ടിഫിക്കറ്റ് ഇല്ലാത്തതിനാൽ, ഈ പ്രവർത്തനം AV സോഫ്റ്റ്‌വെയർ തെറ്റായി കണ്ടെത്താൻ ഇടയുണ്ട്; ദയവായി അനുവദിക്കുക.

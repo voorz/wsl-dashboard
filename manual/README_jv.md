@@ -192,7 +192,33 @@ File log bakal ditulis menyang direktori log sing wis dikonfigurasi, lan bisa di
 
 ## 📦 Panduan Instalasi
 
-### Cara 1: Download Binary Pre-kompilasi
+### Cara 1: Bukak situs web proyek (Disaranake)
+
+Disaranake ngunjungi situs web resmi kanggo ngundhuh, amarga nyedhiyakake pirang-pirang tautan mirror kanggo pengalaman sing luwih lancar:
+
+Bukak [kaca Download](https://www.wslui.com/download/) lan pilih mirror sing cocog karo wilayah sampeyan.
+
+### Cara 2: Instal liwat winget
+
+Sampeyan bisa nginstal WSLDashboard langsung saka Windows Package Manager (winget), nggunakake moniker utawa identifier paket lengkap:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> The winget package identifier is `Owu.WSLDashboard` and the moniker is `wsl-dashboard` (case-insensitive). Either works.
+
+For more information, visit the [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Cara 3: Download Binary Pre-kompilasi
 
 Cara paling gampang yaiku nggunakake versi sing wis dikompilasi:
 
@@ -202,7 +228,7 @@ Cara paling gampang yaiku nggunakake versi sing wis dikompilasi:
 
 Ora perlu instalasi, aplikasi iki minangka program portabel file tunggal.
 
-### Cara 2: Bangun saka Sumber
+### Cara 4: Bangun saka Sumber
 
 Priksa manawa toolchain Rust wis dipasang (Rust 1.92+ utawa versi luwih anyar).
 

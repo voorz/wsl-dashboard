@@ -20,12 +20,23 @@ component UsbDeviceInfo inherits VerticalLayout {
         horizontal-alignment: is-rtl ? right : left;
     }
 
-    Text {
-        text: (is-rtl ? device.bus_id + " BusId" : "BusId " + device.bus_id);
-        font-size: 11px;
-        font-family: Theme.default_font;
-        color: Theme.text_secondary;
-        horizontal-alignment: is-rtl ? right : left;
+    // BusId + Auto label on same row
+    HorizontalLayout {
+        spacing: 4px;
+        alignment: start;
+        Text {
+            text: (is-rtl ? device.bus_id + " BusId" : "BusId " + device.bus_id);
+            font-size: 11px;
+            font-family: Theme.default_font;
+            color: Theme.text_secondary;
+        }
+        if (device.boot_attach): Text {
+            text: "Boot";
+            font-size: 11px;
+            font-family: Theme.default_font;
+            color: Theme.accent;
+            vertical-alignment: center;
+        }
     }
 }
 
@@ -55,7 +66,7 @@ component UsbBadge inherits VerticalLayout {
             }
         }
         Text {
-            y: (device.auto_attach) ? 14px : 7px;
+            y: (device.boot_attach) ? 14px : 7px;
             text: "\u{E88E}";
             font-family: Theme.icon_font;
             font-size: 20px;
@@ -130,12 +141,13 @@ export component UsbDeviceCard inherits Rectangle {
     in-out property <bool> expanded: false;
     in property <bool> is_task_exists: true;
     callback expand_clicked();
-    callback bind_clicked(string);
+    callback bind_clicked(string, string);
     callback unbind_clicked(string);
-    callback attach_clicked(string);
+    callback attach_clicked(string, string);
     callback detach_clicked(string);
-    callback toggle_auto_attach(string);
     callback copy_info_clicked(UsbDevice);
+    callback info_clicked(UsbDevice);
+    callback device_settings_clicked(UsbDevice);
     height: expanded ? 96px : 48px;
     background: Theme.card_bg;
     border-radius: 6px;
@@ -237,7 +249,7 @@ export component UsbDeviceCard inherits Rectangle {
                                 show_shield: true;
                                 tooltip: AppI18n.t("usb.bind", [AppI18n.version]);
                                 clicked => {
-                                    root.bind_clicked(device.bus_id);
+                                    root.bind_clicked(device.bus_id, device.vid_pid);
                                 }
                             }
                             if (device.status != "NotShared"): ActionIcon {
@@ -252,41 +264,51 @@ export component UsbDeviceCard inherits Rectangle {
                             }
                             if (!device.is_attached): ActionIcon {
                                 icon: "\u{ECC8}";
-                                icon_type: "success";
+                                icon_type: "sky";
                                 is_font_icon: true;
                                 show_shield: true;
                                 tooltip: AppI18n.t("usb.attach", [AppI18n.version]);
                                 clicked => {
-                                    root.attach_clicked(device.bus_id);
+                                    root.attach_clicked(device.bus_id, device.vid_pid);
                                 }
                             }
                             if (device.is_attached): ActionIcon {
                                 icon: "\u{ECC9}";
-                                icon_type: "danger";
+                                icon_type: "warning";
                                 is_font_icon: true;
                                 tooltip: AppI18n.t("usb.detach", [AppI18n.version]);
                                 clicked => {
                                     root.detach_clicked(device.bus_id);
                                 }
                             }
-                            if (device.status != "NotShared"): ActionIcon {
-                                icon: "\u{E945}";
-                                icon_type: "amber";
-                                active: device.auto_attach;
+                            // Info button: always visible
+                            ActionIcon {
+                                icon: "\u{E946}";
+                                icon_type: "info";
                                 is_font_icon: true;
-                                show_shield: !root.is_task_exists;
-                                tooltip: AppI18n.t("usb.auto_attach", [AppI18n.version]);
+                                tooltip: device.status == "NotShared" ?
+                                    AppI18n.t("usb.device_info", [AppI18n.version]) :
+                                    AppI18n.t("usb.info_unbind_hint", [AppI18n.version]);
                                 clicked => {
-                                    root.toggle_auto_attach(device.bus_id);
+                                    root.info_clicked(device);
                                 }
                             }
                             ActionIcon {
                                 icon: "\u{E8C8}";
-                                icon_type: "mint";
+                                icon_type: "violet";
                                 is_font_icon: true;
                                 tooltip: AppI18n.t("usb.copy_info", [AppI18n.version]);
                                 clicked => {
                                     root.copy_info_clicked(device);
+                                }
+                            }
+                            ActionIcon {
+                                icon: "\u{E713}";
+                                icon_type: "cobalt";
+                                is_font_icon: true;
+                                tooltip: AppI18n.t("usb.device_settings", [AppI18n.version]);
+                                clicked => {
+                                    root.device_settings_clicked(device);
                                 }
                             }
                         }
@@ -307,7 +329,7 @@ export component UsbDeviceCard inherits Rectangle {
                                 show_shield: true;
                                 tooltip: AppI18n.t("usb.bind", [AppI18n.version]);
                                 clicked => {
-                                    root.bind_clicked(device.bus_id);
+                                    root.bind_clicked(device.bus_id, device.vid_pid);
                                 }
                             }
                             if (device.status != "NotShared"): ActionIcon {
@@ -322,40 +344,51 @@ export component UsbDeviceCard inherits Rectangle {
                             }
                             if (!device.is_attached): ActionIcon {
                                 icon: "\u{ECC8}";
-                                icon_type: "success";
+                                icon_type: "sky";
                                 is_font_icon: true;
                                 show_shield: true;
                                 tooltip: AppI18n.t("usb.attach", [AppI18n.version]);
                                 clicked => {
-                                    root.attach_clicked(device.bus_id);
+                                    root.attach_clicked(device.bus_id, device.vid_pid);
                                 }
                             }
                             if (device.is_attached): ActionIcon {
                                 icon: "\u{ECC9}";
-                                icon_type: "danger";
+                                icon_type: "warning";
                                 is_font_icon: true;
                                 tooltip: AppI18n.t("usb.detach", [AppI18n.version]);
                                 clicked => {
                                     root.detach_clicked(device.bus_id);
                                 }
                             }
-                            if (device.status != "NotShared"): ActionIcon {
-                                icon: "\u{E945}";
-                                icon_type: "gold";
-                                active: device.auto_attach;
+                            // Info button: always visible
+                            ActionIcon {
+                                icon: "\u{E946}";
+                                icon_type: "info";
                                 is_font_icon: true;
-                                show_shield: !root.is_task_exists;
-                                tooltip: AppI18n.t("usb.auto_attach", [AppI18n.version]);
+                                tooltip: device.status == "NotShared" ?
+                                    AppI18n.t("usb.device_info", [AppI18n.version]) :
+                                    AppI18n.t("usb.info_unbind_hint", [AppI18n.version]);
                                 clicked => {
-                                    root.toggle_auto_attach(device.bus_id);
+                                    root.info_clicked(device);
                                 }
                             }
                             ActionIcon {
                                 icon: "\u{E8C8}";
+                                icon_type: "violet";
                                 is_font_icon: true;
                                 tooltip: AppI18n.t("usb.copy_info", [AppI18n.version]);
                                 clicked => {
                                     root.copy_info_clicked(device);
+                                }
+                            }
+                            ActionIcon {
+                                icon: "\u{E713}";
+                                icon_type: "cobalt";
+                                is_font_icon: true;
+                                tooltip: AppI18n.t("usb.device_settings", [AppI18n.version]);
+                                clicked => {
+                                    root.device_settings_clicked(device);
                                 }
                             }
                         }
@@ -365,3 +398,4 @@ export component UsbDeviceCard inherits Rectangle {
         }
     }
 }
+

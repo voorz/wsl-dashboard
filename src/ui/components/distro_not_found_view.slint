@@ -12,14 +12,6 @@ export component DistroNotFoundView inherits VerticalLayout {
     spacing: 16px;
 
     Text {
-        text: "\u{EA39}";
-        font-family: Theme.icon_font;
-        font-size: 48px;
-        color: Theme.icon_color_danger;
-        horizontal-alignment: center;
-    }
-
-    Text {
         text: AppI18n.t("main.distro_not_found", [AppI18n.version]);
         color: Theme.text_secondary;
         font-family: Theme.default_font;

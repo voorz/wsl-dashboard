@@ -192,7 +192,33 @@ Ang mga log file isulat sa gi-configure nga log directory, ug mahimong i-attach 
 
 ## 📦 Giya sa Pag-install
 
-### Paagi 1: Pag-download sa Pre-compiled Binary
+### Paagi 1: Bisitaha ang website sa proyekto (Girekomenda)
+
+Girekomenda namon ang pagbisita sa opisyal nga website aron mag-download, tungod kay naghatag kini daghang mga mirror link para sa mas hapsay nga kasinatian:
+
+Adto sa [Download page](https://www.wslui.com/download/) ug pilia ang mirror nga angay sa imong rehiyon.
+
+### Paagi 2: Pag-install pinaagi sa winget
+
+Mahimo nimong i-install ang WSLDashboard direkta gikan sa Windows Package Manager (winget), gamit ang moniker o ang tibuok nga package identifier:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> Ang winget package identifier kay `Owu.WSLDashboard` ug ang moniker kay `wsl-dashboard` (case-insensitive). Bisan asa, molihok.
+
+Para sa dugang impormasyon, bisitaha ang [WinGet community repository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Paagi 3: Pag-download sa Pre-compiled Binary
 
 Ang labing sayon nga paagi mao ang paggamit sa gipangandam nga bersyon:
 
@@ -202,7 +228,7 @@ Ang labing sayon nga paagi mao ang paggamit sa gipangandam nga bersyon:
 
 Walay kinahanglan nga pag-install, kini nga app usa ka single-file portable program.
 
-### Paagi 2: Pag-build gikan sa Source
+### Paagi 4: Pag-build gikan sa Source
 
 Siguruha nga ang Rust toolchain gi-install (Rust 1.92+ o mas bag-ong bersyon).
 

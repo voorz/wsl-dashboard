@@ -119,6 +119,7 @@ pub fn refresh_localized_strings(app: &AppWindow) {
         colorful_icons: i18n::tr("settings.colorful_icons", &[]).into(),
         mail_icon_always: i18n::tr("settings.mail_icon_always", &[]).into(),
         hide_pin_icon: i18n::tr("settings.hide_pin_icon", &[]).into(),
+        show_drag_icon: i18n::tr("settings.show_drag_icon", &[]).into(),
         stop_wsl: i18n::tr("settings.stop_wsl", &[]).into(),
     });
 
@@ -265,13 +266,19 @@ pub async fn refresh_distros_ui(app_handle: slint::Weak<AppWindow>, app_state: A
             Ok(app_state_lock) => {
                 let mut distros = app_state_lock.wsl_dashboard.get_distros().await;
                 debug!("refresh_distros_ui: Found {} installed distributions", distros.len());
-                // Sort by: 1. Default first, 2. Name A-Z
+                // Sort by user-defined order from instances.toml
+                let instances_path = crate::config::ConfigManager::get_instances_path();
+                let container = crate::config::instances::load_instances(&instances_path);
+                let order_map: std::collections::HashMap<String, usize> = container.last_distros
+                    .iter()
+                    .enumerate()
+                    .map(|(i, d)| (d.name.clone(), i))
+                    .collect();
+
                 distros.sort_by(|a, b| {
-                    if a.is_default != b.is_default {
-                        b.is_default.cmp(&a.is_default) // true (1) comes before false (0)
-                    } else {
-                        a.name.to_lowercase().cmp(&b.name.to_lowercase())
-                    }
+                    let rank_a = order_map.get(&a.name).copied().unwrap_or(usize::MAX);
+                    let rank_b = order_map.get(&b.name).copied().unwrap_or(usize::MAX);
+                    rank_a.cmp(&rank_b)
                 });
                 (
                     distros,
@@ -315,6 +322,9 @@ pub async fn refresh_distros_ui(app_handle: slint::Weak<AppWindow>, app_state: A
     if !data_changed {
         return;
     }
+
+    // Sync last_distros cache in instances.toml (new distros appended, stale removed, status updated)
+    sync_last_distros_cache(&distros);
 
     let mut intermediate_distros = Vec::new();
     if data_changed {
@@ -501,6 +511,68 @@ fn get_distro_sort_rank(name: &str) -> usize {
     if lower.contains("openeuler") { return 12; }
     if lower.contains("mint") { return 13; }
     999
+}
+
+// Sync `last_distros` cache in `instances.toml` with live WSL data.
+// - New distros are appended to the end.
+// - Stale (deleted) distros are removed.
+// - Running/stopped status and is_default are updated.
+fn sync_last_distros_cache(distros: &[crate::wsl::models::WslDistro]) {
+    let path = crate::config::ConfigManager::get_instances_path();
+    let mut container = crate::config::instances::load_instances(&path);
+
+    let live_names: std::collections::HashSet<String> =
+        distros.iter().map(|d| d.name.clone()).collect();
+
+    // 1. Remove stale distros that no longer exist
+    container.last_distros.retain(|d| live_names.contains(&d.name));
+
+    // 2. Append newly discovered distros (to the end)
+    let existing_names: std::collections::HashSet<String> =
+        container.last_distros.iter().map(|d| d.name.clone()).collect();
+    for d in distros {
+        if !existing_names.contains(&d.name) {
+            container.last_distros.push(crate::config::models::CachedDistro {
+                name: d.name.clone(),
+                status: format!("{:?}", d.status),
+                version: format!("{:?}", d.version),
+                is_default: d.is_default,
+            });
+        }
+    }
+
+    // 3. Update running status and is_default
+    for cached in container.last_distros.iter_mut() {
+        if let Some(live) = distros.iter().find(|d| d.name == cached.name) {
+            cached.status = format!("{:?}", live.status);
+            cached.is_default = live.is_default;
+        }
+    }
+
+    container.common.modify_time = chrono::Utc::now().timestamp_millis().to_string();
+    if let Err(e) = crate::config::instances::save_instances_to_disk(&path, &container) {
+        tracing::error!("Failed to sync last_distros cache: {}", e);
+    }
+}
+
+// Save distro order after drag-and-drop reorder.
+// Moves the element at `from_index` to `to_index` in `last_distros` array.
+pub fn save_distro_order(from_index: usize, to_index: usize) {
+    let path = crate::config::ConfigManager::get_instances_path();
+    let mut container = crate::config::instances::load_instances(&path);
+
+    let len = container.last_distros.len();
+    if from_index >= len || to_index >= len || from_index == to_index {
+        return;
+    }
+
+    let item = container.last_distros.remove(from_index);
+    container.last_distros.insert(to_index, item);
+
+    container.common.modify_time = chrono::Utc::now().timestamp_millis().to_string();
+    if let Err(e) = crate::config::instances::save_instances_to_disk(&path, &container) {
+        tracing::error!("Failed to save distro order: {}", e);
+    }
 }
 
 // Refresh UI list of installable distributions
@@ -810,6 +882,7 @@ pub async fn load_settings_to_ui(app: &AppWindow, app_state: &Arc<Mutex<AppState
     app.global::<crate::Theme>().set_colorful_icons(settings.colorful_icons);
     app.set_mail_icon_always(settings.mail);
     app.set_hide_pin_icon(settings.hide_pin);
+    app.global::<crate::AppApi>().set_show_drag(settings.show_drag);
     app.set_sidebar_collapsed(settings.sidebar_collapsed);
     app.set_tray_autostart(tray.autostart);
     app.set_tray_start_minimized(tray.start_minimized);

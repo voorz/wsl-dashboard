@@ -365,7 +365,7 @@ ShutdownBlockReasonUninstallingApp=%1 o'chirilmoqda.
 
 [CustomMessages]
 
-CreateSchedulerTask=Task Scheduler task yaratish (avtomatik ishga tushadigan distro, USB avtomatik ulanish, port forwarding uchun)
+CreateSchedulerTask=Task Scheduler yaratish (avtomatik ishga tushadigan distro, USB avtomatik ulanish, port forwarding uchun)
 SchedulerTaskNote1=└ O'rnatish davomida ixtiyoriy; o'tkazib yuborish kelajakdagi foydalanishga ta'sir qilmaydi.
 SchedulerTaskNote2=└ Dastur ochilgandan so'ng istalgan vaqtda qo'lda ishga tushirish mumkin.
 SchedulerTaskNote3=└ EV sertifikati yo'qligi sababli, ushbu harakat AV dasturi tomonidan noto'g'ri aniqlanishi mumkin; iltimos, ruxsat bering.

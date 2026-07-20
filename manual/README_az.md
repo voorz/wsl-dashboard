@@ -191,7 +191,33 @@ Loq faylları konfiqurasiya edilmiş loq kataloqunda yazılır, problemlər bild
 
 ## 📦 Quraşdırma bələdçisi
 
-### Üsul 1: Əvvəlcədən hazırlanmış ikili faylları yükləyin
+### Üsul 1: Layihənin vebsaytına daxil olun (Tövsiyə olunur)
+
+Rəsmi vebsaytı ziyarət edərək yükləməyi tövsiyə edirik, çünki o, daha rahat təcrübə üçün çoxsaylı mirror linkləri təqdim edir:
+
+[Yükləmə səhifəsinə](https://www.wslui.com/download/) keçin və regionunuz üçün uyğun miroru seçin.
+
+### Üsul 2: winget vasitəsilə quraşdırın
+
+Siz WSLDashboard'ı Windows Package Manager (winget) vasitəsilə birbaşa quraşdıra bilərsiniz, moniker və ya tam paket identifikatorundan istifadə edərək:
+
+```powershell
+# Search (case-insensitive)
+winget search wsl-dashboard
+# or
+winget search WSLDashboard
+
+# Install (pick one)
+winget install wsl-dashboard
+# or
+winget install Owu.WSLDashboard
+```
+
+> winget paket identifikatoru `Owu.WSLDashboard` və moniker `wsl-dashboard` (case-insensitive)-dir. İkisi də işləyir.
+
+Ətraflı məlumat üçün [WinGet icma repozitoriyasına](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard) baş çəkin.
+
+### Üsul 3: Əvvəlcədən hazırlanmış ikili faylları yükləyin
 
 Ən asan yol hazır versiyanı istifadə etməkdir:
 
@@ -201,7 +227,7 @@ Loq faylları konfiqurasiya edilmiş loq kataloqunda yazılır, problemlər bild
 
 Quraşdırma tələb olunmur, bu tətbiq tək fayllı daşınan proqramdır.
 
-### Üsul 2: Mənbədən qurun
+### Üsul 4: Mənbədən qurun
 
 Rust alət zəncirinin (Rust 1.92+ və ya ən son versiya) quraşdırıldığından əmin olun.
 
@@ -224,8 +250,8 @@ Rust alət zəncirinin (Rust 1.92+ və ya ən son versiya) quraşdırıldığın
      > Qurğu skripti `x86_64-pc-windows-msvc` alət zənciri tələb edir.
 
      ```powershell
-      .\build\portable\build.ps1
-      ```
+     .\build\portable\build.ps1
+     ```
 
 
 ## 🛠️ Texnoloji stak və performans

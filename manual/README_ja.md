@@ -192,7 +192,33 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 📦 インストール指南
 
-### 方法 1: ビルド済みバイナリをダウンロードする
+### 方法 1: プロジェクトのウェブサイトを参照 (推奨)
+
+公式ウェブサイトは複数のミラーリンクを提供しており、よりスムーズなダウンロード体験が得られるため、アクセスすることをお勧めします：
+
+[ダウンロードページ](https://www.wslui.com/download/) にアクセスし、お住まいの地域に適したミラーを選択してください。
+
+### 方法 2: winget でインストール
+
+Windows Package Manager (winget) を使用して、モニカーまたは完全なパッケージ識別子のいずれかで WSLDashboard を直接インストールできます：
+
+```powershell
+# 検索 (大文字小文字の区別なし)
+winget search wsl-dashboard
+# または
+winget search WSLDashboard
+
+# インストール (いずれかを選択)
+winget install wsl-dashboard
+# または
+winget install Owu.WSLDashboard
+```
+
+> winget パッケージ識別子は `Owu.WSLDashboard`、モニカーは `wsl-dashboard` です (大文字小文字の区別なし)。どちらでも使用できます。
+
+詳細については、[WinGet コミュニティリポジトリ](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard) を参照してください。
+
+### 方法 3: ビルド済みバイナリをダウンロードする
 
 最も簡単な方法は、コンパイル済みのリリースを使用することです：
 
@@ -202,7 +228,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 インストーラーは不要です。アプリは単一のポータブルバイナリです。
 
-### 方法 2: ソースからビルドする
+### 方法 4: ソースからビルドする
 
 Rust ツールチェーン (Rust 1.92+ 以降) がインストールされていることを確認してください。
 

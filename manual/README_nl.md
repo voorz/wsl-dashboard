@@ -192,7 +192,33 @@ Logbestanden worden naar de geconfigureerde logmap geschreven en kunnen worden b
 
 ## 📦 Installatiehandleiding
 
-### Optie 1: Download de voorgecompileerde binary
+### Optie 1: Bezoek de projectwebsite (Aanbevolen)
+
+We raden aan om de officiële website te bezoeken om te downloaden, omdat deze meerdere mirror-links biedt voor een vlottere ervaring:
+
+Ga naar de [Downloadpagina](https://www.wslui.com/download/) en kies de mirror die geschikt is voor uw regio.
+
+### Optie 2: Installeren via winget
+
+U kunt WSLDashboard rechtstreeks installeren via de Windows Package Manager (winget), met behulp van de moniker of de volledige pakketidentificatie:
+
+```powershell
+# Zoeken (hoofdlettergevoeligheid niet van belang)
+winget search wsl-dashboard
+# of
+winget search WSLDashboard
+
+# Installeren (kies een)
+winget install wsl-dashboard
+# of
+winget install Owu.WSLDashboard
+```
+
+> De winget-pakketidentificatie is `Owu.WSLDashboard` en de moniker is `wsl-dashboard` (hoofdlettergevoeligheid niet van belang). Beide werken.
+
+Bezoek voor meer informatie de [WinGet-communityrepository](https://github.com/microsoft/winget-pkgs/tree/master/manifests/o/Owu/WSLDashboard).
+
+### Optie 3: Download de voorgecompileerde binary
 
 De eenvoudigste manier om aan de slag te gaan is door de voorgecompileerde release te gebruiken:
 
@@ -202,7 +228,7 @@ De eenvoudigste manier om aan de slag te gaan is door de voorgecompileerde relea
 
 Er is geen installatieprogramma vereist; de app is een enkele draagbare binary.
 
-### Optie 2: Bouwen vanuit de broncode
+### Optie 4: Bouwen vanuit de broncode
 
 Zorg ervoor dat de Rust-toolchain (Rust 1.92 of nieuwer) is geïnstalleerd.
 

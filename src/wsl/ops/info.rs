@@ -33,11 +33,13 @@ pub async fn detect_fastest_source(_executor: &WslCommandExecutor) -> bool {
     let result = task::spawn_blocking(|| {
         // Check GitHub domain with 5 seconds timeout
         match ureq::head(crate::app::GITHUB_DOMAIN)
-            .timeout(std::time::Duration::from_secs(5))
+            .config()
+            .timeout_global(Some(std::time::Duration::from_secs(5)))
+            .build()
             .call() 
         {
             Ok(response) => {
-                response.status() == 200
+                response.status().as_u16() == 200
             }
             Err(e) => {
                 trace!("GitHub probe failed: {}", e);

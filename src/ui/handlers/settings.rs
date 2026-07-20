@@ -179,6 +179,7 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                 let system_color = app.get_system_color();
                 let mail_icon_always = app.get_mail_icon_always();
                 let hide_pin_icon = app.get_hide_pin_icon();
+                let show_drag = app.global::<crate::AppApi>().get_show_drag();
 
                 let mut state = as_ptr.lock().await;
 
@@ -211,6 +212,7 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                 settings.system_color = system_color;
                 settings.mail = mail_icon_always;
                 settings.hide_pin = hide_pin_icon;
+                settings.show_drag = show_drag;
                 let _ = state.config_manager.update_settings(settings);
 
                 // If hiding pin icon while window is pinned, auto-unpin
