@@ -25,6 +25,10 @@ pub const GITHUB_ISSUES: &str = "/issues";
 pub const GITHUB_RELEASES: &str = "/releases";
 
 #[allow(dead_code)]
+pub const GITHUB_API_RELEASES_LATEST: &str =
+    "https://api.github.com/repos/voorz/wsl-dashboard/releases/latest";
+
+#[allow(dead_code)]
 pub const DOWNLOAD_URI: &str = "/download/";
 
 #[allow(dead_code)]

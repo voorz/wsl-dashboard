@@ -11,6 +11,7 @@ pub struct UpdateResult {
     pub latest_version: String,
     pub release_date: String,
     pub current_version: String,
+    pub download_url: String,
     pub error: Option<String>,
 }
 
@@ -31,7 +32,15 @@ pub async fn check_update(current_version_str: &str) -> Result<UpdateResult, Str
         }
     };
 
-    let latest_version_str = release_data.version;
+    let latest_version_str = release_data.tag_name.trim_start_matches('v').to_string();
+
+    // GitHub publishes ISO 8601 timestamps (e.g. "2026-08-17T00:00:00Z");
+    // keep only the date portion for display.
+    let release_date = release_data
+        .published_at
+        .chars()
+        .take(10)
+        .collect::<String>();
 
     // Version comparison
     let current_v_clean = current_version_str.trim_start_matches('v');
@@ -47,8 +56,9 @@ pub async fn check_update(current_version_str: &str) -> Result<UpdateResult, Str
     Ok(UpdateResult {
         has_update: latest > current,
         latest_version: latest_version_str,
-        release_date: release_data.release_date,
+        release_date,
         current_version: current_version_str,
+        download_url: release_data.html_url,
         error: None,
     })
 }

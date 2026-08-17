@@ -86,6 +86,81 @@ impl WslUiClient {
         self.request_url(method, url, body, timeout_ms)
     }
 
+    // Fetch a URL and deserialize the raw JSON body directly.
+    // Used for third-party APIs (e.g. GitHub Releases) that do not use the
+    // { err, msg, data } envelope returned by the WSLUI API.
+    pub fn request_raw_json<T>(&self, url: &str, timeout_ms: Option<u64>) -> Result<T, String>
+    where
+        T: for<'de> Deserialize<'de> + std::fmt::Debug,
+    {
+        let timeout = Duration::from_millis(timeout_ms.unwrap_or(5000));
+        let do_request = || -> Result<T, String> {
+            trace!("Raw JSON Request: url={}", url);
+
+            let resp = self.agent.get(url)
+                .config()
+                .timeout_global(Some(timeout))
+                .build()
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
+                .force_send_body()
+                .send_empty();
+
+            let mut resp = resp.map_err(|e: ureq::Error| {
+                let error_msg = e.to_string();
+                if Self::is_timeout_error(&error_msg) {
+                    error!("Raw JSON API Timeout Error: {}", error_msg);
+                    "RequestTimeOut".to_string()
+                } else {
+                    error!("Raw JSON API Network Error: {}", error_msg);
+                    error_msg
+                }
+            })?;
+
+            let status = resp.status().as_u16();
+            let resp_text = resp.body_mut().read_to_string().map_err(|e: ureq::Error| {
+                error!("Raw JSON API Read Body Error: {}", e);
+                e.to_string()
+            })?;
+
+            let clean_text = resp_text.trim_start_matches('\u{FEFF}').trim();
+
+            if status != 200 {
+                error!("Raw JSON API HTTP Error: status={}, body={}", status, clean_text);
+                return Err(format!("HTTP {}: {}", status, clean_text));
+            }
+
+            let compact_body = serde_json::from_str::<serde_json::Value>(clean_text)
+                .and_then(|v| serde_json::to_string(&v))
+                .unwrap_or(clean_text.to_string());
+            debug!("Raw JSON API Response: status={}, body={}", status, compact_body);
+
+            serde_json::from_str(clean_text).map_err(|e| {
+                error!("Raw JSON API JSON Parse Error: {}", e);
+                e.to_string()
+            })
+        };
+
+        match do_request() {
+            Ok(res) => Ok(res),
+            Err(e) => {
+                if e == "RequestTimeOut" {
+                    debug!("Raw JSON API Request timed out. Retrying after 200ms...");
+                } else {
+                    debug!("Raw JSON API Request failed: {}. Retrying after 200ms...", e);
+                }
+                thread::sleep(Duration::from_millis(200));
+                do_request().map_err(|e2| {
+                    if e2 == "RequestTimeOut" {
+                        error!("Raw JSON API Retry timed out");
+                    } else {
+                        error!("Raw JSON API Retry failed: {}", e2);
+                    }
+                    e2
+                })
+            }
+        }
+    }
+
     fn request_url<T>(&self, method: &str, url: &str, body: Option<serde_json::Value>, timeout_ms: Option<u64>) -> Result<(ApiResponse<T>, Option<String>), String>
     where
         T: for<'de> Deserialize<'de> + std::fmt::Debug,

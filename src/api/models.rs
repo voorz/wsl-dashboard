@@ -3,10 +3,13 @@
 
 use serde::Deserialize;
 
+// GitHub Releases API: latest release response
 #[derive(Debug, Deserialize, Clone, Default)]
-pub struct ReleaseData {
-    pub version: String,
-    pub release_date: String,
+pub struct GithubRelease {
+    pub tag_name: String,
+    pub name: String,
+    pub html_url: String,
+    pub published_at: String,
 }
 
 // 1. wslui_helper_about data structure
@@ -280,38 +283,6 @@ pub struct PopupConfig {
 pub struct HelperSyncData {
     #[serde(default)]
     pub popup: PopupConfig,
-    #[serde(default)]
-    pub messages: Vec<MessageItem>,
-}
-
-// Multilingual title item for system message
-#[derive(Debug, Deserialize, Clone, Default)]
-pub struct MessageTitle {
-    pub system_language: String,
-    pub title: String,
-}
-
-// System message item
-#[derive(Debug, Deserialize, Clone, Default)]
-pub struct MessageItem {
-    pub id: String,
-    #[serde(default)]
-    pub system_language: String,
-    #[serde(default)]
-    pub timezone: String,
-    #[serde(default)]
-    #[serde(rename = "type")]
-    // Supported types: info | warning | error | success | update
-    pub msg_type: String,
-    pub title: Vec<MessageTitle>,
-    #[serde(default)]
-    pub url: String,
-    #[serde(default)]
-    pub start_time: i64,
-    #[serde(default)]
-    pub end_time: i64,
-    #[serde(default)]
-    pub create_time: i64,
 }
 
 // ============================================================

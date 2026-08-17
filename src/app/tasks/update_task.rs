@@ -110,11 +110,7 @@ impl UpdateCheckTask {
                 let has_update = result.has_update;
                 let latest_version = result.latest_version.clone();
                 let release_date = result.release_date.clone();
-                let download_url = format!(
-                    "{}{}",
-                    crate::app::PROJECT_WEBSITE,
-                    crate::app::DOWNLOAD_URI
-                );
+                let download_url = result.download_url.clone();
 
                 // Always update AppInfo properties (used by About page)
                 let ah = app_handle.clone();

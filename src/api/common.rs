@@ -11,7 +11,7 @@ use crate::api::models::*;
 
 // --- Cache storage ---
 
-static LATEST_VERSION_CACHE: LazyLock<std::sync::Mutex<Option<CacheEntry<ReleaseData>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
+static LATEST_VERSION_CACHE: LazyLock<std::sync::Mutex<Option<CacheEntry<GithubRelease>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
 static HELPER_ABOUT_CACHE:   LazyLock<std::sync::Mutex<Option<CacheEntry<HelperAboutData>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
 static HELPER_DISTRO_CACHE:  LazyLock<std::sync::Mutex<Option<CacheEntry<HelperDistroData>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
 static HELPER_INSTALL_CACHE: LazyLock<std::sync::Mutex<Option<CacheEntry<HelperInstallData>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
@@ -22,29 +22,26 @@ static HELPER_BOOTSTRAP_CACHE: LazyLock<std::sync::Mutex<Option<CacheEntry<Helpe
 #[allow(dead_code)]
 static HELPER_SCHEDULER_CACHE: LazyLock<std::sync::Mutex<Option<CacheEntry<HelperSchedulerData>>>> = LazyLock::new(|| std::sync::Mutex::new(None));
 
-// Get wslui latest version
-pub fn wslui_latest_version() -> Result<ReleaseData, String> {
+// Get latest release from GitHub Releases API
+pub fn wslui_latest_version() -> Result<GithubRelease, String> {
     // 1. Check cache
     if let Some(data) = try_get_cache(&LATEST_VERSION_CACHE) {
         debug!("Returning cached latest version data: {:?}", data);
         return Ok(data);
     }
 
-    // 2. Fetch from API
+    // 2. Fetch from GitHub Releases API
     let client = WslUiClient::new();
-    let result = match client.request_api2_with_timeout::<ReleaseData>("GET", "/common/v1/releases/version", None, Some(10000)) {
-        Ok((resp, _)) => {
-            debug!("Obtained latest release from wslui: {:?}", resp.data);
-            Ok(resp.data)
-        }
-        Err(e) => {
-            error!("Failed to get latest release from wslui: {}", e);
-            Err(e)
-        }
-    };
+    let result = client
+        .request_raw_json::<GithubRelease>(crate::app::GITHUB_API_RELEASES_LATEST, Some(10000))
+        .map_err(|e| {
+            error!("Failed to get latest release from GitHub: {}", e);
+            e
+        });
 
     match result {
         Ok(ref data) => {
+            debug!("Obtained latest release from GitHub: {:?}", data);
             set_cache(&LATEST_VERSION_CACHE, data.clone(), CACHE_TTL_LONG);
             result
         }

@@ -37,6 +37,7 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, _app_state: Ar
                     let has_update = result.has_update;
                     let latest_version = result.latest_version.clone();
                     let release_date = result.release_date.clone();
+                    let download_url = result.download_url.clone();
                     
                     let _ = slint::invoke_from_event_loop({
                         let ah = ah.clone();
@@ -47,7 +48,7 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, _app_state: Ar
                                 app.global::<AppInfo>().set_has_update(has_update);
                                 app.global::<AppInfo>().set_latest_version(latest_version.clone().into());
                                 app.global::<AppInfo>().set_latest_release_date(release_date.clone().into());
-                                app.global::<AppInfo>().set_update_download_url(format!("{}{}", crate::app::PROJECT_WEBSITE, crate::app::DOWNLOAD_URI).into());
+                                app.global::<AppInfo>().set_update_download_url(download_url.into());
                                 
                                 if has_update {
                                     app.set_show_update_dialog(true);
@@ -90,7 +91,7 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, _app_state: Ar
                     info!("Downloading update from update_download_url: {}", update_url);
                     let _ = open::that(update_url);
                 } else {
-                    let url = format!("{}{}", crate::app::PROJECT_WEBSITE, crate::app::DOWNLOAD_URI);
+                    let url = format!("{}{}", crate::app::PROJECT_REPOSITORY, crate::app::GITHUB_RELEASES);
                     let _ = open::that(url);
                 }
             }
