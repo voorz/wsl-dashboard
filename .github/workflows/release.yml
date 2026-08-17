@@ -47,6 +47,23 @@ jobs:
             Start-Sleep -Seconds 5
           }
 
+      - name: Sync version from tag
+        shell: pwsh
+        run: |
+          $tagVersion = $env:GITHUB_REF -replace "refs/tags/v", ""
+          if ($tagVersion -eq $env:GITHUB_REF) {
+            Write-Error "Expected a version tag (e.g. v0.11.0), got: $env:GITHUB_REF"
+            exit 1
+          }
+          $cargoToml = Get-Content Cargo.toml -Raw
+          $cargoToml = [regex]::Replace($cargoToml, '^version = "[^"]+"', "version = `"$tagVersion`"", [System.Text.RegularExpressions.RegexOptions]::Multiline)
+          [System.IO.File]::WriteAllText(
+            (Resolve-Path Cargo.toml),
+            $cargoToml,
+            [System.Text.UTF8Encoding]::new($false)
+          )
+          Write-Host "Cargo.toml version synced to $tagVersion"
+
       - name: Build Release
         run: cargo build --release
 
