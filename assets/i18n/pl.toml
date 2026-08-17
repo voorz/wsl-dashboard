@@ -76,7 +76,6 @@ log_level = "Poziom logowania"
 log_retention_days = "Czas przechowywania logów (dni)"
 update_interval = "Automatyczne sprawdzanie aktualizacji"
 system_color = "Użyj systemowego trybu kolorów"
-mail_icon_always = "Zawsze pokazuj ikonę komunikatów systemowych"
 hide_pin_icon = "Ukryj przycisk zawsze na wierzchu"
 show_drag_icon = "Pokaż uchwyt sortowania przez przeciąganie listy dystrybucji"
 colorful_icons = "Włącz tryb kolorowych ikon"
@@ -522,11 +521,6 @@ compress_failed = "Kompresja dystrybucji \"{0}\" nie powiodła się: {1}"
 mirrors_file_not_found = "[Debug] Wskazany lokalny plik JSON serwerów lustrzanych nie istnieje."
 mirrors_parse_failed = "[Debug] Nie udało się sparsować lokalnego pliku JSON serwerów lustrzanych."
 cleanup_script_invalid = "[Debug] Wskazany lokalny skrypt czyszczący nie istnieje lub nie jest plikiem .sh."
-
-[mail]
-title = "Komunikaty systemowe"
-empty = "Brak komunikatów"
-mark_all_read = "Oznacz wszystkie jako przeczytane"
 
 [usb.detail]
 bus_id = "ID magistrali"

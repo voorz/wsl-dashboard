@@ -76,7 +76,6 @@ log_level = "ระดับบันทึก"
 log_retention_days = "จำนวนวันเก็บรักษาบันทึก"
 update_interval = "ตรวจสอบอัปเดตอัตโนมัติ"
 system_color = "ใช้โหมดสีของระบบ"
-mail_icon_always = "แสดงไอคอนข้อความระบบเสมอ"
 hide_pin_icon = "ซ่อนปุ่มตรึงหน้าต่างไว้ด้านบน"
 show_drag_icon = "แสดงที่จับจัดเรียงแบบลากของรายการ distro"
 colorful_icons = "เปิดใช้โหมดไอคอนสีสัน"
@@ -522,11 +521,6 @@ compress_failed = "บีบอัดดิสโทร \"{0}\" ล้มเห�
 mirrors_file_not_found = "[Debug] ไม่พบไฟล์ JSON มิเรอร์บนเครื่องที่ระบุ"
 mirrors_parse_failed = "[Debug] ไม่สามารถแยกวิเคราะห์ไฟล์ JSON มิเรอร์บนเครื่อง"
 cleanup_script_invalid = "[Debug] สคริปต์ทำความสะอาดบนเครื่องที่ระบุไม่มีอยู่หรือไม่ใช่ไฟล์ .sh"
-
-[mail]
-title = "ข้อความระบบ"
-empty = "ไม่มีข้อความ"
-mark_all_read = "ทำเครื่องหมายทั้งหมดว่าอ่านแล้ว"
 
 [usb.detail]
 bus_id = "รหัสบัส"

@@ -43,14 +43,11 @@ export component TitleBar inherits Rectangle {
     in property <bool> is_maximized;
     in-out property <float> drag_x;
     in-out property <float> drag_y;
-    in property <int> mail_unread_count: 0;
-    in property <bool> mail_icon_always: true;
     callback close;
     callback minimize;
     callback maximize;
     callback toggle_theme;
     callback drag_delta(float, float);
-    callback mail_clicked;
     height: 40px;
     background: transparent;
     TouchArea {
@@ -84,51 +81,14 @@ export component TitleBar inherits Rectangle {
             alignment: AppI18n.is-rtl ? end : start;
             width: parent.width - 150px; // Ensure it doesn't overlap with controls
 
-            // RTL: mail icon + version (displayed close together)
-            if AppI18n.is-rtl: HorizontalLayout {
-                spacing: 2px;
-
-                // Mail icon
-                if root.mail_icon_always || root.mail_unread_count > 0: Rectangle {
-                    width: 28px;
-                    height: 28px;
-                    y: (parent.height - self.height) / 2;
-                    background: mail-touch-rtl.has-hover ? Theme.hover_bg : transparent;
-                    border-radius: 4px;
-
-                    mail-touch-rtl := TouchArea {
-                        mouse-cursor: pointer;
-                        clicked => { root.mail_clicked(); }
-                    }
-
-                    Text {
-                        text: "\u{E715}";
-                        font-family: Theme.icon_font;
-                        font-size: 12px;
-                        color: mail-touch-rtl.has-hover ? Theme.accent : Theme.text_secondary;
-                        horizontal-alignment: center;
-                        vertical-alignment: center;
-                    }
-
-                    // Unread dot (left side in RTL mode)
-                    if root.mail_unread_count > 0: Rectangle {
-                        x: 4px;
-                        y: 4px;
-                        width: 6px;
-                        height: 6px;
-                        border-radius: 3px;
-                        background: Theme.icon_color_danger;
-                    }
-                }
-
-                Text {
-                    text: "v" + AppInfo.version;
-                    font-size: 11px;
-                    font-weight: 400;
-                    font-family: Theme.default_font;
-                    color: Theme.text_secondary;
-                    vertical-alignment: center;
-                }
+            // RTL: version text
+            if AppI18n.is-rtl: Text {
+                text: "v" + AppInfo.version;
+                font-size: 11px;
+                font-weight: 400;
+                font-family: Theme.default_font;
+                color: Theme.text_secondary;
+                vertical-alignment: center;
             }
 
             Text {
@@ -140,51 +100,14 @@ export component TitleBar inherits Rectangle {
                 vertical-alignment: center;
             }
 
-            // LTR: version + mail icon (displayed close together)
-            if !AppI18n.is-rtl: HorizontalLayout {
-                spacing: 2px;
-
-                Text {
-                    text: "v" + AppInfo.version;
-                    font-size: 11px;
-                    font-weight: 400;
-                    font-family: Theme.default_font;
-                    color: Theme.text_secondary;
-                    vertical-alignment: center;
-                }
-
-                // Mail icon
-                if root.mail_icon_always || root.mail_unread_count > 0: Rectangle {
-                    width: 28px;
-                    height: 28px;
-                    y: (parent.height - self.height) / 2;
-                    background: mail-touch-ltr.has-hover ? Theme.hover_bg : transparent;
-                    border-radius: 4px;
-
-                    mail-touch-ltr := TouchArea {
-                        mouse-cursor: pointer;
-                        clicked => { root.mail_clicked(); }
-                    }
-
-                    Text {
-                        text: "\u{E715}";
-                        font-family: Theme.icon_font;
-                        font-size: 12px;
-                        color: mail-touch-ltr.has-hover ? Theme.accent : Theme.text_secondary;
-                        horizontal-alignment: center;
-                        vertical-alignment: center;
-                    }
-
-                    // Unread dot (right side in RTL mode)
-                    if root.mail_unread_count > 0: Rectangle {
-                        x: parent.width - self.width - 4px;
-                        y: 4px;
-                        width: 6px;
-                        height: 6px;
-                        border-radius: 3px;
-                        background: Theme.icon_color_danger;
-                    }
-                }
+            // LTR: version text
+            if !AppI18n.is-rtl: Text {
+                text: "v" + AppInfo.version;
+                font-size: 11px;
+                font-weight: 400;
+                font-family: Theme.default_font;
+                color: Theme.text_secondary;
+                vertical-alignment: center;
             }
         }
 

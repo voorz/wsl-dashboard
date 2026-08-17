@@ -76,7 +76,6 @@ log_level = "日誌等級"
 log_retention_days = "日誌保留天數"
 update_interval = "自動檢查更新"
 system_color = "跟隨系統色彩模式"
-mail_icon_always = "始終顯示系統訊息圖示"
 hide_pin_icon = "隱藏視窗置頂按鈕"
 show_drag_icon = "顯示發行版列表拖拽排序手柄"
 colorful_icons = "啟用彩色圖示模式"
@@ -522,11 +521,6 @@ compress_failed = "發行版 \"{0}\" 壓縮失敗：{1}"
 mirrors_file_not_found = "[Debug] 指定的本地鏡像 JSON 檔案不存在。"
 mirrors_parse_failed = "[Debug] 無法解析本地鏡像 JSON 檔案。"
 cleanup_script_invalid = "[Debug] 指定的本地清理腳本不存在或不是 .sh 檔案。"
-
-[mail]
-title = "系統訊息"
-empty = "暫無訊息"
-mark_all_read = "全部標為已讀"
 
 [usb.detail]
 bus_id = "匯流排 ID"

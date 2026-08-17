@@ -3,7 +3,6 @@
 
 pub mod sync_task;
 pub mod popup_handler;
-pub mod message_handler;
 pub mod expiry_task;
 pub mod update_task;
 pub mod compat_task;
@@ -14,7 +13,7 @@ use tracing::{trace};
 use crate::{AppState, AppWindow};
 use crate::ui::data::refresh_distros_ui;
 
-pub use sync_task::{PopupSyncTask, MessageSyncTask};
+pub use sync_task::PopupSyncTask;
 pub use expiry_task::VersionExpiryTask;
 pub use update_task::UpdateCheckTask;
 pub use compat_task::WslCompatTask;

@@ -76,7 +76,6 @@ log_level = "لاگ لیول"
 log_retention_days = "لاگ رکھنے کے دن"
 update_interval = "خودکار اپ ڈیٹ چیک"
 system_color = "سسٹم کلر موڈ استعمال کریں"
-mail_icon_always = "سسٹم پیغام آئیکن ہمیشہ دکھائیں"
 hide_pin_icon = "ہمیشہ اوپر بٹن چھپائیں"
 show_drag_icon = "ڈسٹرو فہرست ڈریگ ترتیب ہینڈل دکھائیں"
 colorful_icons = "رنگین آئیکن موڈ فعال کریں"
@@ -522,11 +521,6 @@ compress_failed = "ڈسٹرو \"{0}\" کی کمپریشن ناکام ہو گئی
 mirrors_file_not_found = "[Debug] مقررہ مقامی مirror JSON فائل موجود نہیں ہے۔"
 mirrors_parse_failed = "[Debug] مقامی مirror JSON فائل کو پارس نہیں کیا جا سکا۔"
 cleanup_script_invalid = "[Debug] مقررہ مقامی صفائی اسکرپٹ غائب ہے یا .sh فائل نہیں ہے۔"
-
-[mail]
-title = "سسٹم پیغامات"
-empty = "کوئی پیغام نہیں"
-mark_all_read = "سب پڑھا ہوا نشان لگائیں"
 
 [usb.detail]
 bus_id = "بس ID"

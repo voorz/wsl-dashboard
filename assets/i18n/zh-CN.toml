@@ -76,7 +76,6 @@ log_level = "日志等级"
 log_retention_days = "日志保留天数"
 update_interval = "自动检查更新"
 system_color = "色彩模式跟随系统"
-mail_icon_always = "始终显示系统消息图标"
 hide_pin_icon = "隐藏窗口置顶按钮"
 show_drag_icon = "显示发行版列表拖拽排序手柄"
 colorful_icons = "启用彩色图标模式"
@@ -532,11 +531,6 @@ compress_failed = "发行版 \"{0}\" 压缩失败：{1}"
 mirrors_file_not_found = "[Debug] 指定的本地镜像 JSON 文件不存在。"
 mirrors_parse_failed = "[Debug] 无法解析本地镜像 JSON 文件。"
 cleanup_script_invalid = "[Debug] 指定的本地清理脚本不存在或不是 .sh 文件。"
-
-[mail]
-title = "系统消息"
-empty = "暂无消息"
-mark_all_read = "全部已读"
 
 [scheduler]
 add_btn = "添加任务"

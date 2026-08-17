@@ -76,7 +76,6 @@ log_level = "مستوى السجل"
 log_retention_days = "أيام الاحتفاظ بالسجل"
 update_interval = "التحقق من التحديث التلقائي"
 system_color = "استخدام وضع ألوان النظام"
-mail_icon_always = "عرض دائم أيقونة رسائل النظام"
 hide_pin_icon = "إخفاء زر التثبيت في الأعلى"
 show_drag_icon = "إظهار مقبض ترتيب السحب لقائمة التوزيعات"
 colorful_icons = "تمكين وضع الأيقونات الملونة"
@@ -522,11 +521,6 @@ compress_failed = "فشل ضغط التوزيعة \"{0}\": {1}"
 mirrors_file_not_found = "[Debug] ملف JSON للمرآة المحلية المحدد غير موجود."
 mirrors_parse_failed = "[Debug] تعذر تحليل ملف JSON للمرآة المحلية."
 cleanup_script_invalid = "[Debug] سكربت التنظيف المحلي المحدد مفقود أو ليس ملف .sh."
-
-[mail]
-title = "رسائل النظام"
-empty = "لا توجد رسائل"
-mark_all_read = "تحديد الكل كمقروء"
 
 [usb.detail]
 bus_id = "معرف الناقل"

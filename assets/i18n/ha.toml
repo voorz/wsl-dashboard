@@ -76,7 +76,6 @@ log_level = "Matakin log"
 log_retention_days = "Kwanakin riƙe log"
 update_interval = "Bincika sabuntawa ta atomatik"
 system_color = "Amfani da yanayin launin tsarin"
-mail_icon_always = "Nuna alamar saƙon tsarin koyaushe"
 hide_pin_icon = "Ɓoye maɓallin koyaushe a saman"
 show_drag_icon = "Nuna hannun tsara-ja na jerin distro"
 colorful_icons = "Kunna yanayin alamomi masu launi"
@@ -522,11 +521,6 @@ compress_failed = "An kasa matsawa rarraba \"{0}\": {1}"
 mirrors_file_not_found = "[Debug] Fayil ɗin mura na JSON na gida da aka bayar ba ya wanzu."
 mirrors_parse_failed = "[Debug] Ba a iya fassara fayil ɗin mura na JSON na gida ba."
 cleanup_script_invalid = "[Debug] Rubutun tsaftacewa na gida da aka bayar bai wanzu ba ko ba fayil ɗin .sh ba ne."
-
-[mail]
-title = "Saƙon Tsarin"
-empty = "Babu saƙonni"
-mark_all_read = "Yi alama da karantawa duka"
 
 [usb.detail]
 bus_id = "ID Bas"

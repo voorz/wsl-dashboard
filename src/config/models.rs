@@ -62,8 +62,6 @@ pub struct UserSettings {
     pub log_days: u8,
     #[serde(rename = "colorful-icons", default)]
     pub colorful_icons: bool,
-    #[serde(rename = "mail", default = "default_true")]
-    pub mail: bool,
     #[serde(rename = "hide-pin", default)]
     pub hide_pin: bool,
     #[serde(rename = "show-drag", default = "default_true")]
@@ -153,7 +151,6 @@ impl Config {
                 log_level: 4,
                 log_days: 7,
                 colorful_icons: true,
-                mail: true,
                 hide_pin: false,
                 show_drag: true,
             },

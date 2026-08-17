@@ -76,7 +76,6 @@ log_level = "لاگ سطح"
 log_retention_days = "لاگ رکڻ جا ڏينهن"
 update_interval = "خودڪار اپڊيٽ چڪاس"
 system_color = "سسٽم رنگ موڊ استعمال ڪريو"
-mail_icon_always = "سسٽم پيام آئيڪن هميشه ڏيکاريو"
 hide_pin_icon = "هميشه مٿ تي بٽڻ لڪايو"
 show_drag_icon = "ڊسٽرو لسٽ ڊريگ-سورٽ هينڊل ڏيکاريو"
 colorful_icons = "رنگين آئيڪانز موڊ فعال ڪريو"
@@ -522,11 +521,6 @@ compress_failed = "ڊسٽرو \"{0}\" ڪمپريشن ناڪام: {1}"
 mirrors_file_not_found = "[ڊيبگ] مقرري ميرر JSON فائل موجود ناهي."
 mirrors_parse_failed = "[ڊيبگ] مقرري ميرر JSON فائل پارس نٿي ٿي سگهي."
 cleanup_script_invalid = "[ڊيبگ] مقرري صاف ڪرڻ جو اِسڪرپٽ موجود ناهي يا .sh فائل ناهي."
-
-[mail]
-title = "سسٽم پيام"
-empty = "ڪابه پيام ناهي"
-mark_all_read = "سڀ پڙهيل طي نشان لڳايو"
 
 [usb.detail]
 bus_id = "Bus ID"

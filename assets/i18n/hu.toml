@@ -76,7 +76,6 @@ log_level = "Naplózási szint"
 log_retention_days = "Naplók megőrzési ideje"
 update_interval = "Automatikus frissítés ellenőrzése"
 system_color = "Rendszer színmódjának használata"
-mail_icon_always = "Rendszerüzenet ikon mindig megjelenítése"
 hide_pin_icon = "Mindig felül gomb elrejtése"
 show_drag_icon = "Distrolista húzás-rendezés fogantyú megjelenítése"
 colorful_icons = "Színes ikonok módjának engedélyezése"
@@ -522,11 +521,6 @@ compress_failed = "A(z) \"{0}\" disztribúció tömörítése sikertelen: {1}"
 mirrors_file_not_found = "[Debug] A megadott helyi tükör JSON fájl nem létezik."
 mirrors_parse_failed = "[Debug] A helyi tükör JSON fájl nem elemezhető."
 cleanup_script_invalid = "[Debug] A megadott helyi tisztító szkript hiányzik vagy nem .sh fájl."
-
-[mail]
-title = "Rendszerüzenetek"
-empty = "Nincsenek üzenetek"
-mark_all_read = "Összes megjelölése olvasottként"
 
 [usb.detail]
 bus_id = "Bus ID"

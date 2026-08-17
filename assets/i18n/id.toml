@@ -76,7 +76,6 @@ log_level = "Tingkat log"
 log_retention_days = "Hari retensi log"
 update_interval = "Pemeriksaan otomatis"
 system_color = "Gunakan mode warna sistem"
-mail_icon_always = "Selalu tampilkan ikon pesan sistem"
 hide_pin_icon = "Sembunyikan tombol always-on-top"
 show_drag_icon = "Tampilkan pegangan seret-urutkan daftar distro"
 colorful_icons = "Aktifkan mode ikon berwarna"
@@ -522,11 +521,6 @@ compress_failed = "Kompresi distro \"{0}\" gagal: {1}"
 mirrors_file_not_found = "[Debug] File JSON mirror lokal yang ditentukan tidak ada."
 mirrors_parse_failed = "[Debug] Tidak dapat mengurai file JSON mirror lokal."
 cleanup_script_invalid = "[Debug] Skrip pembersihan lokal yang ditentukan tidak ada atau bukan file .sh."
-
-[mail]
-title = "Pesan Sistem"
-empty = "Tidak ada pesan"
-mark_all_read = "Tandai semua sudah dibaca"
 
 [usb.detail]
 bus_id = "Bus ID"

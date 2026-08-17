@@ -76,7 +76,6 @@ log_level = "רמת יומן"
 log_retention_days = "ימי שמירת יומן"
 update_interval = "בדיקת עדכונים אוטומטית"
 system_color = "השתמש במצב צבע של המערכת"
-mail_icon_always = "הצג תמיד סמל הודעות מערכת"
 hide_pin_icon = "הסתר כפתור הצמדה למעלה"
 show_drag_icon = "הצג ידית מיון גרירה של רשימת ההפצות"
 colorful_icons = "הפעל מצב אייקונים בצבעים"
@@ -522,11 +521,6 @@ compress_failed = "דחיסת ההפצה \"{0}\" נכשלה: {1}"
 mirrors_file_not_found = "[Debug] קובץ ה-JSON של המראה המקומי שצוין אינו קיים."
 mirrors_parse_failed = "[Debug] לא ניתן לנתח את קובץ ה-JSON של המראה המקומי."
 cleanup_script_invalid = "[Debug] סקריפט הניקוי המקומי שצוין חסר או אינו קובץ .sh."
-
-[mail]
-title = "הודעות מערכת"
-empty = "אין הודעות"
-mark_all_read = "סמן הכל כנקרא"
 
 [usb.detail]
 bus_id = "מזהה אפיק"

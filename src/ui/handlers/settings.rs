@@ -175,7 +175,6 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                 let sidebar_network = app.get_sidebar_network();
                 let colorful_icons = app.get_colorful_icons();
                 let system_color = app.get_system_color();
-                let mail_icon_always = app.get_mail_icon_always();
                 let hide_pin_icon = app.get_hide_pin_icon();
                 let show_drag = app.global::<crate::AppApi>().get_show_drag();
 
@@ -208,7 +207,6 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                 let mut settings = state.config_manager.get_settings().clone();
                 settings.colorful_icons = colorful_icons;
                 settings.system_color = system_color;
-                settings.mail = mail_icon_always;
                 settings.hide_pin = hide_pin_icon;
                 settings.show_drag = show_drag;
                 let _ = state.config_manager.update_settings(settings);

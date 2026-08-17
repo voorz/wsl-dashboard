@@ -76,7 +76,6 @@ log_level = "Livello di log"
 log_retention_days = "Giorni di conservazione dei log"
 update_interval = "Controllo aggiornamenti"
 system_color = "Usa la modalità colore di sistema"
-mail_icon_always = "Mostra sempre l'icona dei messaggi di sistema"
 hide_pin_icon = "Nascondi pulsante sempre in alto"
 show_drag_icon = "Mostra la maniglia di trascinamento-ordinamento della lista distro"
 colorful_icons = "Abilita modalità icone colorate"
@@ -522,11 +521,6 @@ compress_failed = "Compressione della distribuzione \"{0}\" fallita: {1}"
 mirrors_file_not_found = "[Debug] Il file JSON mirror locale specificato non esiste."
 mirrors_parse_failed = "[Debug] Impossibile analizzare il file JSON mirror locale."
 cleanup_script_invalid = "[Debug] Lo script di pulizia locale specificato manca o non è un file .sh."
-
-[mail]
-title = "Messaggi di sistema"
-empty = "Nessun messaggio"
-mark_all_read = "Segna tutto come letto"
 
 [usb.detail]
 bus_id = "ID Bus"

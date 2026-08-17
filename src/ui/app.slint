@@ -11,7 +11,6 @@ import {
     UsbDevice,
     PortProxyRuleUI,
     SchedulerTaskUI,
-    MessageData,
     SettingsStrings,
     AboutStrings,
 
@@ -265,10 +264,6 @@ export component AppWindow inherits Window {
     in-out property <int> popup_image_height: 300;
 
     // System messages
-    in-out property <[MessageData]> mail_messages: [];
-    in-out property <int> mail_unread_count: 0;
-    in-out property <bool> show_mail_popup: false;
-    in-out property <bool> mail_icon_always: true;
     in-out property <bool> hide_pin_icon: false;
 
     in-out property <string> compress_vhdx_size: "---";
@@ -431,12 +426,6 @@ export component AppWindow inherits Window {
     callback close_popup_image_dialog();
     callback popup_image_clicked();
 
-    // System message callbacks
-    callback mail_message_clicked(string, string);
-    callback mail_mark_all_read();
-    callback mail_close();
-    callback mail_clicked();
-
     // Dynamic Font Selection to optimize memory usage
     // Helper function to map language to font (No recursion here)
     pure function resolve-font(lang: string) -> string {
@@ -522,8 +511,6 @@ export component AppWindow inherits Window {
                 pin_toggle => {
                     root.window_pin_toggle();
                 }
-                mail_unread_count: root.mail_unread_count;
-                mail_icon_always: root.mail_icon_always;
                 hide_pin_icon: root.hide_pin_icon;
                 close => {
                     root.window_close();
@@ -537,9 +524,6 @@ export component AppWindow inherits Window {
                 }
                 drag_delta(dx, dy) => {
                     root.window_drag_delta(dx, dy);
-                }
-                mail_clicked => {
-                    root.mail_clicked();
                 }
             }
 
@@ -851,7 +835,6 @@ export component AppWindow inherits Window {
                                 auto_shutdown <=> root.auto_shutdown;
                                 system_color <=> root.system_color;
                                 colorful_icons <=> root.colorful_icons;
-                                mail_icon_always <=> root.mail_icon_always;
                                 hide_pin_icon <=> root.hide_pin_icon;
                                 show_drag <=> AppApi.show_drag;
                                 ui_language <=> root.ui_language;
@@ -1202,20 +1185,6 @@ export component AppWindow inherits Window {
         popup_image_clicked => {
             root.open_url(root.popup_image_url);
             root.show_popup_image_dialog = false;
-        }
-
-        // System message popup
-        show_mail_popup: root.show_mail_popup;
-        mail_messages: root.mail_messages;
-        mail_unread_count: root.mail_unread_count;
-        mail_message_clicked(id, url) => {
-            root.mail_message_clicked(id, url);
-        }
-        mail_mark_all_read => {
-            root.mail_mark_all_read();
-        }
-        mail_close => {
-            root.show_mail_popup = false;
         }
 
         // USB Settings Dialog

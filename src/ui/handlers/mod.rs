@@ -11,7 +11,6 @@ pub mod usb;
 pub mod network;
 pub mod about;
 pub mod wsl_guide;
-pub mod mail;
 pub mod scheduler;
 
 use std::sync::Arc;
@@ -28,6 +27,5 @@ pub async fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_stat
     usb::setup(app, app_handle.clone(), app_state.clone());
     network::setup(app, app_handle.clone(), app_state.clone());
     about::setup(app, app_handle.clone(), app_state.clone());
-    mail::setup(app, app_handle.clone());
     scheduler::setup(app, app_handle.clone(), app_state.clone());
 }

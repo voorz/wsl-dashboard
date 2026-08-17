@@ -76,7 +76,6 @@ log_level = "Log-Level"
 log_retention_days = "Aufbewahrungstage für Logs"
 update_interval = "Automatische In-App-Updateprüfung"
 system_color = "Systemfarbmodus verwenden"
-mail_icon_always = "Systemnachrichten-Symbol immer anzeigen"
 hide_pin_icon = "Immer-oben-Schaltfläche ausblenden"
 show_drag_icon = "Zieh-Sortiergriff der Distro-Liste anzeigen"
 colorful_icons = "Bunte Symbole aktivieren"
@@ -522,11 +521,6 @@ compress_failed = "Komprimierung der Distribution \"{0}\" fehlgeschlagen: {1}"
 mirrors_file_not_found = "[Debug] Die angegebene lokale Spiegel-JSON-Datei existiert nicht."
 mirrors_parse_failed = "[Debug] Die lokale Spiegel-JSON-Datei konnte nicht geparst werden."
 cleanup_script_invalid = "[Debug] Das angegebene lokale Bereinigungsskript fehlt oder ist keine .sh-Datei."
-
-[mail]
-title = "Systemnachrichten"
-empty = "Keine Nachrichten"
-mark_all_read = "Alle als gelesen markieren"
 
 [usb.detail]
 bus_id = "Bus-ID"

@@ -76,7 +76,6 @@ log_level = "Nível de log"
 log_retention_days = "Dias de retenção de logs"
 update_interval = "Verificação automática"
 system_color = "Usar o modo de cor do sistema"
-mail_icon_always = "Sempre mostrar ícone de mensagens do sistema"
 hide_pin_icon = "Ocultar botão sempre no topo"
 show_drag_icon = "Mostrar alça de arrastar e ordenar da lista de distros"
 colorful_icons = "Ativar modo de ícones coloridos"
@@ -522,11 +521,6 @@ compress_failed = "Falha ao comprimir a distribuição \"{0}\": {1}"
 mirrors_file_not_found = "[Debug] O arquivo JSON de espelho local especificado não existe."
 mirrors_parse_failed = "[Debug] Não foi possível analisar o arquivo JSON de espelho local."
 cleanup_script_invalid = "[Debug] O script de limpeza local especificado está ausente ou não é um arquivo .sh."
-
-[mail]
-title = "Mensagens do sistema"
-empty = "Sem mensagens"
-mark_all_read = "Marcar tudo como lido"
 
 [usb.detail]
 bus_id = "ID do barramento"

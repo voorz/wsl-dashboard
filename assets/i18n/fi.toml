@@ -76,7 +76,6 @@ log_level = "Lokitaso"
 log_retention_days = "Lokien säilytyspäivät"
 update_interval = "Automaattinen päivitysten tarkistus"
 system_color = "Käytä järjestelmän väritilaa"
-mail_icon_always = "Näytä aina järjestelmäviestikuvake"
 hide_pin_icon = "Piilota aina päällä -painike"
 show_drag_icon = "Näytä distro-luettelon raahausjärjestyskahva"
 colorful_icons = "Ota käyttöön värilliset kuvakkeet"
@@ -522,11 +521,6 @@ compress_failed = "Jakelun \"{0}\" pakkaus epäonnistui: {1}"
 mirrors_file_not_found = "[Debug] Määriteltyä paikallista peili-JSON-tiedostoa ei ole olemassa."
 mirrors_parse_failed = "[Debug] Paikallista peili-JSON-tiedostoa ei voitu jäsentää."
 cleanup_script_invalid = "[Debug] Määritelty paikallinen siivousskripti puuttuu tai ei ole .sh-tiedosto."
-
-[mail]
-title = "Järjestelmäviestit"
-empty = "Ei viestejä"
-mark_all_read = "Merkitse kaikki luetuiksi"
 
 [usb.detail]
 bus_id = "Väylän tunnus"

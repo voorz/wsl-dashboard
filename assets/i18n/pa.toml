@@ -76,7 +76,6 @@ log_level = "ਲੌਗ ਪੱਧਰ"
 log_retention_days = "ਲੌਗ ਰੱਖਿਆ ਦਿਨ"
 update_interval = "ਆਟੋਮੈਟਿਕ ਅੱਪਡੇਟ ਜਾਂਚ"
 system_color = "ਸਿਸਟਮ ਰੰਗ ਮੋਡ ਵਰਤੋ"
-mail_icon_always = "ਸਿਸਟਮ ਸੁਨੇਹੇ ਆਈਕਨ ਹਮੇਸ਼ਾ ਦਿਖਾਓ"
 hide_pin_icon = "ਹਮੇਸ਼ਾ ਉੱਪਰ ਬਟਨ ਲੁਕਾਓ"
 show_drag_icon = "ਡਿਸਟ੍ਰੋ ਸੂਚੀ ਡਰੈਗ-ਸੌਰਟ ਹੈਂਡਲ ਦਿਖਾਓ"
 colorful_icons = "ਰੰਗੀਨ ਆਈਕਨ ਮੋਡ ਸਮਰੱਥ ਕਰੋ"
@@ -522,11 +521,6 @@ compress_failed = "ਡਿਸਟਰੋ \"{0}\" ਕੰਪ੍ਰੈਸ ਅਸਫ਼
 mirrors_file_not_found = "[Debug] ਦਿੱਤੀ ਗਈ ਸਥਾਨਿਕ ਮਿਰਰ JSON ਫਾਈਲ ਮੌਜੂਦ ਨਹੀਂ ਹੈ।"
 mirrors_parse_failed = "[Debug] ਸਥਾਨਿਕ ਮਿਰਰ JSON ਫਾਈਲ ਪਾਰਸ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ।"
 cleanup_script_invalid = "[Debug] ਦਿੱਤੀ ਗਈ ਸਥਾਨਿਕ ਸਫ਼ਾਈ ਸਕ੍ਰਿਪਟ ਮੌਜੂਦ ਨਹੀਂ ਹੈ ਜਾਂ .sh ਫਾਈਲ ਨਹੀਂ ਹੈ।"
-
-[mail]
-title = "ਸਿਸਟਮ ਸੁਨੇਹੇ"
-empty = "ਕੋਈ ਸੁਨੇਹੇ ਨਹੀਂ"
-mark_all_read = "ਸਭ ਪੜ੍ਹੇ ਹੋਏ ਵਜੋਂ ਮਾਰਕ ਕਰੋ"
 
 [usb.detail]
 bus_id = "Bus ID"

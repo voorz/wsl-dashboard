@@ -71,7 +71,6 @@ export component SettingsView inherits Rectangle {
     in-out property <bool> sidebar_scheduler: true;
     in-out property <bool> sparse_vhd: false;
     in-out property <bool> colorful_icons: false;
-    in-out property <bool> mail_icon_always: true;
     in-out property <bool> hide_pin_icon: false;
     in-out property <bool> show_drag: true;
     in property <SettingsStrings> strings;
@@ -254,7 +253,6 @@ export component SettingsView inherits Rectangle {
                             sidebar_scheduler <=> root.sidebar_scheduler;
                             system_color <=> root.system_color;
                             colorful_icons <=> root.colorful_icons;
-                            mail_icon_always <=> root.mail_icon_always;
                             hide_pin_icon <=> root.hide_pin_icon;
                             show_drag <=> root.show_drag;
                         }

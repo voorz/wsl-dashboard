@@ -76,7 +76,6 @@ log_level = "Logniveau"
 log_retention_days = "Dage til logopbevaring"
 update_interval = "Automatisk opdateringstjek"
 system_color = "Brug systemets farvetilstand"
-mail_icon_always = "Vis altid systemmeddelelsesikon"
 hide_pin_icon = "Skjul altid-øverst knap"
 show_drag_icon = "Vis drag-sorteringshåndtag til distro-listen"
 colorful_icons = "Aktivér farverigt ikonmode"
@@ -522,11 +521,6 @@ compress_failed = "Komprimering af distribution \"{0}\" mislykkedes: {1}"
 mirrors_file_not_found = "[Debug] Den specificerede lokale mirror JSON-fil eksisterer ikke."
 mirrors_parse_failed = "[Debug] Kunne ikke parse den lokale mirror JSON-fil."
 cleanup_script_invalid = "[Debug] Det specificerede lokale oprydningsscript mangler eller er ikke en .sh-fil."
-
-[mail]
-title = "Systemmeddelelser"
-empty = "Ingen meddelelser"
-mark_all_read = "Markér alle som læst"
 
 [usb.detail]
 bus_id = "Bus-ID"

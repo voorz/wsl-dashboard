@@ -569,7 +569,6 @@ mod tests {
             log_level: 4,
             log_days: 7,
             colorful_icons: true,
-            mail: true,
             hide_pin: false,
             show_drag: true,
         };

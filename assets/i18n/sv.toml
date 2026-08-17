@@ -76,7 +76,6 @@ log_level = "Loggnivå"
 log_retention_days = "Dagar att spara loggar"
 update_interval = "Automatisk uppdateringskontroll"
 system_color = "Använd systemets färgläge"
-mail_icon_always = "Visa alltid systemmeddelandeikon"
 hide_pin_icon = "Dölj alltid-överst knapp"
 show_drag_icon = "Visa drag-sorteringshandtag för distro-listan"
 colorful_icons = "Aktivera färgrik ikonläge"
@@ -522,11 +521,6 @@ compress_failed = "Komprimering av distribution \"{0}\" misslyckades: {1}"
 mirrors_file_not_found = "[Debug] Den angivna lokala spegel-JSON-filen finns inte."
 mirrors_parse_failed = "[Debug] Kunde inte tolka den lokala spegel-JSON-filen."
 cleanup_script_invalid = "[Debug] Det angivna lokala rensningsscriptet saknas eller är inte en .sh-fil."
-
-[mail]
-title = "Systemmeddelanden"
-empty = "Inga meddelanden"
-mark_all_read = "Markera alla som lästa"
 
 [usb.detail]
 bus_id = "Buss-ID"

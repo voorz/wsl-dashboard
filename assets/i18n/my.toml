@@ -76,7 +76,6 @@ log_level = "Log အဆင့်"
 log_retention_days = "Log ထိန်းသိမ်းရမည့် ရက်"
 update_interval = "အလိုအလျောက် အပ်ဒိတ်စစ်ဆေးမှု"
 system_color = "စနစ်အရောင် mode အသုံးပြုရန်"
-mail_icon_always = "စနစ်မက်ဆေ့ခ်ျအိုင်ကွန်ကိုအမြဲပြပါ"
 hide_pin_icon = "အမြဲထိပ်ဆုံး ခလုတ်ကို ဝှက်ပါ"
 show_drag_icon = "distro စာရင်း ဆွဲ-စီစဥ် လက်ကိုင်ကို ပြပါ"
 colorful_icons = "အရောင်စုံ အိုင်ကွန် mode ဖွင့်ရန်"
@@ -522,11 +521,6 @@ compress_failed = "Distro \"{0}\" ဖိသိပ်မှု မအောင်
 mirrors_file_not_found = "[Debug] သတ်မှတ်ထားသော local mirror JSON ဖိုင် မရှိပါ။"
 mirrors_parse_failed = "[Debug] Local mirror JSON ဖိုင်ကို ဖတ်မရပါ။"
 cleanup_script_invalid = "[Debug] သတ်မှတ်ထားသော local cleanup script မရှိပါ သို့မဟုတ် .sh ဖိုင် မဟုတ်ပါ။"
-
-[mail]
-title = "စနစ်မက်ဆေ့ခ်ျများ"
-empty = "မက်ဆေ့ခ်ျမရှိပါ"
-mark_all_read = "အားလုံးဖတ်ပြီးအမှတ်အသားလုပ်ပါ"
 
 [usb.detail]
 bus_id = "Bus ID"

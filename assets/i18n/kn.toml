@@ -76,7 +76,6 @@ log_level = "ಲಾಗ್ ಮಟ್ಟ"
 log_retention_days = "ಲಾಗ್ ಸಂರಕ್ಷಣಾ ದಿನಗಳು"
 update_interval = "ಸ್ವಯಂಚಾಲಿತ ನವೀಕರಣ ಪರಿಶೀಲನೆ"
 system_color = "ಸಿಸ್ಟಮ್ ಬಣ್ಣ ಮೋಡ್ ಬಳಸಿ"
-mail_icon_always = "ಸಿಸ್ಟಂ ಸಂದೇಶ ಐಕಾನ್ ಯಾವಾಗಲೂ ತೋರಿಸಿ"
 hide_pin_icon = "ಯಾವಾಗಲೂ ಮೇಲಿರುವ ಬಟನ್ ಅಡಗಿಸಿ"
 show_drag_icon = "ಡಿಸ್ಟ್ರೋ ಪಟ್ಟಿ ಡ್ರ್ಯಾಗ್-ಸಾರ್ಟ್ ಹ್ಯಾಂಡಲ್ ತೋರಿಸು"
 colorful_icons = "ವರ್ಣಮಯ ಐಕಾನ್ ಮೋಡ್ ಸಕ್ರಿಯಗೊಳಿಸಿ"
@@ -522,11 +521,6 @@ compress_failed = "ಡಿಸ್ಟ್ರೋ \"{0}\" ಸಂಕ್ಷೇಪಣೆ 
 mirrors_file_not_found = "[Debug] ನಿರ್ದಿಷ್ಟಪಡಿಸಿದ ಸ್ಥಳೀಯ ಮಿರರ್ JSON ಫೈಲ್ ಅಸ್ತಿತ್ವದಲ್ಲಿಲ್ಲ."
 mirrors_parse_failed = "[Debug] ಸ್ಥಳೀಯ ಮಿರರ್ JSON ಫೈಲ್ ಅನ್ನು ಪಾರ್ಸ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ."
 cleanup_script_invalid = "[Debug] ನಿರ್ದಿಷ್ಟಪಡಿಸಿದ ಸ್ಥಳೀಯ ಸ್ವಚ್ಛತಾ ಸ್ಕ್ರಿಪ್ಟ್ ಕಂಡುಬಂದಿಲ್ಲ ಅಥವಾ .sh ಫೈಲ್ ಅಲ್ಲ."
-
-[mail]
-title = "ಸಿಸ್ಟಂ ಸಂದೇಶಗಳು"
-empty = "ಯಾವುದೇ ಸಂದೇಶಗಳಿಲ್ಲ"
-mark_all_read = "ಎಲ್ಲಾ ಓದಲಾಗಿದೆ ಎಂದು ಗುರುತಿಸಿ"
 
 [usb.detail]
 bus_id = "Bus ID"

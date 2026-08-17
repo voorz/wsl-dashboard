@@ -76,7 +76,6 @@ log_level = "Jurnal səviyyəsi"
 log_retention_days = "Jurnal saxlama günləri"
 update_interval = "Avtomatik yeniləmə yoxlaması"
 system_color = "Sistem rəng rejimindən istifadə et"
-mail_icon_always = "Sistem mesajları ikonunu həmişə göstər"
 hide_pin_icon = "Always-on-top düyməsini gizlət"
 show_drag_icon = "Distro siyahısının sürükle-sırala tutacağını göstər"
 colorful_icons = "Rəngli ikonlar rejimini aktiv et"
@@ -522,11 +521,6 @@ compress_failed = "Distro \"{0}\" sıxışdırma uğursuz oldu: {1}"
 mirrors_file_not_found = "[Debug] Göstərilən lokal güzgü JSON faylı mövcud deyil."
 mirrors_parse_failed = "[Debug] Lokal güzgü JSON faylı təhlil edilə bilmədi."
 cleanup_script_invalid = "[Debug] Göstərilən lokal təmizlik skripti mövcud deyil və ya .sh faylı deyil."
-
-[mail]
-title = "Sistem Mesajları"
-empty = "Mesaj yoxdur"
-mark_all_read = "Hamısını oxunmuş kimi işarələ"
 
 [usb.detail]
 bus_id = "Avtobus ID"

@@ -76,7 +76,6 @@ log_level = "ログレベル"
 log_retention_days = "ログ保持日数"
 update_interval = "自動更新の確認"
 system_color = "システムのカラーモードを使用する"
-mail_icon_always = "システムメッセージアイコンを常に表示"
 hide_pin_icon = "常に最前面に表示ボタンを非表示"
 show_drag_icon = "ディストロリストのドラッグ並び替えハンドルを表示"
 colorful_icons = "カラーアイコンモードを有効にする"
@@ -522,11 +521,6 @@ compress_failed = "ディストリビューション \"{0}\" の圧縮に失敗�
 mirrors_file_not_found = "[Debug] 指定されたローカルミラーJSONファイルが存在しません。"
 mirrors_parse_failed = "[Debug] ローカルミラーJSONファイルを解析できませんでした。"
 cleanup_script_invalid = "[Debug] 指定されたローカルクリーンアップスクリプトが存在しないか、.shファイルではありません。"
-
-[mail]
-title = "システムメッセージ"
-empty = "メッセージなし"
-mark_all_read = "すべて既読にする"
 
 [usb.detail]
 bus_id = "バス ID"

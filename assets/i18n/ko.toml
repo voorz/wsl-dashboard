@@ -76,7 +76,6 @@ log_level = "로그 레벨"
 log_retention_days = "로그 보관 일수"
 update_interval = "자동 업데이트 확인"
 system_color = "시스템 색상 모드 사용"
-mail_icon_always = "시스템 메시지 아이콘 항상 표시"
 hide_pin_icon = "항상 위에 표시 버튼 숨기기"
 show_drag_icon = "배포판 목록 드래그 정렬 핸들 표시"
 colorful_icons = "컬러 아이콘 모드 활성화"
@@ -522,11 +521,6 @@ compress_failed = "배포판 \"{0}\" 압축 실패: {1}"
 mirrors_file_not_found = "[Debug] 지정된 로컬 미러 JSON 파일이 존재하지 않습니다."
 mirrors_parse_failed = "[Debug] 로컬 미러 JSON 파일을 파싱할 수 없습니다."
 cleanup_script_invalid = "[Debug] 지정된 로컬 정리 스크립트가 없거나 .sh 파일이 아닙니다."
-
-[mail]
-title = "시스템 메시지"
-empty = "메시지 없음"
-mark_all_read = "모두 읽음으로 표시"
 
 [usb.detail]
 bus_id = "버스 ID"

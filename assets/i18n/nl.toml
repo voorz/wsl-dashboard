@@ -76,7 +76,6 @@ log_level = "Logniveau"
 log_retention_days = "Bewaardagen van logs"
 update_interval = "Automatische updatecontrole"
 system_color = "Systeemkleurmodus gebruiken"
-mail_icon_always = "Systeemberichtpictogram altijd tonen"
 hide_pin_icon = "Altijd-bovenaan knop verbergen"
 show_drag_icon = "Sleepsorteerhendel van distro-lijst weergeven"
 colorful_icons = "Kleurrijk pictogrammenmodus inschakelen"
@@ -522,11 +521,6 @@ compress_failed = "Compressie van distributie \"{0}\" is mislukt: {1}"
 mirrors_file_not_found = "[Debug] Het opgegeven lokale mirror JSON-bestand bestaat niet."
 mirrors_parse_failed = "[Debug] Het lokale mirror JSON-bestand kon niet worden geparsed."
 cleanup_script_invalid = "[Debug] Het opgegeven lokale opruimingscript ontbreekt of is geen .sh-bestand."
-
-[mail]
-title = "Systeemberichten"
-empty = "Geen berichten"
-mark_all_read = "Alles als gelezen markeren"
 
 [usb.detail]
 bus_id = "Bus-ID"

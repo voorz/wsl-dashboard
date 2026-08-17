@@ -76,7 +76,6 @@ log_level = "Jurnal darajasi"
 log_retention_days = "Jurnal saqlash kunlari"
 update_interval = "Avtomatik yangilanishni tekshirish"
 system_color = "Tizim rang rejimidan foydalanish"
-mail_icon_always = "Tizim xabarlari doimo ko'rsatish"
 hide_pin_icon = "Doimo yuqorida tugmani yashirish"
 show_drag_icon = "Distro ro'yxatini sudrab-saralash tutqichini ko'rsatish"
 colorful_icons = "Rangli ikonkalar rejimini yoqish"
@@ -522,11 +521,6 @@ compress_failed = "Distributiv \"{0}\" siqish amalga oshmadi: {1}"
 mirrors_file_not_found = "[Debug] Ko'rsatilgan lokal oyna JSON fayli mavjud emas."
 mirrors_parse_failed = "[Debug] Lokal oyna JSON faylini tahlil qilib bo'lmadi."
 cleanup_script_invalid = "[Debug] Ko'rsatilgan lokal tozalash skripti mavjud emas yoki .sh fayl emas."
-
-[mail]
-title = "Tizim xabarlari"
-empty = "Xabarlar yo'q"
-mark_all_read = "Hammasini o'qilgan deb belgilash"
 
 [usb.detail]
 bus_id = "Avtobus ID"

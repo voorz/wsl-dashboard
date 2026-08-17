@@ -4,7 +4,6 @@
 // Popup notification condition logic + sync.toml read/write
 
 use serde::{Deserialize, Serialize};
-use std::collections::HashSet;
 use std::path::PathBuf;
 use tracing::{debug, warn};
 use crate::api::models::*;
@@ -24,8 +23,6 @@ pub struct SyncConfig {
     pub common: SyncCommonConfig,
     #[serde(default)]
     pub popup: PopupRecord,
-    #[serde(default)]
-    pub message: MessageRecord,
 }
 
 // Common config section (version + modify time)
@@ -59,17 +56,6 @@ pub struct PopupRecord {
     // Last shown timestamp (milliseconds)
     #[serde(default, rename = "shown-time")]
     pub shown_time: i64,
-}
-
-// Message read record
-#[derive(Debug, Serialize, Deserialize, Default, Clone)]
-pub struct MessageRecord {
-    // Read message ID list, comma-separated
-    #[serde(default, rename = "read-list")]
-    pub read_list: String,
-    // Last updated timestamp (milliseconds)
-    #[serde(default, rename = "updated-time")]
-    pub updated_time: i64,
 }
 
 // Get sync.toml file path
@@ -335,56 +321,6 @@ fn match_detail_by_lang<'a>(
     }
 
     details.first().cloned().unwrap_or_default()
-}
-
-// ============================================================
-// System message read management
-// ============================================================
-
-// Get the set of read message IDs
-pub fn get_read_message_ids() -> HashSet<String> {
-    let config = load_sync_config();
-    if config.message.read_list.is_empty() {
-        return HashSet::new();
-    }
-    config.message.read_list
-        .split(',')
-        .map(|s| s.trim().to_string())
-        .filter(|s| !s.is_empty())
-        .collect()
-}
-
-// Mark a message as read (also cleans up expired IDs)
-pub fn mark_message_read(id: &str, active_ids: &[String]) {
-    let mut config = load_sync_config();
-    let mut ids: HashSet<String> = config.message.read_list
-        .split(',')
-        .map(|s| s.trim().to_string())
-        .filter(|s| !s.is_empty())
-        .collect();
-
-    // Clean up historical IDs not in the current API response list
-    let active_set: HashSet<String> = active_ids.iter().cloned().collect();
-    ids.retain(|k| active_set.contains(k));
-
-    ids.insert(id.to_string());
-    config.message.read_list = ids.iter().cloned().collect::<Vec<_>>().join(",");
-    config.message.updated_time = now_ms() as i64;
-
-    if let Err(e) = save_sync_config(&config) {
-        warn!("Failed to save message read status: {}", e);
-    }
-}
-
-// Mark all messages as read (replaces with current list, naturally cleans up expired IDs)
-pub fn mark_all_messages_read(ids: &[String]) {
-    let mut config = load_sync_config();
-    config.message.read_list = ids.join(",");
-    config.message.updated_time = now_ms() as i64;
-
-    if let Err(e) = save_sync_config(&config) {
-        warn!("Failed to save message read status: {}", e);
-    }
 }
 
 // Image popup detail matching logic

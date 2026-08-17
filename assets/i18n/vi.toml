@@ -76,7 +76,6 @@ log_level = "Mức nhật ký"
 log_retention_days = "Số ngày lưu trữ nhật ký"
 update_interval = "Tự động kiểm tra cập nhật"
 system_color = "Sử dụng chế độ màu hệ thống"
-mail_icon_always = "Luôn hiển thị biểu tượng tin nhắn hệ thống"
 hide_pin_icon = "Ẩn nút luôn hiển thị trên cùng"
 show_drag_icon = "Hiển thị tay cầm kéo sắp xếp danh sách distro"
 colorful_icons = "Bật chế độ biểu tượng nhiều màu"
@@ -522,11 +521,6 @@ compress_failed = "Nén bản phân phối \"{0}\" thất bại: {1}"
 mirrors_file_not_found = "[Debug] Tệp JSON mirror cục bộ được chỉ định không tồn tại."
 mirrors_parse_failed = "[Debug] Không thể phân tích tệp JSON mirror cục bộ."
 cleanup_script_invalid = "[Debug] Script dọn dẹp cục bộ được chỉ định không tồn tại hoặc không phải tệp .sh."
-
-[mail]
-title = "Tin nhắn hệ thống"
-empty = "Không có tin nhắn"
-mark_all_read = "Đánh dấu tất cả đã đọc"
 
 [usb.detail]
 bus_id = "ID Bus"

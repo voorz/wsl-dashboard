@@ -53,8 +53,7 @@ pub fn migrate_config(config: &mut Config) {
 
     // v6 -> v7 logic
     if old_version < 7 {
-        info!("Upgrading to v7: adding [settings] mail (default true),hide-pin (default false)");
-        config.settings.mail = true;
+        info!("Upgrading to v7: adding [settings] hide-pin (default false)");
         config.settings.hide_pin = false;
     }
 

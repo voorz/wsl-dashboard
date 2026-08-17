@@ -76,7 +76,6 @@ log_level = "Tahap log"
 log_retention_days = "Hari pengekalan log"
 update_interval = "Semakan kemas kini automatik"
 system_color = "Gunakan mod warna sistem"
-mail_icon_always = "Sentiasa tunjukkan ikon mesej sistem"
 hide_pin_icon = "Sembunyi butang sentiasa di atas"
 show_drag_icon = "Paparkan pemegang susun-seret senarai distro"
 colorful_icons = "Dayakan mod ikon berwarna"
@@ -522,11 +521,6 @@ compress_failed = "Distro \"{0}\" pemampatan gagal: {1}"
 mirrors_file_not_found = "[Debug] Fail JSON cermin tempatan yang ditentukan tidak wujud."
 mirrors_parse_failed = "[Debug] Tidak dapat menghurai fail JSON cermin tempatan."
 cleanup_script_invalid = "[Debug] Skrip pembersihan tempatan yang ditentukan tiada atau bukan fail .sh."
-
-[mail]
-title = "Mesej Sistem"
-empty = "Tiada mesej"
-mark_all_read = "Tandakan semua sudah dibaca"
 
 [usb.detail]
 bus_id = "ID Bas"

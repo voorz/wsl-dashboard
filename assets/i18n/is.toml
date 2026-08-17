@@ -76,7 +76,6 @@ log_level = "Stig annála"
 log_retention_days = "Geymslutími annála"
 update_interval = "Sjálfvirk uppfærsluleit"
 system_color = "Nota litaham kerfis"
-mail_icon_always = "Sýna alltaf kerfisskilaboðatákn"
 hide_pin_icon = "Fela alltaf-efst hnapp"
 show_drag_icon = "Sýna drag-raða handfang distro-lista"
 colorful_icons = "Virkja litafulla táknmyndir"
@@ -522,11 +521,6 @@ compress_failed = "Þjöppun dreifingar \"{0}\" mistókst: {1}"
 mirrors_file_not_found = "[Debug] Tilgreindu staðbundnu spegilskrá JSON er ekki til."
 mirrors_parse_failed = "[Debug] Ekki tókst að þátta staðbundnu spegilskrá JSON."
 cleanup_script_invalid = "[Debug] Tilgreint staðbundið hreinsunarskrift vantar eða er ekki .sh skrá."
-
-[mail]
-title = "Kerfisskilaboð"
-empty = "Engin skilaboð"
-mark_all_read = "Merkja allt lesið"
 
 [usb.detail]
 bus_id = "Bus ID"

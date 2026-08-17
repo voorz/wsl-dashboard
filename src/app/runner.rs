@@ -155,9 +155,6 @@ pub async fn run_app(config_manager: ConfigManager, logging_system: LoggingSyste
             tokio::time::sleep(std::time::Duration::from_millis(2000)).await;
             let mut scheduler = crate::app::task_scheduler::TaskScheduler::new(ah);
 
-            // Message Sync Task (runs early, ignores DND)
-            scheduler.register(crate::app::tasks::MessageSyncTask);
-
             // Popup Sync Task (Priority 4, respects DND)
             let sync_is_running = std::sync::Arc::new(std::sync::atomic::AtomicBool::new(false));
             scheduler.register(crate::app::tasks::PopupSyncTask {

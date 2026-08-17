@@ -76,7 +76,6 @@ log_level = "లాగ్ స్థాయి"
 log_retention_days = "లాగ్ నిల్వ రోజులు"
 update_interval = "స్వయంచాలక నవీకరణ తనిఖీ"
 system_color = "సిస్టమ్ రంగు మోడ్‌ను ఉపయోగించు"
-mail_icon_always = "సిస్టం సందేశ ఐకాన్ ఎల్లప్పుడూ చూపించు"
 hide_pin_icon = "ఎల్లప్పుడూ పైన ఉన్న బటన్‌ను దాచు"
 show_drag_icon = "డిస్ట్రో జాబితా డ్రాగ్-సార్ట్ హ్యాండిల్ చూపించు"
 colorful_icons = "రంగురంగుల ఐకాన్ మోడ్‌ను ప్రారంభించు"
@@ -522,11 +521,6 @@ compress_failed = "డిస్ట్రో \"{0}\" కంప్రెషన్ 
 mirrors_file_not_found = "[Debug] పేర్కొన్న లోకల్ మిర్రర్ JSON ఫైల్ లేదు."
 mirrors_parse_failed = "[Debug] లోకల్ మిర్రర్ JSON ఫైల్‌ను పార్స్ చేయలేకపోయింది."
 cleanup_script_invalid = "[Debug] పేర్కొన్న లోకల్ క్లీనప్ స్క్రిప్ట్ లేదు లేదా .sh ఫైల్ కాదు."
-
-[mail]
-title = "సిస్టం సందేశాలు"
-empty = "సందేశాలు లేవు"
-mark_all_read = "అన్నీ చదినినట్లు గుర్తించు"
 
 [usb.detail]
 bus_id = "బస్ ID"

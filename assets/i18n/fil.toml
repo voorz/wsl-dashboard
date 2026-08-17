@@ -76,7 +76,6 @@ log_level = "Log level"
 log_retention_days = "Mga araw ng pagpapanatili ng log"
 update_interval = "Awtomatikong pag-check ng update"
 system_color = "Gamitin ang system color mode"
-mail_icon_always = "Palaging ipakita ang icon ng mensahe ng sistema"
 hide_pin_icon = "Itago ang always-on-top button"
 show_drag_icon = "Ipakita ang drag-sort handle ng listahan ng distro"
 colorful_icons = "I-enable ang makulay na icon mode"
@@ -522,11 +521,6 @@ compress_failed = "Nabigo ang compression ng distro \"{0}\": {1}"
 mirrors_file_not_found = "[Debug] Hindi umiiral ang tinukoy na lokal na mirror JSON file."
 mirrors_parse_failed = "[Debug] Hindi ma-parse ang lokal na mirror JSON file."
 cleanup_script_invalid = "[Debug] Ang tinukoy na lokal na cleanup script ay nawawala o hindi .sh file."
-
-[mail]
-title = "Mga Mensahe ng Sistema"
-empty = "Walang mga mensahe"
-mark_all_read = "Markahan lahat bilang nabasa"
 
 [usb.detail]
 bus_id = "Bus ID"

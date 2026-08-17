@@ -84,7 +84,6 @@ log_level = "Log level"
 log_retention_days = "Log retention days"
 update_interval = "Automatic update check"
 system_color = "Use system color mode"
-mail_icon_always = "Always show system messages icon"
 hide_pin_icon = "Hide always-on-top button"
 show_drag_icon = "Show distro list drag-sort handle"
 colorful_icons = "Enable colorful icons mode"
@@ -557,11 +556,6 @@ compress_failed = "Distro \"{0}\" compression failed: {1}"
 mirrors_file_not_found = "[Debug] The specified local mirror JSON file does not exist."
 mirrors_parse_failed = "[Debug] Could not parse the local mirror JSON file."
 cleanup_script_invalid = "[Debug] The specified local cleanup script is missing or not a .sh file."
-
-[mail]
-title = "System Messages"
-empty = "No messages"
-mark_all_read = "Mark all as read"
 
 [scheduler]
 add_btn = "Add Task"

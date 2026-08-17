@@ -76,7 +76,6 @@ log_level = "Günlük seviyesi"
 log_retention_days = "Günlük saklama günleri"
 update_interval = "Otomatik güncelleme"
 system_color = "Sistem renk modunu kullan"
-mail_icon_always = "Sistem mesajları simgesini her zaman göster"
 hide_pin_icon = "Her zaman üstte düğmesini gizle"
 show_drag_icon = "Distro listesi sürükle-sırala tutamacını göster"
 colorful_icons = "Renkli simge modunu etkinleştir"
@@ -522,11 +521,6 @@ compress_failed = "Dağıtım \"{0}\" sıkıştırması başarısız oldu: {1}"
 mirrors_file_not_found = "[Debug] Belirtilen yerel ayna JSON dosyası mevcut değil."
 mirrors_parse_failed = "[Debug] Yerel ayna JSON dosyası ayrıştırılamadı."
 cleanup_script_invalid = "[Debug] Belirtilen yerel temizleme betiği eksik veya .sh dosyası değil."
-
-[mail]
-title = "Sistem Mesajları"
-empty = "Mesaj yok"
-mark_all_read = "Tümünü okundu işaretle"
 
 [usb.detail]
 bus_id = "Veri Yolu ID"

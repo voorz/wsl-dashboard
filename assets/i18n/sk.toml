@@ -76,7 +76,6 @@ log_level = "Úroveň logovania"
 log_retention_days = "Dni uchovávania logov"
 update_interval = "Automatická kontrola aktualizácií"
 system_color = "Použiť systémový farebný režim"
-mail_icon_always = "Vždy zobraziť ikonu systémových správ"
 hide_pin_icon = "Skryť tlačidlo vždy navrchu"
 show_drag_icon = "Zobraziť rukoväť zoradenia pretiahnutím distribučného zoznamu"
 colorful_icons = "Povoliť farebné ikony"
@@ -522,11 +521,6 @@ compress_failed = "Kompresia distribúcie \"{0}\" zlyhala: {1}"
 mirrors_file_not_found = "[Debug] Zadaný lokálny súbor zrkadla JSON neexistuje."
 mirrors_parse_failed = "[Debug] Nepodarilo sa analyzovať lokálny súbor zrkadla JSON."
 cleanup_script_invalid = "[Debug] Zadaný lokálny čistiaci skript chýba alebo nie je súbor .sh."
-
-[mail]
-title = "Systémové správy"
-empty = "Žiadne správy"
-mark_all_read = "Označiť všetko ako prečítané"
 
 [usb.detail]
 bus_id = "ID zbernice"

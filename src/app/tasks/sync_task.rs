@@ -4,8 +4,7 @@
 // Sync monitoring scheduled tasks
 //
 // wslui_helper_sync() returns both popup and messages.
-// 1. PopupSyncTask: Handles popups, part of the DND priority chain (Priority 4).
-// 2. MessageSyncTask: Handles messages (red dot on UI), ignores DND, runs early.
+// PopupSyncTask: Handles popups, part of the DND priority chain (Priority 4).
 
 use tracing::{debug, info};
 use crate::AppWindow;
@@ -106,48 +105,6 @@ impl PopupSyncTask {
 
             // Dispatch popup data to popup handler
             super::popup_handler::handle_popup(&sync_data.popup, app_handle).await;
-        }
-
-        Ok(())
-    }
-}
-
-// ============================================================================
-// Message Sync Task
-// ============================================================================
-
-pub struct MessageSyncTask;
-
-#[async_trait::async_trait]
-impl ScheduledTask for MessageSyncTask {
-    fn name(&self) -> &str {
-        "message_sync"
-    }
-
-    fn interval(&self) -> TaskInterval {
-        TaskInterval::Custom(60) // 60s interval
-    }
-
-    fn requires_window_visible(&self) -> bool {
-        // Red dot UI state can be updated regardless of window visibility
-        false
-    }
-
-    async fn execute(&self, app_handle: &slint::Weak<AppWindow>) -> Result<(), String> {
-        // Delay 3 seconds (specifically requested for startup delay, 
-        // will safely shift subsequent ticks by 3s without issues).
-        tokio::time::sleep(std::time::Duration::from_secs(3)).await;
-
-        let sync_data = tokio::task::spawn_blocking(|| {
-            crate::api::common::wslui_helper_sync()
-        })
-        .await
-        .map_err(|e| format!("spawn_blocking failed: {}", e))?;
-
-        debug!("message_sync: received data from wslui_helper_sync");
-
-        if !sync_data.messages.is_empty() {
-            super::message_handler::handle_messages(&sync_data.messages, app_handle).await;
         }
 
         Ok(())

@@ -76,7 +76,6 @@ log_level = "የመዝገብ ደረጃ"
 log_retention_days = "የመዝገብ ማቆያ ቀናት"
 update_interval = "ራስ-ሰር ዝመና ማረጋገጫ"
 system_color = "የስርዓት ቀለም ሁኔታ መጠቀም"
-mail_icon_always = "የስርዓት መልዕክቶች አዶን ሁሌ አሳይ"
 hide_pin_icon = "ሁልጊዜ-ከፍታ ቁልፍ ደብቅ"
 show_drag_icon = "የዲስትሮ ዝርዝር ጎትቶ-ሰደር መጎተቻ አሳይ"
 colorful_icons = "ቀለማማ ታምቦሎች ማብቂያ"
@@ -522,11 +521,6 @@ compress_failed = "ስርጭት \"{0}\" መጨመር አልተሳካም፦ {1}"
 mirrors_file_not_found = "[ማረም] የተገለጸው የአካባቢ አይነት JSON ፋይል የለም።"
 mirrors_parse_failed = "[ማረም] የአካባቢ አይነት JSON ፋይልን መተንተን አልተቻለም።"
 cleanup_script_invalid = "[ማረም] የተገለጸው የአካባቢ ማጽዳት ስክሪፕት የለም ወይም .sh ፋይል አይደለም።"
-
-[mail]
-title = "ስርዓት መልዕክቶች"
-empty = "ምንም መልዕክቶች የሉም"
-mark_all_read = "ሁሉንም አንብብ"
 
 [usb.detail]
 bus_id = "አውቶቡስ መታወቂያ"

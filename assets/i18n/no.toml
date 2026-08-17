@@ -76,7 +76,6 @@ log_level = "Lognivå"
 log_retention_days = "Dager for loggbevaring"
 update_interval = "Automatisk oppdateringssjekk"
 system_color = "Bruk systemfargemodus"
-mail_icon_always = "Vis alltid systemmeldingsikon"
 hide_pin_icon = "Skjul alltid-øverst knapp"
 show_drag_icon = "Vis drag-sorteringshåndtak for distro-listen"
 colorful_icons = "Aktiver fargerikt ikonmodus"
@@ -522,11 +521,6 @@ compress_failed = "Komprimering av distribusjon \"{0}\" mislyktes: {1}"
 mirrors_file_not_found = "[Debug] Den angitt lokale speil-JSON-filen eksisterer ikke."
 mirrors_parse_failed = "[Debug] Kunne ikke tolke den lokale speil-JSON-filen."
 cleanup_script_invalid = "[Debug] Det angitte lokale oppryddingsskriptet mangler eller er ikke en .sh-fil."
-
-[mail]
-title = "Systemmeldinger"
-empty = "Ingen meldinger"
-mark_all_read = "Marker alle som lest"
 
 [usb.detail]
 bus_id = "Bus ID"

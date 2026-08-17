@@ -76,7 +76,6 @@ log_level = "Tingkat log"
 log_retention_days = "Dina panyimpenan log"
 update_interval = "Priksa otomatis nganyari"
 system_color = "Gunakake mode warna sistem"
-mail_icon_always = "Tansah tampilake ikon pesen sistem"
 hide_pin_icon = "Sing tombol always-on-top"
 show_drag_icon = "Tampilake drag-sort handle dhaftar distro"
 colorful_icons = "Aktifake mode ikon warna-warni"
@@ -522,11 +521,6 @@ compress_failed = "Distro \"{0}\" kompresi gagal: {1}"
 mirrors_file_not_found = "[Debug] File JSON mirror lokal sing ditemtokake ora ana."
 mirrors_parse_failed = "[Debug] Ora bisa ngurai file JSON mirror lokal."
 cleanup_script_invalid = "[Debug] Skrip pembersihan lokal sing ditemtokake ora ana utawa dudu file .sh."
-
-[mail]
-title = "Pesen Sistem"
-empty = "Ora ana pesen"
-mark_all_read = "Tandai kabeh wis maca"
 
 [usb.detail]
 bus_id = "Bus ID"

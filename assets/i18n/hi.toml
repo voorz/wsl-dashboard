@@ -76,7 +76,6 @@ log_level = "लॉग स्तर"
 log_retention_days = "लॉग प्रतिधारण दिन"
 update_interval = "अपडेट की स्वचालित जांच"
 system_color = "सिस्टम कलर मोड का उपयोग करें"
-mail_icon_always = "सिस्टम संदेश आइकन हमेशा दिखाएं"
 hide_pin_icon = "हमेशा ऊपर बटन छिपाएं"
 show_drag_icon = "डिस्ट्रो सूची ड्रैग-सॉर्ट हैंडल दिखाएं"
 colorful_icons = "रंगीन आइकन मोड सक्षम करें"
@@ -522,11 +521,6 @@ compress_failed = "डिस्ट्रो \"{0}\" का संपीड़न
 mirrors_file_not_found = "[Debug] निर्दिष्ट स्थानीय मिरर JSON फ़ाइल मौजूद नहीं है।"
 mirrors_parse_failed = "[Debug] स्थानीय मिरर JSON फ़ाइल को पार्स नहीं किया जा सका।"
 cleanup_script_invalid = "[Debug] निर्दिष्ट स्थानीय सफाई स्क्रिप्ट गायब है या .sh फ़ाइल नहीं है।"
-
-[mail]
-title = "सिस्टम संदेश"
-empty = "कोई संदेश नहीं"
-mark_all_read = "सभी पढ़ा हुआ चिह्नित करें"
 
 [usb.detail]
 bus_id = "बस आईडी"

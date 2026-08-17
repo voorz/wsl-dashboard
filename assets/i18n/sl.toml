@@ -76,7 +76,6 @@ log_level = "Raven dnevnikovanja"
 log_retention_days = "Dni hrambe dnevnikov"
 update_interval = "Samodejno preverjanje posodobitev"
 system_color = "Uporabi sistemski barvni način"
-mail_icon_always = "Prikaži vedno ikono sistemskih sporočil"
 hide_pin_icon = "Skrij gumb vedno na vrhu"
 show_drag_icon = "Prikaži ročico za vlečno razvrščanje seznama distribucij"
 colorful_icons = "Omogoči barvne ikone"
@@ -522,11 +521,6 @@ compress_failed = "Stiskanje distribucije \"{0}\" ni uspelo: {1}"
 mirrors_file_not_found = "[Debug] Navedena lokalna datoteka JSON zrcala ne obstaja."
 mirrors_parse_failed = "[Debug] Lokalne datoteke JSON zrcala ni bilo mogoče razčleniti."
 cleanup_script_invalid = "[Debug] Navedena lokalna čistilna skripta manjka ali ni datoteka .sh."
-
-[mail]
-title = "Sistemska sporočila"
-empty = "Ni sporočil"
-mark_all_read = "Označi vse kot prebrano"
 
 [usb.detail]
 bus_id = "ID vodila"

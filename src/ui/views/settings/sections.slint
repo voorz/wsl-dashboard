@@ -237,7 +237,6 @@ export component InterfaceSettingsSection inherits VerticalLayout {
     in-out property <bool> sidebar_scheduler: true;
     in-out property <bool> system_color;
     in-out property <bool> colorful_icons;
-    in-out property <bool> mail_icon_always;
     in-out property <bool> hide_pin_icon;
     in-out property <bool> show_drag;
 
@@ -275,7 +274,6 @@ export component InterfaceSettingsSection inherits VerticalLayout {
         VerticalLayout {
             padding: 12px;
             spacing: 12px;
-            CustomCheckBox { checked <=> root.mail_icon_always; text: root.strings.mail_icon_always; }
             CustomCheckBox { checked <=> root.system_color; text: root.strings.system_color; }
             CustomCheckBox { checked <=> root.hide_pin_icon; text: root.strings.hide_pin_icon; }
             CustomCheckBox { checked <=> root.colorful_icons; text: root.strings.colorful_icons; }

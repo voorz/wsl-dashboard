@@ -117,7 +117,6 @@ pub fn refresh_localized_strings(app: &AppWindow) {
         sparse_vhd: i18n::tr("settings.sparse_vhd", &[]).into(),
         sparse_vhd_desc: i18n::tr("settings.sparse_vhd_desc", &[]).into(),
         colorful_icons: i18n::tr("settings.colorful_icons", &[]).into(),
-        mail_icon_always: i18n::tr("settings.mail_icon_always", &[]).into(),
         hide_pin_icon: i18n::tr("settings.hide_pin_icon", &[]).into(),
         show_drag_icon: i18n::tr("settings.show_drag_icon", &[]).into(),
         stop_wsl: i18n::tr("settings.stop_wsl", &[]).into(),
@@ -840,7 +839,6 @@ pub async fn load_settings_to_ui(app: &AppWindow, app_state: &Arc<Mutex<AppState
     app.global::<crate::Theme>().set_system_color(settings.system_color);
     app.set_colorful_icons(settings.colorful_icons);
     app.global::<crate::Theme>().set_colorful_icons(settings.colorful_icons);
-    app.set_mail_icon_always(settings.mail);
     app.set_hide_pin_icon(settings.hide_pin);
     app.global::<crate::AppApi>().set_show_drag(settings.show_drag);
     app.set_sidebar_collapsed(settings.sidebar_collapsed);
