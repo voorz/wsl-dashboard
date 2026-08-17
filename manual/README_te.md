@@ -179,7 +179,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 ఆపరేషన్ డెమో
 
-[మాకు మెరుగుపరచడంలో సహాయపడండి! మా పరిచయ వీడియోను చూడండి మరియు మీ ఆలోచనలను పంచుకోండి.](https://github.com/owu/wsl-dashboard/discussions/9)
+[మాకు మెరుగుపరచడంలో సహాయపడండి! మా పరిచయ వీడియోను చూడండి మరియు మీ ఆలోచనలను పంచుకోండి.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -221,7 +221,7 @@ winget install Owu.WSLDashboard
 
 అత్యంత సులభమైన మార్గం బిల్డ్ చేయబడిన వెర్షన్‌ను ఉపయోగించడం:
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) పేజీకి వెళ్ళండి.
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) పేజీకి వెళ్ళండి.
 2. Windows కోసం తాజా `wsldashboard` ఎగ్జిక్యూటబుల్‌ను డౌన్‌లోడ్ చేయండి.
 3. డీకంప్రెస్ చేయండి (కంప్రెస్డ్ ఫైల్ అయితే) మరియు `wsldashboard.exe` ను రన్ చేయండి.
 
@@ -234,7 +234,7 @@ Rust టూల్‌చైన్ (Rust 1.92+ లేదా తాజా వెర
 1. రిపోజిటరీని క్లోన్ చేయండి:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

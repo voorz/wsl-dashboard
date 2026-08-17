@@ -180,7 +180,7 @@ Günlük dosyaları yapılandırılan günlük dizinine yazılır ve sorunları 
 
 ## 🎬 Çalışma Gösterimi
 
-[Geliştirmemize yardımcı olun! Tanıtım videomuzu izleyin ve düşüncelerinizi paylaşın.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Geliştirmemize yardımcı olun! Tanıtım videomuzu izleyin ve düşüncelerinizi paylaşın.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ Daha fazla bilgi için [WinGet topluluk deposunu](https://github.com/microsoft/w
 
 Başlamanın en kolay yolu önceden derlenmiş sürümü kullanmaktır:
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) sayfasına gidin.
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) sayfasına gidin.
 2. Windows için en son `wsldashboard` yürütülebilir dosyasını indirin.
 3. Paket dosyası ise çıkartın ve `wsldashboard.exe` dosyasını çalıştırın.
 
@@ -235,7 +235,7 @@ Rust araç zincirinin (Rust 1.92+ veya daha yeni) kurulu olduğundan emin olun.
 1. Depoyu klonlayın:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

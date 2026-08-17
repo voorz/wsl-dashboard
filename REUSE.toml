@@ -1,7 +1,7 @@
 version = 1
 SPDX-PackageName = "wsldashboard"
-SPDX-PackageDownloadLocation = "https://github.com/owu/wsl-dashboard"
-SPDX-PackageInformationUrl = "https://github.com/owu/wsl-dashboard"
+SPDX-PackageDownloadLocation = "https://github.com/voorz/wsl-dashboard"
+SPDX-PackageInformationUrl = "https://github.com/voorz/wsl-dashboard"
 SPDX-PackageComment = "On the license of this package, see the LICENSE file."
 
 [[annotations]]

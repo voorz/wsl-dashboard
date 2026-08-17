@@ -8,7 +8,7 @@
 #ifndef AppVersionNumeric
   #define AppVersionNumeric AppVersion
 #endif
-#define AppPublisher "https://github.com/owu"
+#define AppPublisher "https://github.com/voorz"
 #define AppURL "https://www.wslui.com"
 #define AppExeName "wsldashboard.exe"
 #define AppId "{{5CCAB770-FE6B-4A69-9486-74C5D24D3860}}"
@@ -25,7 +25,7 @@ AppSupportURL={#AppURL}
 DefaultDirName={autopf}\{#AppName}
 VersionInfoCompany=WSL Dashboard
 VersionInfoCopyright=2026 WSL Dashboard. All rights reserved.
-VersionInfoDescription=https://github.com/owu/wsl-dashboard
+VersionInfoDescription=https://github.com/voorz/wsl-dashboard
 VersionInfoProductName=WSL Dashboard Setup
 VersionInfoProductVersion={#AppVersionNumeric}.0
 VersionInfoVersion={#AppVersionNumeric}.0

@@ -181,7 +181,7 @@ Annálaskrár eru skrifaðar í stillta möppu og má láta þær fylgja með þ
 
 ## 🎬 Sýnikennsla
 
-[Hjálpaðu okkur að bæta okkur! Horfðu á kynningarmyndbandið okkar og deildu skoðunum þínum.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Hjálpaðu okkur að bæta okkur! Horfðu á kynningarmyndbandið okkar og deildu skoðunum þínum.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -223,7 +223,7 @@ Fyrir frekari upplýsingar, heimsæktu [WinGet samfélagsgeymsluna](https://gith
 
 Auðveldasta leiðin til að byrja er að nota tilbúna útgáfu:
 
-1. Farðu á [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) síðuna.
+1. Farðu á [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) síðuna.
 2. Sæktu nýjustu `wsldashboard` keyrsluskrána fyrir Windows.
 3. Taktu úr þjöppun (ef við á) og keyrðu `wsldashboard.exe`.
 
@@ -236,7 +236,7 @@ Gakktu úr skugga um að þú hafir Rust tækjapakkann (Rust 1.92+ eða nýrri) 
 1. Afritaðu geymsluna:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

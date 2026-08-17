@@ -180,7 +180,7 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 ## 🎬 نمایش عملیات
 
-[به ما کمک کنید بهتر شویم! ویدیوی معرفی ما را تماشا کنید و نظرات خود را به اشتراک بگذارید.](https://github.com/owu/wsl-dashboard/discussions/9)
+[به ما کمک کنید بهتر شویم! ویدیوی معرفی ما را تماشا کنید و نظرات خود را به اشتراک بگذارید.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ For more information, visit the [WinGet community repository](https://github.com
 
 ساده‌ترین راه برای شروع استفاده از نسخه کامپایل شده است:
 
-1. به صفحه [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) بروید.
+1. به صفحه [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) بروید.
 2. آخرین فایل اجرایی `wsldashboard` برای Windows را دانلود کنید.
 3. استخراج کنید (اگر آرشیو است) و `wsldashboard.exe` را اجرا کنید.
 
@@ -235,7 +235,7 @@ For more information, visit the [WinGet community repository](https://github.com
 1. مخزن را کلون کنید:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

@@ -180,7 +180,7 @@ Log ဖိုင်များကို ဖွဲ့စည်းထားသေ
 
 ## 🎬 လုပ်ဆောင်ချက် သရုပ်ပြ
 
-[ကျွန်ုပ်တို့ကို ကူညီတိုးတက်စေပါ! ကျွန်ုပ်တို့၏ မိတ်ဆက်ဗီဒီယိုကို ကြည့်ရှုပြီး သင့်ထင်မြင်ချက်များကို မျှဝေပါ။](https://github.com/owu/wsl-dashboard/discussions/9)
+[ကျွန်ုပ်တို့ကို ကူညီတိုးတက်စေပါ! ကျွန်ုပ်တို့၏ မိတ်ဆက်ဗီဒီယိုကို ကြည့်ရှုပြီး သင့်ထင်မြင်ချက်များကို မျှဝေပါ။](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 အလွယ်ဆုံးနည်းလမ်းမှာ ကြိုတင် compile လုပ်ထားသော version ကို အသုံးပြုခြင်းဖြစ်သည်:
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) စာမျက်နှာသို့ သွားပါ။
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) စာမျက်နှာသို့ သွားပါ။
 2. Windows အတွက် `wsldashboard` executable နောက်ဆုံး version ကို ဒေါင်းလုဒ်လုပ်ပါ။
 3. ဖြည်ပါ (zip file ဖြစ်ပါက) ပြီး `wsldashboard.exe` ကို run ပါ။
 
@@ -235,7 +235,7 @@ Rust toolchain (Rust 1.92+ သို့မဟုတ် နောက်ဆုံ�
 1. Repository ကူးယူပါ:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

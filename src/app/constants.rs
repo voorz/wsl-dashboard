@@ -13,7 +13,7 @@ pub const LEGAL_COPYRIGHT: &str = "2026 WSL Dashboard. All rights reserved.";
 
 
 #[allow(dead_code)]
-pub const PROJECT_REPOSITORY: &str = "https://github.com/owu/wsl-dashboard";
+pub const PROJECT_REPOSITORY: &str = "https://github.com/voorz/wsl-dashboard";
 
 #[allow(dead_code)]
 pub const PROJECT_WEBSITE: &str = "https://www.wslui.com";

@@ -181,7 +181,7 @@ Dnevniške datoteke se zapisujejo v konfiguriran imenik in jih je mogoče prilo�
 
 ## 🎬 Prikaz delovanja
 
-[Pomagajte nam izboljšati! Oglejte si naš uvodni video in delite svoje misli.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Pomagajte nam izboljšati! Oglejte si naš uvodni video in delite svoje misli.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -223,7 +223,7 @@ Za več informacij obiščite [skupnostno skladišče WinGet](https://github.com
 
 Najlažji način za začetek je uporaba vnaprej prevedene različice:
 
-1. Obiščite stran [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Obiščite stran [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Prenesite najnovejšo izvršljivo datoteko `wsldashboard` za Windows.
 3. Razširite (če je pakirano) in zaženite `wsldashboard.exe`.
 
@@ -236,7 +236,7 @@ Prepričajte se, da imate nameščena orodja Rust (Rust 1.92+ ali novejša).
 1. Klonirajte repozitorij:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

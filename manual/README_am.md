@@ -180,7 +180,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 ስራ ማሳያ
 
-[ለማሻሻል ይረዱን! የእኛን መግቢያ ቪዲዮ ይመልከቱ እና ሀሳብዎን ያካፍሉ።](https://github.com/owu/wsl-dashboard/discussions/9)
+[ለማሻሻል ይረዱን! የእኛን መግቢያ ቪዲዮ ይመልከቱ እና ሀሳብዎን ያካፍሉ።](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 ቀላሉ ዘዴ ተዘጋጅቶ ያለውን ስሪት መጠቀም ነው:
 
-1. ወደ [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) ገጽ ይሂዱ።
+1. ወደ [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) ገጽ ይሂዱ።
 2. ለ Windows የቅርብ ጊዜውን `wsldashboard` ተጫዋች ያውርዱ።
 3. (ግፊት ፋይል ከሆነ) ያውልዱ እና `wsldashboard.exe` ያሂዱ።
 
@@ -235,7 +235,7 @@ Rust ቱልቻይን (Rust 1.92+ ወይም አዲስ ስሪት) ተመስብሮ 
 1. ማከማቻ ቅጂ ያድርጉ:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

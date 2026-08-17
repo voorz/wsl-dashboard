@@ -180,7 +180,7 @@ Loggfiler skrivs till den konfigurerade loggkatalogen och kan bifogas vid felrap
 
 ## 🎬 Demonstration
 
-[Hjälp oss att bli bättre! Titta på vår introduktionsvideo och dela dina tankar.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Hjälp oss att bli bättre! Titta på vår introduktionsvideo och dela dina tankar.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ För mer information, besök [WinGet-communityförvaret](https://github.com/micr
 
 Det enklaste sättet att komma igång är att använda den förkompilerade versionen:
 
-1. Gå till sidan för [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Gå till sidan för [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Ladda ner den senaste körbara filen `wsldashboard` för Windows.
 3. Packa upp (om den är i ett arkiv) och kör `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Se till att du har Rust-verktygskedjan (Rust 1.92+ eller nyare) installerad.
 1. Klona arkivet:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

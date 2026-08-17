@@ -180,7 +180,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 آپريشن ڊمو
 
-[اسان کي بهتر ٻناڻي! اسانو تعارف وڊيو ڏسو ۽ پنھن فڪر ڀاڪريو۔](https://github.com/owu/wsl-dashboard/discussions/9)
+[اسان کي بهتر ٻناڻي! اسانو تعارف وڊيو ڏسو ۽ پنھن فڪر ڀاڪريو۔](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 سڀ کان سهلو طريقو ڪمپائيل ورزن استعمال ڪرڻ آهي:
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) صفحو تي وڃو۔
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) صفحو تي وڃو۔
 2. Windows لاءِ تازو ترين `wsldashboard` ايگزيڪيوٽبل ڊائونلوڊ ڪريو۔
 3. (جيڪڏهن ڪمپريسڊ فائيل) اسٽرڪٽ ڪريو ۽ `wsldashboard.exe` چلائو۔
 
@@ -235,7 +235,7 @@ Rust ٽول چين (Rust 1.92+ يا نئين ورزن) انسٽال آهي تي 
 1. رپوزٽري ڪلون ڪريو:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

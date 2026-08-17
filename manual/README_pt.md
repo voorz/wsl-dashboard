@@ -180,7 +180,7 @@ Os ficheiros de registo são gravados no diretório configurado e podem ser anex
 
 ## 🎬 Demonstração de Funcionamento
 
-[Ajude-nos a melhorar! Assista ao nosso vídeo de introdução e compartilhe suas opiniões.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Ajude-nos a melhorar! Assista ao nosso vídeo de introdução e compartilhe suas opiniões.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ Para mais informações, visite o [repositório comunitário do WinGet](https://
 
 A forma mais fácil de começar é utilizar a versão já compilada:
 
-1. Vá para a página de [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Vá para a página de [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Transfira o executável `wsldashboard` mais recente para Windows.
 3. Extraia (si necessário) e execute `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Certifique-se de que tem o conjunto de ferramentas Rust instalado (Rust 1.92+ ou
 1. Clone o repositório:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

@@ -180,7 +180,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 การสาธิต
 
-[ช่วยเราปรับปรุง! ชมวิดีโอแนะนำและแบ่งปันความคิดเห็นของคุณ](https://github.com/owu/wsl-dashboard/discussions/9)
+[ช่วยเราปรับปรุง! ชมวิดีโอแนะนำและแบ่งปันความคิดเห็นของคุณ](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ For more information, visit the [WinGet community repository](https://github.com
 
 วิธีที่ง่ายที่สุดในการเริ่มต้นคือใช้เวอร์ชันที่คอมไพล์แล้ว:
 
-1. ไปที่หน้า [GitHub Releases](https://github.com/owu/wsl-dashboard/releases)
+1. ไปที่หน้า [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases)
 2. ดาวน์โหลดไฟล์ปฏิบัติการ `wsldashboard` ล่าสุดสำหรับ Windows
 3. แตกไฟล์ (ถ้าเป็นไฟล์บีบอัด) และเรียกใช้ `wsldashboard.exe`
 
@@ -235,7 +235,7 @@ For more information, visit the [WinGet community repository](https://github.com
 1. Clone รีโพซิทอรี:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

@@ -180,7 +180,7 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 ## 🎬 ऑपरेशन डेमो
 
-[आम्हाला सुधारण्यात मदत करा! आमचे परिचय व्हिडिओ पहा आणि आपले विचार शेअर करा.](https://github.com/owu/wsl-dashboard/discussions/9)
+[आम्हाला सुधारण्यात मदत करा! आमचे परिचय व्हिडिओ पहा आणि आपले विचार शेअर करा.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 सर्वात सोपी पद्धत बिल्ट आवृत्ती वापरणे:
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) पृष्ठावर जा.
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) पृष्ठावर जा.
 2. Windows साठी नवीनतम `wsldashboard` एक्झिक्युटेबल डाउनलोड करा.
 3. डीकंप्रेस करा (कम्प्रेस्ड फाइल असल्यास) आणि `wsldashboard.exe` चालवा.
 
@@ -235,7 +235,7 @@ Rust टूलचेन (Rust 1.92+ किंवा नवीनतम) स्�
 1. रिपॉझिटरी क्लोन करा:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

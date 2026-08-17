@@ -180,7 +180,7 @@ Logbestanden worden naar de geconfigureerde logmap geschreven en kunnen worden b
 
 ## 🎬 Demonstratie
 
-[Help ons verbeteren! Bekijk onze introductievideo en deel uw mening.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Help ons verbeteren! Bekijk onze introductievideo en deel uw mening.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ Bezoek voor meer informatie de [WinGet-communityrepository](https://github.com/m
 
 De eenvoudigste manier om aan de slag te gaan is door de voorgecompileerde release te gebruiken:
 
-1. Ga naar de [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) pagina.
+1. Ga naar de [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) pagina.
 2. Download het nieuwste `wsldashboard` uitvoerbare bestand voor Windows.
 3. Pak het uit (indien verpakt) en voer `wsldashboard.exe` uit.
 
@@ -235,7 +235,7 @@ Zorg ervoor dat de Rust-toolchain (Rust 1.92 of nieuwer) is geïnstalleerd.
 1. Kloon de repository:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

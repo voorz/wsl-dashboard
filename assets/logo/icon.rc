@@ -24,7 +24,7 @@ BEGIN
             VALUE "FileVersion", "0.10.0.0"
             VALUE "InternalName", "wsldashboard"
             VALUE "LegalCopyright", "2026 WSL Dashboard. All rights reserved."
-            VALUE "LegalTrademarks", "https://github.com/owu/wsl-dashboard"
+            VALUE "LegalTrademarks", "https://github.com/voorz/wsl-dashboard"
             VALUE "OriginalFilename", "wsldashboard.exe"
             VALUE "ProductName", "WSL Dashboard"
             VALUE "ProductVersion", "0.10.0.0"

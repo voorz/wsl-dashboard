@@ -180,7 +180,7 @@ I18N : [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中�
 
 ## 🎬 Демонстрація
 
-[Допоможіть нам стати кращими! Перегляньте наше відео та поділіться своїми думками.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Допоможіть нам стати кращими! Перегляньте наше відео та поділіться своїми думками.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ For more information, visit the [WinGet community repository](https://github.com
 
 Найпростіший спосіб почати роботу — використати зібрану версію:
 
-1. Перейдіть на сторінку [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Перейдіть на сторінку [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Завантажте останній виконуваний файл `wsldashboard` для Windows.
 3. Розпакуйте (якщо це архів) та запустіть `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ For more information, visit the [WinGet community repository](https://github.com
 1. Клонуйте репозиторій:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

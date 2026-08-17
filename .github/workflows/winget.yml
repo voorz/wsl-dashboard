@@ -60,7 +60,7 @@ jobs:
         shell: pwsh
         run: |
           $version = "${{ steps.get_version.outputs.VERSION }}"
-          $url = "https://github.com/owu/wsl-dashboard/releases/download/v$version/WSLDashboard.$version.Setup.x64.exe"
+          $url = "https://github.com/voorz/wsl-dashboard/releases/download/v$version/WSLDashboard.$version.Setup.x64.exe"
           $dest = "build\releases\WSLDashboard.$version.Setup.x64.exe"
           New-Item -ItemType Directory -Path (Split-Path $dest) -Force | Out-Null
           Write-Host "Downloading installer from: $url"

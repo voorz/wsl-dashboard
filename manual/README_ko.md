@@ -180,7 +180,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 작동 데모
 
-[개선에 도움을 주세요! 소개 영상을 시청하고 의견을 공유해 주세요.](https://github.com/owu/wsl-dashboard/discussions/9)
+[개선에 도움을 주세요! 소개 영상을 시청하고 의견을 공유해 주세요.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 가장 쉬운 방법은 미리 컴파일된 릴리스 인스턴스를 사용하는 것입니다.
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) 페이지로 이동합니다.
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) 페이지로 이동합니다.
 2. Windows용 최신 `wsldashboard` 실행 파일을 다운로드합니다.
 3. 압축을 풀고 `wsldashboard.exe`를 실행합니다.
 
@@ -235,7 +235,7 @@ Rust 툴체인(Rust 1.92 이상)이 설치되어 있는지 확인하세요.
 1. 리포지토리 클론:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

@@ -180,7 +180,7 @@ Ang mga log file isulat sa gi-configure nga log directory, ug mahimong i-attach 
 
 ## 🎬 Demo sa Operasyon
 
-[Tabangi kami nga mapalambo! Tan-awa ang among introduction video ug isulti ang imong hunahuna.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Tabangi kami nga mapalambo! Tan-awa ang among introduction video ug isulti ang imong hunahuna.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ Para sa dugang impormasyon, bisitaha ang [WinGet community repository](https://g
 
 Ang labing sayon nga paagi mao ang paggamit sa gipangandam nga bersyon:
 
-1. Adto sa [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) page.
+1. Adto sa [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) page.
 2. I-download ang pinakabag-ong `wsldashboard` executable alang sa Windows.
 3. I-extract (kung compressed file) ug i-run ang `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Siguruha nga ang Rust toolchain gi-install (Rust 1.92+ o mas bag-ong bersyon).
 1. I-clone ang repository:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

@@ -180,7 +180,7 @@ File log bakal ditulis menyang direktori log sing wis dikonfigurasi, lan bisa di
 
 ## 🎬 Demo Operasi
 
-[Bantu kita nambah! Tonton video perkenalan kita lan wenehana panemu.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Bantu kita nambah! Tonton video perkenalan kita lan wenehana panemu.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ For more information, visit the [WinGet community repository](https://github.com
 
 Cara paling gampang yaiku nggunakake versi sing wis dikompilasi:
 
-1. Bukak kaca [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Bukak kaca [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Download file eksekusi `wsldashboard` paling anyar kanggo Windows.
 3. Ekstrak (yen file kompres) lan jalur `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Priksa manawa toolchain Rust wis dipasang (Rust 1.92+ utawa versi luwih anyar).
 1. Klon repositori:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

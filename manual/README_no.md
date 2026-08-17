@@ -180,7 +180,7 @@ Loggfiler skrives til den konfigurerte loggmappen og kan legges ved når du rapp
 
 ## 🎬 Demonstasjon
 
-[Hjelp oss å bli bedre! Se introduksjonsvideoen vår og del dine tanker.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Hjelp oss å bli bedre! Se introduksjonsvideoen vår og del dine tanker.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ For mer informasjon, besøk [WinGet-fellesskapslageret](https://github.com/micro
 
 Den enkleste måten å komme i gang på er å bruke den ferdigkompilerte versjonen:
 
-1. Gå til siden for [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Gå til siden for [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Last ned den nyeste `wsldashboard` kjørbare filen for Windows.
 3. Pakk ut (hvis den er pakket) og kjør `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Sørg for at du har Rust-verktøykjeden (Rust 1.92+ eller nyere) installert.
 1. Klon kodelageret:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

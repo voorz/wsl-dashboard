@@ -180,7 +180,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 הדגמת פעולה
 
-[עזרו לנו להשתפר! צפו בסרטון ההקדמה שלנו ושתפו אותנו בדעותיכם.](https://github.com/owu/wsl-dashboard/discussions/9)
+[עזרו לנו להשתפר! צפו בסרטון ההקדמה שלנו ושתפו אותנו בדעותיכם.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 הדרך הקלה ביותר להתחיל היא להשתמש בגרסה המקומפלת מראש:
 
-1. עבור לדף ה-[GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. עבור לדף ה-[GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. הורד את קובץ ההרצה `wsldashboard` העדכני ביותר עבור Windows.
 3. חלץ (אם זה בארכיון) והפעל את `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ winget install Owu.WSLDashboard
 1. שכפל את המאגר:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

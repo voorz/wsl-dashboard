@@ -180,7 +180,7 @@ Les fichiers de log sont écrits dans le répertoire configuré et peuvent être
 
 ## 🎬 Démonstration
 
-[Aidez-nous à nous améliorer ! Regardez notre vidéo d'introduction et partagez vos commentaires.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Aidez-nous à nous améliorer ! Regardez notre vidéo d'introduction et partagez vos commentaires.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ Pour plus d'informations, visitez le [dépôt communautaire WinGet](https://gith
 
 La méthode la plus simple est d'utiliser la version déjà compilée :
 
-1. Allez sur la page des [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Allez sur la page des [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Téléchargez le dernier exécutable `wsldashboard` pour Windows.
 3. Extrayez (si nécessaire) et lancez `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Assurez-vous d'avoir installé la chaîne d'outils Rust (Rust 1.92+ ou plus réc
 1. Clonez le dépôt :
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

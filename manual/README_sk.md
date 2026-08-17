@@ -180,7 +180,7 @@ Súbory protokolov sa zapisujú do nakonfigurovaného adresára a možno ich pri
 
 ## 🎬 Ukážka prevádzky
 
-[Pomôžte nám zlepšiť sa! Pozrite si naše úvodné video a podeľte sa o svoje názory.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Pomôžte nám zlepšiť sa! Pozrite si naše úvodné video a podeľte sa o svoje názory.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ Pre viac informácií navštívte [komunitné úložisko WinGet](https://github.
 
 Najjednoduchší spôsob, ako začať, je použiť predkompilovanú verziu:
 
-1. Prejdite na stránku [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Prejdite na stránku [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Stiahnite si najnovší spustiteľný súbor `wsldashboard` pre Windows.
 3. Rozbaľte ho (ak je v archíve) a spustite `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Uistite sa, že máte nainštalovanú sadu nástrojov Rust (Rust 1.92+ alebo nov
 1. Naklonujte repozitár:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

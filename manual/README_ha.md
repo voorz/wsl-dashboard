@@ -180,7 +180,7 @@ Ana rubuta fayilolin log zuwa buɗaɗɗen log, kuma ana iya haɗa su lokacin bay
 
 ## 🎬 Nuni Aiki
 
-[Taimaka mu inganta! Kalli bidiyon gabatarwar mu kuma ka raba ra'ayinka.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Taimaka mu inganta! Kalli bidiyon gabatarwar mu kuma ka raba ra'ayinka.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ Don ƙarin bayani, ziyarci [ma'ajiyar WinGet community](https://github.com/micro
 
 Mafi sauƙin hanyar ita ce amfani da ingantacciyar sigar:
 
-1. Je zuwa shafin [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Je zuwa shafin [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Saukar da sabon fayilolin `wsldashboard` na Windows.
 3. Cire (idan fayil ɗin nika) kuma gudanar da `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Tabbatar da an shigar da kayan aikin Rust (Rust 1.92+ ko sabuwar sigar).
 1. Kwafa ma'ajiyar:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

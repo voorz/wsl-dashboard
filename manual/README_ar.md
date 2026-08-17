@@ -180,7 +180,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 عرض توضيحي
 
-[ساعدنا على التحسين! شاهد فيديو التعريف الخاص بنا وشاركنا آراءك.](https://github.com/owu/wsl-dashboard/discussions/9)
+[ساعدنا على التحسين! شاهد فيديو التعريف الخاص بنا وشاركنا آراءك.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 أسهل طريقة للبدء هي استخدام الإصدار المجمع مسبقًا:
 
-1. اذهب إلى صفحة [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. اذهب إلى صفحة [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. قم بتنزيل أحدث ملف تنفيذي `wsldashboard` لويندوز.
 3. قم بفك الضغط (إذا كان ملفًا مضغوطًا) وشغل `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ winget install Owu.WSLDashboard
 1. استنساخ المستودع:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

@@ -18,15 +18,15 @@ param(
 # Generates manifest files for winget-pkgs submission
 
 $PACKAGE_ID = "Owu.WSLDashboard"
-$PUBLISHER = "https://github.com/owu"
+$PUBLISHER = "https://github.com/voorz"
 $PACKAGE_NAME = "WSL Dashboard"
-$AUTHOR = "owu"
+$AUTHOR = "voorz"
 $LICENSE = "GPL-3.0"
-$LICENSE_URL = "https://github.com/owu/wsl-dashboard/blob/main/LICENSE"
+$LICENSE_URL = "https://github.com/voorz/wsl-dashboard/blob/main/LICENSE"
 $COPYRIGHT = "2026 WSL Dashboard. All rights reserved."
 $HOMEPAGE = "https://www.wslui.com"
 $PRIVACY_URL = "https://www.wslui.com/privacy/"
-$REPO = "https://github.com/owu/wsl-dashboard"
+$REPO = "https://github.com/voorz/wsl-dashboard"
 $SHORT_DESCRIPTION = "A modern, high-performance, lightweight, and low-memory WSL instance management dashboard."
 $TAGS = @("wsl", "windows-subsystem-for-linux", "linux", "dashboard", "gui", "management", "rust")
 $INSTALLER_TYPE = "inno"

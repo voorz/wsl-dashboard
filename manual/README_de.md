@@ -180,7 +180,7 @@ Protokolldateien werden in das konfigurierte Protokollverzeichnis geschrieben un
 
 ## 🎬 Bedienungs-Demo
 
-[Helfen Sie uns, besser zu werden! Schauen Sie sich unser Einführungsvideo an und teilen Sie Ihre Meinung.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Helfen Sie uns, besser zu werden! Schauen Sie sich unser Einführungsvideo an und teilen Sie Ihre Meinung.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ Weitere Informationen finden Sie im [WinGet-Community-Repository](https://github
 
 Der einfachste Weg, um zu starten, ist die Verwendung des vorkompilierten Releases:
 
-1. Gehen Sie zur Seite [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Gehen Sie zur Seite [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Laden Sie die neueste `wsldashboard`-Ausführungsdatei für Windows herunter.
 3. Entpacken Sie diese (falls gepackt) und führen Sie `wsldashboard.exe` aus.
 
@@ -235,7 +235,7 @@ Stellen Sie sicher, dass Sie die Rust-Toolchain (Rust 1.92+ oder neuer) installi
 1. Klonen Sie das Repository:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

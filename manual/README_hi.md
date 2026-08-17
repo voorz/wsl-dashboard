@@ -180,7 +180,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 ऑपरेशन डेमो
 
-[हमें बेहतर बनाने में मदद करें! हमारा परिचय वीडियो देखें और अपने विचार साझा करें।](https://github.com/owu/wsl-dashboard/discussions/9)
+[हमें बेहतर बनाने में मदद करें! हमारा परिचय वीडियो देखें और अपने विचार साझा करें।](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 शुरू करने का सबसे आसान तरीका प्री-कंपाइल्ड रिलीज़ का उपयोग करना है:
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) पेज पर जाएं।
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) पेज पर जाएं।
 2. Windows के लिए नवीनतम `wsldashboard` निष्पादन योग्य फ़ाइल डाउनलोड करें।
 3. निकालें (यदि संकुलित है) और `wsldashboard.exe` चलाएँ।
 
@@ -235,7 +235,7 @@ winget install Owu.WSLDashboard
 1. रिपॉजिटरी क्लोन करें:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

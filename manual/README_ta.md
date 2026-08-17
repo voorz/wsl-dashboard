@@ -179,7 +179,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 செயல்பாட்டு டெமோ
 
-[எங்களை மேம்படுத்த உதவுங்கள்! எங்கள் அறிமுக வீடியோவைப் பாருங்கள் மற்றும் உங்கள் கருத்துக்களைப் பகிருங்கள்.](https://github.com/owu/wsl-dashboard/discussions/9)
+[எங்களை மேம்படுத்த உதவுங்கள்! எங்கள் அறிமுக வீடியோவைப் பாருங்கள் மற்றும் உங்கள் கருத்துக்களைப் பகிருங்கள்.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -221,7 +221,7 @@ For more information, visit the [WinGet community repository](https://github.com
 
 எளிதான வழி கட்டமைக்கப்பட்ட பதிப்பைப் பயன்படுத்துவது:
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) பக்கத்திற்குச் செல்லுங்கள்.
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) பக்கத்திற்குச் செல்லுங்கள்.
 2. Windows க்கான சமீபத்திய `wsldashboard` இயங்கக்கூடிய கோப்பைப் பதிவிறக்கவும்.
 3. டிகம்ப்ரஸ் செய்யுங்கள் (சுருக்கப்பட்ட கோப்பு என்றால்) மற்றும் `wsldashboard.exe` ஐ இயக்குங்கள்.
 
@@ -234,7 +234,7 @@ Rust கருவித்தொகுப்பு (Rust 1.92+ அல்லத�
 1. களஞ்சியத்தை குளோன் செய்யுங்கள்:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

@@ -180,7 +180,7 @@ A naplófájlok a konfigurált könyvtárba íródnak, és csatolhatók hiba jel
 
 ## 🎬 Működési bemutató
 
-[Segítsen nekünk fejlődni! Nézze meg bemutatkozó videónkat, és ossza meg véleményét.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Segítsen nekünk fejlődni! Nézze meg bemutatkozó videónkat, és ossza meg véleményét.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ További információért látogassa meg a [WinGet közösségi tárolót](https
 
 A legegyszerűbb módja a kezdésnek az előre fordított kiadás használata:
 
-1. Látogasson el a [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) oldalra.
+1. Látogasson el a [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) oldalra.
 2. Töltse le a legújabb `wsldashboard` futtatható fájlt Windowshoz.
 3. Csomagolja ki (ha szükséges) és futtassa a `wsldashboard.exe` fájlt.
 
@@ -235,7 +235,7 @@ Győződjön meg arról, hogy a Rust eszközkészlet (Rust 1.92+ vagy újabb) te
 1. Klónozza a tárolót:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

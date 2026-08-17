@@ -180,7 +180,7 @@ I18N :  [English](../README.md) | 简体中文 | [繁體中文](./README_zh_TW.m
 
 ## 🎬 操作演示
 
-[帮助我们改进！观看我们的介绍视频并分享您的想法。](https://github.com/owu/wsl-dashboard/discussions/9)
+[帮助我们改进！观看我们的介绍视频并分享您的想法。](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 最简单的方式是使用编译好的版本：
 
-1. 前往 [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) 页面。
+1. 前往 [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) 页面。
 2. 下载适用于 Windows 的最新 `wsldashboard` 可执行文件。
 3. 解压（如果是压缩包）并运行 `wsldashboard.exe`。
 
@@ -235,7 +235,7 @@ winget install Owu.WSLDashboard
 1. 克隆仓库：
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

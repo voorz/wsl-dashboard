@@ -180,7 +180,7 @@ Tệp nhật ký sẽ được ghi vào thư mục nhật ký đã cấu hình, 
 
 ## 🎬 Demo thao tác
 
-[Hãy giúp chúng tôi cải thiện! Xem video giới thiệu và chia sẻ suy nghĩ của bạn.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Hãy giúp chúng tôi cải thiện! Xem video giới thiệu và chia sẻ suy nghĩ của bạn.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 Cách dễ nhất để bắt đầu là sử dụng phiên bản đã biên dịch:
 
-1. Truy cập trang [GitHub Releases](https://github.com/owu/wsl-dashboard/releases).
+1. Truy cập trang [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases).
 2. Tải tệp thực thi `wsldashboard` mới nhất cho Windows.
 3. Giải nén (nếu là tệp nén) và chạy `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Không cần cài đặt, ứng dụng là chương trình di động một tệ
 1. Clone kho lưu trữ:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

@@ -180,7 +180,7 @@ I18N :  [English](../README.md) | [简体中文](./README_zh_CN.md) | [繁體中
 
 ## 🎬 操作デモ
 
-[改善にご協力ください！紹介ビデオをご覧いただき、ご意見をお聞かせください。](https://github.com/owu/wsl-dashboard/discussions/9)
+[改善にご協力ください！紹介ビデオをご覧いただき、ご意見をお聞かせください。](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ winget install Owu.WSLDashboard
 
 最も簡単な方法は、コンパイル済みのリリースを使用することです：
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) ページにアクセスします。
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) ページにアクセスします。
 2. Windows 用の最新の `wsldashboard` 実行ファイルをダウンロードします。
 3. 必要に応じて解凍し、`wsldashboard.exe` を実行します。
 
@@ -235,7 +235,7 @@ Rust ツールチェーン (Rust 1.92+ 以降) がインストールされてい
 1. リポジトリをクローンします：
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

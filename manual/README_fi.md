@@ -180,7 +180,7 @@ Lokitiedostot kirjoitetaan määritettyyn lokihakemistoon ja ne voidaan liittä�
 
 ## 🎬 Demonstraatio
 
-[Auta meitä parantamaan! Katso esittelyvideomme ja jaa ajatuksesi.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Auta meitä parantamaan! Katso esittelyvideomme ja jaa ajatuksesi.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -222,7 +222,7 @@ Lisätietoja saat [WinGet-yhteisön arkistosta](https://github.com/microsoft/win
 
 Helpoin tapa aloittaa on käyttää valmiiksi käännettyä julkaisua:
 
-1. Siirry [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) -sivulle.
+1. Siirry [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) -sivulle.
 2. Lataa uusin Windows-yhteensopiva `wsldashboard`-suoritustiedosto.
 3. Pura (jos pakattu) ja suorita `wsldashboard.exe`.
 
@@ -235,7 +235,7 @@ Varmista, että sinulla on Rust-työkalukehys (Rust 1.92+ tai uudempi) asennettu
 1. Kloonaa repositorio:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 

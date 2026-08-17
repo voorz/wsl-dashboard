@@ -179,7 +179,7 @@ Loq faylları konfiqurasiya edilmiş loq kataloqunda yazılır, problemlər bild
 
 ## 🎬 Əməliyyat demosu
 
-[Bizi təkmilləşdirməyə kömək edin! Təqdimat videomuza baxın və fikirlərinizi paylaşın.](https://github.com/owu/wsl-dashboard/discussions/9)
+[Bizi təkmilləşdirməyə kömək edin! Təqdimat videomuza baxın və fikirlərinizi paylaşın.](https://github.com/voorz/wsl-dashboard/discussions/9)
 
 
 
@@ -221,7 +221,7 @@ winget install Owu.WSLDashboard
 
 Ən asan yol hazır versiyanı istifadə etməkdir:
 
-1. [GitHub Releases](https://github.com/owu/wsl-dashboard/releases) səhifəsinə keçin.
+1. [GitHub Releases](https://github.com/voorz/wsl-dashboard/releases) səhifəsinə keçin.
 2. Windows üçün ən son `wsldashboard` icra olunan faylı yükləyin.
 3. Sıxışmanı açın (sıxışdırılmış fayldırsa) və `wsldashboard.exe` faylını işə salın.
 
@@ -234,7 +234,7 @@ Rust alət zəncirinin (Rust 1.92+ və ya ən son versiya) quraşdırıldığın
 1. Repozitoriyanı klonlayın:
 
    ```powershell
-   git clone https://github.com/owu/wsl-dashboard.git
+   git clone https://github.com/voorz/wsl-dashboard.git
    cd wsl-dashboard
    ```
 
