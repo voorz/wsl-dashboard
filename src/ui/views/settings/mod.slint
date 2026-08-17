@@ -69,8 +69,6 @@ export component SettingsView inherits Rectangle {
     in-out property <bool> sidebar_usb: true;
     in-out property <bool> sidebar_network: true;
     in-out property <bool> sidebar_scheduler: true;
-    in-out property <bool> sidebar_donate: true;
-    in-out property <bool> sidebar_about: true;
     in-out property <bool> sparse_vhd: false;
     in-out property <bool> colorful_icons: false;
     in-out property <bool> mail_icon_always: true;
@@ -254,8 +252,6 @@ export component SettingsView inherits Rectangle {
                             sidebar_usb <=> root.sidebar_usb;
                             sidebar_network <=> root.sidebar_network;
                             sidebar_scheduler <=> root.sidebar_scheduler;
-                            sidebar_donate <=> root.sidebar_donate;
-                            sidebar_about <=> root.sidebar_about;
                             system_color <=> root.system_color;
                             colorful_icons <=> root.colorful_icons;
                             mail_icon_always <=> root.mail_icon_always;

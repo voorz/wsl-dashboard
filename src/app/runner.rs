@@ -90,7 +90,6 @@ pub async fn run_app(config_manager: ConfigManager, logging_system: LoggingSyste
     app.global::<AppInfo>().set_version(env!("CARGO_PKG_VERSION").into());
     app.global::<AppInfo>().set_project_repository(PROJECT_REPOSITORY.into());
     app.global::<AppInfo>().set_issues_url(format!("{}{}", PROJECT_REPOSITORY, GITHUB_ISSUES).into());
-    app.global::<AppInfo>().set_donate_url(format!("{}{}", crate::app::PROJECT_WEBSITE, crate::app::DONATE_URI).into());
 
     // 4. Initialize system tray
     if let Err(e) = crate::app::tray::SystemTray::initialize(app.as_weak(), !is_silent_mode) {

@@ -53,19 +53,9 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                 });
             }
 
-            // Tab 7 is "About" — fetch helper about info once on first visit
-            if tab == 7 {
-                super::about::trigger_fetch(ah.clone(), as_ptr.clone());
-            }
-
             // Tab 4 is "Crontab" — refresh task list
             if tab == 4 {
                 super::scheduler::refresh_tasks(ah.clone());
-            }
-
-            // Tab 5 is "Donate" — fetch donate payment methods once on first visit
-            if tab == 5 {
-                super::donate::trigger_fetch(ah.clone(), as_ptr.clone());
             }
         }
     });

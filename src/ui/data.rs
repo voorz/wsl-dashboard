@@ -123,46 +123,6 @@ pub fn refresh_localized_strings(app: &AppWindow) {
         stop_wsl: i18n::tr("settings.stop_wsl", &[]).into(),
     });
 
-    app.set_about_strings(crate::AboutStrings {
-        title: i18n::tr("about.title", &[]).into(),
-        description: i18n::tr("about.description", &[]).into(),
-        version: i18n::tr("about.version", &[]).into(),
-        updates: i18n::tr("about.updates", &[]).into(),
-        check_update: i18n::tr("about.check_update", &[]).into(),
-        website: i18n::tr("about.website", &[]).into(),
-        repository: i18n::tr("about.repository", &[]).into(),
-        group: i18n::tr("about.group", &[]).into(),
-        issues: i18n::tr("about.issues", &[]).into(),
-        announcements: i18n::tr("about.announcements", &[]).into(),
-        talk: i18n::tr("about.talk", &[]).into(),
-        documents: i18n::tr("about.documents", &[]).into(),
-        star: i18n::tr("about.star", &[]).into(),
-        love: i18n::tr("about.love", &[]).into(),
-        github: "".into(), // Not used in UI currently
-        license: i18n::tr("about.license", &[]).into(),
-        copyright: {
-            let current_year = chrono::Local::now().year();
-            let year_str = if current_year <= 2026 {
-                "2026".to_string()
-            } else {
-                format!("2026-{}", current_year)
-            };
-            i18n::tr("about.copyright", &[year_str]).into()
-        },
-        privacy_policy: i18n::tr("about.privacy_policy", &[]).into(),
-        terms_of_service: i18n::tr("about.terms_of_service", &[]).into(),
-    });
-
-    app.set_donate_strings(crate::DonateStrings {
-        donate_link_label: i18n::tr("donate.donate_link_label", &[]).into(),
-        payment_methods_title: i18n::tr("donate.payment_methods_title", &[]).into(),
-        copied: i18n::tr("donate.copied", &[]).into(),
-        copy_wallet: i18n::tr("donate.copy_wallet", &[]).into(),
-        copy_email: i18n::tr("donate.copy_email", &[]).into(),
-        scan_qr: i18n::tr("donate.scan_qr", &[]).into(),
-        visit_link: i18n::tr("donate.visit_link", &[]).into(),
-    });
-
     update_install_sources(app);
 
     // Rebuild mirror distro names from cache with new language translation.
@@ -894,8 +854,6 @@ pub async fn load_settings_to_ui(app: &AppWindow, app_state: &Arc<Mutex<AppState
     app.set_sidebar_add(sidebar.add);
     app.set_sidebar_usb(sidebar.usb);
     app.set_sidebar_network(sidebar.network);
-    app.set_sidebar_about(sidebar.about);
-    app.set_sidebar_donate(sidebar.donate);
 
     // Set RTL mode based on current resolved language
     let current_lang = i18n::current_lang();

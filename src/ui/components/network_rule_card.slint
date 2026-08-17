@@ -35,7 +35,7 @@ export component NetworkRuleCard inherits Rectangle {
                 ActionIcon {
                     icon: "\u{E74D}";
                     is_font_icon: true;
-                    show_shield: true;
+                    show_shield: false;
                     icon_type: "danger";
                     tooltip: AppI18n.t("distro.delete", [AppI18n.version]);
                     clicked => {
@@ -50,7 +50,7 @@ export component NetworkRuleCard inherits Rectangle {
                 if (!rule.is_active): ActionIcon {
                     icon: "\u{E9F3}";
                     is_font_icon: true;
-                    show_shield: true;
+                    show_shield: false;
                     icon_type: "success";
                     tooltip: AppI18n.t("network.rule_apply_tooltip", [AppI18n.version]);
                     clicked => {
@@ -60,7 +60,7 @@ export component NetworkRuleCard inherits Rectangle {
                 if (rule.is_active): ActionIcon {
                     icon: "\u{E711}";
                     is_font_icon: true;
-                    show_shield: true;
+                    show_shield: false;
                     icon_type: "warning";
                     tooltip: AppI18n.t("network.rule_cancel_tooltip", [AppI18n.version]);
                     clicked => {
@@ -242,7 +242,7 @@ export component NetworkRuleCard inherits Rectangle {
                 if (!rule.is_active): ActionIcon {
                     icon: "\u{E9F3}";
                     is_font_icon: true;
-                    show_shield: true;
+                    show_shield: false;
                     icon_type: "success";
                     tooltip: AppI18n.t("network.rule_apply_tooltip", [AppI18n.version]);
                     clicked => {
@@ -252,7 +252,7 @@ export component NetworkRuleCard inherits Rectangle {
                 if (rule.is_active): ActionIcon {
                     icon: "\u{E711}";
                     is_font_icon: true;
-                    show_shield: true;
+                    show_shield: false;
                     icon_type: "warning";
                     tooltip: AppI18n.t("network.rule_cancel_tooltip", [AppI18n.version]);
                     clicked => {
@@ -267,7 +267,7 @@ export component NetworkRuleCard inherits Rectangle {
                 ActionIcon {
                     icon: "\u{E74D}";
                     is_font_icon: true;
-                    show_shield: true;
+                    show_shield: false;
                     icon_type: "danger";
                     tooltip: AppI18n.t("distro.delete", [AppI18n.version]);
                     clicked => {

@@ -235,8 +235,6 @@ export component InterfaceSettingsSection inherits VerticalLayout {
     in-out property <bool> sidebar_usb: true;
     in-out property <bool> sidebar_network: true;
     in-out property <bool> sidebar_scheduler: true;
-    in-out property <bool> sidebar_donate: true;
-    in-out property <bool> sidebar_about: true;
     in-out property <bool> system_color;
     in-out property <bool> colorful_icons;
     in-out property <bool> mail_icon_always;
@@ -265,11 +263,7 @@ export component InterfaceSettingsSection inherits VerticalLayout {
             Row {
                 CustomCheckBox { text: AppI18n.t("sidebar.network", [AppI18n.version]); checked <=> root.sidebar_network; }
                 CustomCheckBox { text: AppI18n.t("sidebar.scheduler", [AppI18n.version]); checked <=> root.sidebar_scheduler; }
-                CustomCheckBox { text: AppI18n.t("sidebar.donate", [AppI18n.version]); checked <=> root.sidebar_donate; }
                 CustomCheckBox { text: AppI18n.t("sidebar.settings", [AppI18n.version]); checked: true; enabled: false; }
-            }
-            Row {
-                CustomCheckBox { text: AppI18n.t("sidebar.about", [AppI18n.version]); checked <=> root.sidebar_about; }
             }
         }
     }

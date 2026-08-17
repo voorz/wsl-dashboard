@@ -131,7 +131,7 @@ export component PortForwardingView inherits Rectangle {
 
             if (!AppI18n.is-rtl && !is_helper_installed): CustomButton {
                 text: AppI18n.t("network.initialize_btn", [AppI18n.version]);
-                show_shield: true;
+                show_shield: false;
                 height: 32px;
                 clicked => {
                     root.initialize_task_clicked();
@@ -153,7 +153,7 @@ export component PortForwardingView inherits Rectangle {
 
             if (!AppI18n.is-rtl): CustomButton {
                 text: AppI18n.t("network.cancel_all_rules_btn", [AppI18n.version]);
-                show_shield: true;
+                show_shield: false;
                 height: 32px;
                 clicked => {
                     root.cancel_all_rules();
@@ -162,7 +162,7 @@ export component PortForwardingView inherits Rectangle {
 
             if (!AppI18n.is-rtl): CustomButton {
                 text: AppI18n.t("network.apply_all_rules_btn", [AppI18n.version]);
-                show_shield: true;
+                show_shield: false;
                 height: 32px;
                 clicked => {
                     root.apply_all_rules();
@@ -172,7 +172,7 @@ export component PortForwardingView inherits Rectangle {
             if (!AppI18n.is-rtl): CustomButton {
                 text: AppI18n.t("network.add_rule_btn", [AppI18n.version]);
                 primary: true;
-                show_shield: true;
+                show_shield: false;
                 height: 32px;
                 clicked => {
                     root.open_add_rule_dialog();
@@ -181,7 +181,7 @@ export component PortForwardingView inherits Rectangle {
 
             if (AppI18n.is-rtl): CustomButton {
                 text: AppI18n.t("network.apply_all_rules_btn", [AppI18n.version]);
-                show_shield: true;
+                show_shield: false;
                 height: 32px;
                 clicked => {
                     root.apply_all_rules();
@@ -190,7 +190,7 @@ export component PortForwardingView inherits Rectangle {
 
             if (AppI18n.is-rtl): CustomButton {
                 text: AppI18n.t("network.cancel_all_rules_btn", [AppI18n.version]);
-                show_shield: true;
+                show_shield: false;
                 height: 32px;
                 clicked => {
                     root.cancel_all_rules();
@@ -199,7 +199,7 @@ export component PortForwardingView inherits Rectangle {
 
             if (AppI18n.is-rtl && !is_helper_installed): CustomButton {
                 text: AppI18n.t("network.initialize_btn", [AppI18n.version]);
-                show_shield: true;
+                show_shield: false;
                 height: 32px;
                 clicked => {
                     root.initialize_task_clicked();

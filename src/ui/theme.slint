@@ -157,16 +157,6 @@ export struct AboutStrings {
     terms_of_service: string,
 }
 
-export struct DonateStrings {
-    donate_link_label: string,
-    payment_methods_title: string,
-    copied: string,
-    copy_wallet: string,
-    copy_email: string,
-    scan_qr: string,
-    visit_link: string,
-}
-
 
 export global Theme {
     in property <bool> dark_mode: false;
@@ -177,8 +167,8 @@ export global Theme {
     out property <color> sidebar_bg: transparent;
     out property <color> card_bg: dark_mode ? #222222 : #FAFAFA;
     out property <color> card_bg_muted: dark_mode ? #1E1E1E : #F8F8F8;
-    out property <color> text_primary: dark_mode ? #EEEEEE : #111111;
-    out property <color> text_secondary: dark_mode ? #AAAAAA : #666666;
+    out property <color> text_primary: dark_mode ? #FFFFFF : #000000;
+    out property <color> text_secondary: dark_mode ? #CCCCCC : #333333;
     out property <color> border_color: dark_mode ? #333333 : #E0E0E0;
     out property <color> main_color: dark_mode ? #888888 : #AAAAAA;
     out property <color> hover_bg: dark_mode ? #2A2A2A : #EEEEEE;
@@ -194,33 +184,33 @@ export global Theme {
     out property <color> input_bg: dark_mode ? #1A1A1A : #FFFFFF;
     out property <color> input_border: dark_mode ? #333333 : #D5D5D5;
 
-    // Icon style
-    out property <color> icon_color_pin: dark_mode ? #60a5fa : #0067C0;
+    // Icon style - Grayscale: keep success/danger for critical actions, others black/white by theme
+    out property <color> icon_color_pin: dark_mode ? #FFFFFF : #000000;
     in property <bool> colorful_icons: true;
-    out property <color> icon_color_navigation: colorful_icons ? (dark_mode ? #38bdf8 : #0284c7) : text_secondary;
-    out property <color> icon_color_action: colorful_icons ? (dark_mode ? #94a3b8 : #475569) : text_secondary;
+    out property <color> icon_color_navigation: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_action: dark_mode ? #FFFFFF : #000000;
     out property <color> icon_color_success: colorful_icons ? (dark_mode ? #4ade80 : #16a34a) : text_secondary;
     out property <color> icon_color_danger: colorful_icons ? (dark_mode ? #f87171 : #dc2626) : text_secondary;
-    out property <color> icon_color_warning: colorful_icons ? (dark_mode ? #fb923c : #ea580c) : text_secondary;
-    out property <color> icon_color_info: colorful_icons ? (dark_mode ? #60a5fa : #2563eb) : text_secondary;
-    out property <color> icon_color_purple: colorful_icons ? (dark_mode ? #a78bfa : #7c3aed) : text_secondary;
-    out property <color> icon_color_gold: colorful_icons ? (dark_mode ? #facc15 : #f3c409ff) : text_secondary;
-    out property <color> icon_color_cyan: colorful_icons ? (dark_mode ? #22d3ee : #0891b2) : text_secondary;
-    out property <color> icon_color_pink: colorful_icons ? (dark_mode ? #f472b6 : #db2777) : text_secondary;
-    out property <color> icon_color_teal: colorful_icons ? (dark_mode ? #2dd4bf : #0d9488) : text_secondary;
-    out property <color> icon_color_indigo: colorful_icons ? (dark_mode ? #818cf8 : #4f46e5) : text_secondary;
-    out property <color> icon_color_lime: colorful_icons ? (dark_mode ? #a3e635 : #65a30d) : text_secondary;
-    out property <color> icon_color_orange: colorful_icons ? (dark_mode ? #fb923c : #f97316) : text_secondary;
+    out property <color> icon_color_warning: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_info: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_purple: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_gold: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_cyan: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_pink: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_teal: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_indigo: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_lime: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_orange: dark_mode ? #FFFFFF : #000000;
     out property <color> icon_color_rose: colorful_icons ? (dark_mode ? #fb7185 : #e11d48) : text_secondary;
-    out property <color> icon_color_heart: colorful_icons ? #C72335 : text_secondary;
-    out property <color> icon_color_violet: colorful_icons ? (dark_mode ? #a78bfa : #7c3aed) : text_secondary;
-    out property <color> icon_color_emerald: colorful_icons ? (dark_mode ? #34d399 : #059669) : text_secondary;
-    out property <color> icon_color_amber: colorful_icons ? (dark_mode ? #fbbf24 : #d97706) : text_secondary;
-    out property <color> icon_color_sky: colorful_icons ? (dark_mode ? #38bdf8 : #0284c7) : text_secondary;
-    out property <color> icon_color_fuchsia: colorful_icons ? (dark_mode ? #f0abfc : #c026d3) : text_secondary;
-    out property <color> icon_color_cobalt: colorful_icons ? (dark_mode ? #60a5fa : #1d4ed8) : text_secondary;
-    out property <color> icon_color_mint: colorful_icons ? (dark_mode ? #5eead4 : #0d9488) : text_secondary;
-    out property <color> icon_color_slate: colorful_icons ? (dark_mode ? #94a3b8 : #475569) : text_secondary;
+    out property <color> icon_color_heart: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_violet: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_emerald: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_amber: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_sky: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_fuchsia: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_cobalt: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_mint: dark_mode ? #FFFFFF : #000000;
+    out property <color> icon_color_slate: dark_mode ? #FFFFFF : #000000;
     out property <color> icon_color_system: text_secondary;
 
     // Compatibility of Chinese and Japanese character display on Western language operating systems
@@ -244,7 +234,6 @@ export global AppInfo {
     in property <string> announcements_url: project_repository + "/discussions";
     in property <string> talk_url: "";
     in property <string> documents_url: "";
-    in property <string> donate_url: "";
 }
 
 export global AppI18n {

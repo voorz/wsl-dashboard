@@ -173,8 +173,6 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                 let sidebar_toggle = app.get_sidebar_toggle();
                 let sidebar_usb = app.get_sidebar_usb();
                 let sidebar_network = app.get_sidebar_network();
-                let sidebar_donate = app.get_sidebar_donate();
-                let sidebar_about = app.get_sidebar_about();
                 let colorful_icons = app.get_colorful_icons();
                 let system_color = app.get_system_color();
                 let mail_icon_always = app.get_mail_icon_always();
@@ -226,8 +224,6 @@ pub fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_state: Arc
                     toggle: sidebar_toggle,
                     usb: sidebar_usb,
                     network: sidebar_network,
-                    donate: sidebar_donate,
-                    about: sidebar_about,
                 };
 
                 match state.config_manager.update_sidebar_settings(sidebar_config) {

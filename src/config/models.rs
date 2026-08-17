@@ -176,10 +176,6 @@ pub struct SidebarConfig {
     pub usb: bool,
     #[serde(default = "default_true")]
     pub network: bool,
-    #[serde(default = "default_true")]
-    pub about: bool,
-    #[serde(default = "default_true")]
-    pub donate: bool,
 }
 
 fn default_true() -> bool {
@@ -193,8 +189,6 @@ impl Default for SidebarConfig {
             add: true,
             usb: true,
             network: true,
-            about: true,
-            donate: true,
         }
     }
 }

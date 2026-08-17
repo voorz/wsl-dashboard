@@ -246,7 +246,7 @@ export component UsbDeviceCard inherits Rectangle {
                                 icon: "\u{E71B}";
                                 icon_type: "success";
                                 is_font_icon: true;
-                                show_shield: true;
+                                show_shield: false;
                                 tooltip: AppI18n.t("usb.bind", [AppI18n.version]);
                                 clicked => {
                                     root.bind_clicked(device.bus_id, device.vid_pid);
@@ -256,7 +256,7 @@ export component UsbDeviceCard inherits Rectangle {
                                 icon: "\u{E71A}";
                                 icon_type: "danger";
                                 is_font_icon: true;
-                                show_shield: true;
+                                show_shield: false;
                                 tooltip: AppI18n.t("usb.unbind", [AppI18n.version]);
                                 clicked => {
                                     root.unbind_clicked(device.bus_id);
@@ -266,7 +266,7 @@ export component UsbDeviceCard inherits Rectangle {
                                 icon: "\u{ECC8}";
                                 icon_type: "sky";
                                 is_font_icon: true;
-                                show_shield: true;
+                                show_shield: false;
                                 tooltip: AppI18n.t("usb.attach", [AppI18n.version]);
                                 clicked => {
                                     root.attach_clicked(device.bus_id, device.vid_pid);
@@ -326,7 +326,7 @@ export component UsbDeviceCard inherits Rectangle {
                                 icon: "\u{E71B}";
                                 icon_type: "success";
                                 is_font_icon: true;
-                                show_shield: true;
+                                show_shield: false;
                                 tooltip: AppI18n.t("usb.bind", [AppI18n.version]);
                                 clicked => {
                                     root.bind_clicked(device.bus_id, device.vid_pid);
@@ -336,7 +336,7 @@ export component UsbDeviceCard inherits Rectangle {
                                 icon: "\u{E71A}";
                                 icon_type: "danger";
                                 is_font_icon: true;
-                                show_shield: true;
+                                show_shield: false;
                                 tooltip: AppI18n.t("usb.unbind", [AppI18n.version]);
                                 clicked => {
                                     root.unbind_clicked(device.bus_id);
@@ -346,7 +346,7 @@ export component UsbDeviceCard inherits Rectangle {
                                 icon: "\u{ECC8}";
                                 icon_type: "sky";
                                 is_font_icon: true;
-                                show_shield: true;
+                                show_shield: false;
                                 tooltip: AppI18n.t("usb.attach", [AppI18n.version]);
                                 clicked => {
                                     root.attach_clicked(device.bus_id, device.vid_pid);

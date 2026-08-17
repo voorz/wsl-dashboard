@@ -14,7 +14,7 @@ import {
     MessageData,
     SettingsStrings,
     AboutStrings,
-    DonateStrings,
+
     AppApi,
     AppI18n,
     UsbDeviceDetailInfo,
@@ -31,8 +31,6 @@ import { NetworkView } from "views/network/mod.slint";
 import { SchedulerView } from "views/scheduler_view.slint";
 import { SchedulerDialog } from "components/dialogs/scheduler_dialog.slint";
 import { SettingsView } from "views/settings/mod.slint";
-import { AboutView } from "views/about_view.slint";
-import { DonateView } from "views/donate_view.slint";
 import { TaskStatusToast } from "components/task_status_toast.slint";
 
 
@@ -126,8 +124,6 @@ export component AppWindow inherits Window {
     in-out property <bool> sidebar_toggle: true;
     in-out property <bool> sidebar_usb: true;
     in-out property <bool> sidebar_network: true;
-    in-out property <bool> sidebar_donate: true;
-    in-out property <bool> sidebar_about: true;
     in-out property <bool> sparse_vhd: false;
     in-out property <bool> system_color <=> Theme.system_color;
     in-out property <bool> colorful_icons <=> Theme.colorful_icons;
@@ -136,22 +132,7 @@ export component AppWindow inherits Window {
     in property <Information> information;
     in property <[RootFSHelpItem]> rootfs_help_list: [{ name: "Ubuntu", url: AppConstants.ubuntu_wsl_images }];
     in property <SettingsStrings> settings_strings;
-    in property <AboutStrings> about_strings;
-    in property <DonateStrings> donate_strings;
-    in property <bool> donate_methods_ready: false;
-    in property <[image]> donate_method_icons: [];
-    in property <[string]> donate_method_names: [];
-    in property <[int]> donate_method_formats: [];
-    in property <[string]> donate_method_urls: [];
-    in property <[string]> donate_method_exts: [];
-    in property <[image]> donate_method_regions: [];
-    in-out property <bool> show_donate_popup: false;
-    in-out property <bool> donate_popup_loading: false;
-    in-out property <image> donate_popup_image;
 
-    in property <image> about_group_pic;
-    in property <bool> about_group_pic_ready: false;
-    in-out property <bool> show_group_popup: false;
     in-out property <bool> show_information: false;
     in-out property <bool> show_settings: false;
     in-out property <bool> show_language_dialog: false;
@@ -358,7 +339,6 @@ export component AppWindow inherits Window {
     callback check_update();
     callback download_update();
     callback close_expire_dialog();
-    callback group_clicked();
     callback reinit_tray();
     callback save_general_settings();
     callback save_advanced_settings();
@@ -413,10 +393,6 @@ export component AppWindow inherits Window {
     in-out property <bool> show_usb_device_info: false;
     in-out property <UsbDeviceDetailInfo> usb_device_info_data;
     
-    // Donate callbacks
-    callback donate_qr_clicked(string);
-    callback donate_copy_clicked(string);
-
     // Compress callbacks
     callback open_compress_dialog(string);
     callback confirm_compress(string, bool, bool, bool, string);
@@ -579,15 +555,13 @@ export component AppWindow inherits Window {
                     network_text: AppI18n.t("sidebar.network", [AppI18n.version]);
                     scheduler_text: AppI18n.t("sidebar.scheduler", [AppI18n.version]);
                     settings_text: AppI18n.t("sidebar.settings", [AppI18n.version]);
-                    about_text: AppI18n.t("sidebar.about", [AppI18n.version]);
-                    donate_text: AppI18n.t("sidebar.donate", [AppI18n.version]);
+                    github_text: AppI18n.t("sidebar.about", [AppI18n.version]);
                     show_add: root.sidebar_add;
                     show_toggle: root.sidebar_toggle;
                     show_usb: root.sidebar_usb;
                     show_network: root.sidebar_network;
                     show_scheduler: root.sidebar_scheduler;
-                    show_donate: root.sidebar_donate;
-                    show_about: root.sidebar_about;
+                    show_github: true;
                     tab_selected(idx) => {
                         root.select_tab(idx);
                     }
@@ -596,6 +570,9 @@ export component AppWindow inherits Window {
                     }
                     toggle_collapsed => {
                         root.save_sidebar_state();
+                    }
+                    open_github => {
+                        root.open_url("https://github.com/voorz/wsl-dashboard");
                     }
                 }
 
@@ -858,44 +835,12 @@ export component AppWindow inherits Window {
                                     root.run_scheduler_task(id);
                                 }
                             }
-
-                            DonateView {
+                            
+                            SettingsView {
                                 visible: true;
                                 opacity: selected_tab == 5 ? 1 : 0;
                                 z: 5;
                                 x: selected_tab == 5 ? 0px : 10000px;
-                                title_text: AppI18n.t("donate.title", [AppI18n.version]);
-                                license_intro_text: AppI18n.t("donate.license_intro", [AppI18n.version]);
-                                maintain_note_text: AppI18n.t("donate.maintain_note", [AppI18n.version]);
-                                donation_purpose_text: AppI18n.t("donate.donation_purpose", [AppI18n.version]);
-                                thanks_ending_text: AppI18n.t("donate.thanks_ending", [AppI18n.version]);
-                                donate_link_label: root.donate_strings.donate_link_label;
-                                donate_url: AppInfo.donate_url;
-                                payment_methods_title: root.donate_strings.payment_methods_title;
-                                methods_ready: root.donate_methods_ready;
-                                method_icons: root.donate_method_icons;
-                                method_names: root.donate_method_names;
-                                method_formats: root.donate_method_formats;
-                                method_urls: root.donate_method_urls;
-                                method_exts: root.donate_method_exts;
-                                method_regions: root.donate_method_regions;
-                                strings: root.donate_strings;
-                                open_url(url) => {
-                                    root.open_url(url);
-                                }
-                                qr_clicked(url) => {
-                                    root.donate_qr_clicked(url);
-                                }
-                                copy_clicked(text) => {
-                                    root.donate_copy_clicked(text);
-                                }
-                            }
-
-                            SettingsView {
-                                visible: true;
-                                opacity: selected_tab == 6 ? 1 : 0;
-                                z: 6;
-                                x: selected_tab == 6 ? 0px : 10000px;
                                 strings: root.settings_strings;
                                 show_language_dialog <=> root.show_language_dialog;
                                 language_selected(lang_code) => {
@@ -923,8 +868,6 @@ export component AppWindow inherits Window {
                                 sidebar_usb <=> root.sidebar_usb;
                                 sidebar_network <=> root.sidebar_network;
                                 sidebar_scheduler <=> root.sidebar_scheduler;
-                                sidebar_donate <=> root.sidebar_donate;
-                                sidebar_about <=> root.sidebar_about;
                                 sparse_vhd <=> root.sparse_vhd;
                                 save_general_settings => {
                                     root.save_general_settings();
@@ -946,29 +889,6 @@ export component AppWindow inherits Window {
                                 }
                                 stop-wsl => {
                                     root.show_stop_wsl_confirm = true;
-                                }
-                            }
-
-                            AboutView {
-                                visible: true;
-                                opacity: selected_tab == 7 ? 1 : 0;
-                                z: 7;
-                                x: selected_tab == 7 ? 0px : 10000px;
-                                strings: root.about_strings;
-                                group_pic: root.about_group_pic;
-                                group_pic_ready: root.about_group_pic_ready;
-                                show_group_popup <=> root.show_group_popup;
-                                open_url(url) => {
-                                    root.open_url(url);
-                                }
-                                check_update_clicked => {
-                                    root.check_update();
-                                }
-                                group_clicked => {
-                                    root.group_clicked();
-                                }
-                                close_group_popup => {
-                                    root.show_group_popup = false;
                                 }
                             }
                         }
@@ -1317,78 +1237,6 @@ export component AppWindow inherits Window {
         usb_device_info_data: root.usb_device_info_data;
         close_usb_device_info => {
             root.show_usb_device_info = false;
-        }
-    }
-
-    // Official communication group image popup layer (borderless, click anywhere to close)
-    if root.show_group_popup : Rectangle {
-        background: #00000080;
-        z: 100;
-        width: 100%;
-        height: 100%;
-        TouchArea {
-            width: 100%;
-            height: 100%;
-            clicked => {
-                root.show_group_popup = false;
-            }
-        }
-        // Centered image card, 3:4 aspect ratio, borderless
-        Rectangle {
-            width: 225px;
-            height: 300px;
-            x: (parent.width - self.width) / 2;
-            y: (parent.height - self.height) / 2;
-            border-radius: 12px;
-            clip: true;
-            drop-shadow-blur: 20px;
-            drop-shadow-color: #00000040;
-            Image {
-                source: root.about_group_pic;
-                width: 100%;
-                height: 100%;
-                image-fit: cover;
-            }
-        }
-    }
-
-    // Donate QR code popup layer
-    if root.show_donate_popup : Rectangle {
-        background: #00000080;
-        z: 100;
-        width: 100%;
-        height: 100%;
-        TouchArea {
-            width: 100%;
-            height: 100%;
-            clicked => {
-                root.show_donate_popup = false;
-            }
-        }
-        // Centered square image card
-        Rectangle {
-            width: 225px;
-            height: 225px;
-            x: (parent.width - self.width) / 2;
-            y: (parent.height - self.height) / 2;
-            border-radius: 12px;
-            clip: true;
-            drop-shadow-blur: 20px;
-            drop-shadow-color: #00000040;
-            background: Theme.card_bg;
-            if (root.donate_popup_loading) : Text {
-                text: AppI18n.t("donate.loading", [AppI18n.version]);
-                color: Theme.text_primary;
-                font-family: Theme.default_font;
-                horizontal-alignment: center;
-                vertical-alignment: center;
-            }
-            if (!root.donate_popup_loading) : Image {
-                source: root.donate_popup_image;
-                width: 100%;
-                height: 100%;
-                image-fit: contain;
-            }
         }
     }
 

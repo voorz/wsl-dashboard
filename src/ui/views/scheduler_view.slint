@@ -132,7 +132,7 @@ export component SchedulerView inherits Rectangle {
             if (!AppI18n.is-rtl): CustomButton {
                 text: AppI18n.t("scheduler.add_btn", [AppI18n.version]);
                 primary: true;
-                show_shield: true;
+                show_shield: false;
                 height: 32px;
                 clicked => {
                     root.add_task_clicked();
@@ -142,7 +142,7 @@ export component SchedulerView inherits Rectangle {
             if (AppI18n.is-rtl): CustomButton {
                 text: AppI18n.t("scheduler.add_btn", [AppI18n.version]);
                 primary: true;
-                show_shield: true;
+                show_shield: false;
                 height: 32px;
                 clicked => {
                     root.add_task_clicked();

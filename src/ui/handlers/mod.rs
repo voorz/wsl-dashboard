@@ -11,7 +11,6 @@ pub mod usb;
 pub mod network;
 pub mod about;
 pub mod wsl_guide;
-pub mod donate;
 pub mod mail;
 pub mod scheduler;
 
@@ -29,7 +28,6 @@ pub async fn setup(app: &AppWindow, app_handle: slint::Weak<AppWindow>, app_stat
     usb::setup(app, app_handle.clone(), app_state.clone());
     network::setup(app, app_handle.clone(), app_state.clone());
     about::setup(app, app_handle.clone(), app_state.clone());
-    donate::setup(app, app_handle.clone(), app_state.clone());
     mail::setup(app, app_handle.clone());
     scheduler::setup(app, app_handle.clone(), app_state.clone());
 }
