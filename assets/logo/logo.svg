@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 6144 6144" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(512,0,0,512,270,-250)">
+        <rect x="0" y="0" width="12" height="12" style="fill:none;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(512,0,0,512,270,-250)">
+        <path d="M6,6L11,6L11,1L6,1L6,6ZM0,6L5,6L5,1L0,1L0,6ZM6,12L11,12L11,7L6,7L6,12Z" style="fill:white;fill-rule:nonzero;"/>
+    </g>
+    <g transform="matrix(13.7185,0,0,12.9921,-421.023,2431.1)">
+        <g transform="matrix(1,0,0,1,0,24)">
+            <clipPath id="_clip1">
+                <rect x="40" y="0" width="218" height="242"/>
+            </clipPath>
+            <g clip-path="url(#_clip1)">
+                <path d="M250,224L250,114C250,59.142 204.858,14 150,14C95.142,14 50,59.142 50,114L50,224C50,243 50,243 90,243C133,259 132,237 170,258C177,190 250,260 250,224Z" style="fill:rgb(11,90,168);fill-rule:nonzero;"/>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,0,24)">
+            <clipPath id="_clip2">
+                <rect x="40" y="0" width="218" height="242"/>
+            </clipPath>
+            <g clip-path="url(#_clip2)">
+                <path d="M250,224L250,114C250,59 205,14 150,14L150,262L210,243C249,243 250,243 250,224Z" style="fill:rgb(6,49,94);fill-rule:nonzero;"/>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,0,24)">
+            <clipPath id="_clip3">
+                <rect x="40" y="0" width="218" height="242"/>
+            </clipPath>
+            <g clip-path="url(#_clip3)">
+                <path d="M175,64C152,64 158,93 150,93C144,93 149,64 125,64C106,64 90,80 90,99L90,264C90,264 97,251 107,262L193,267C203,256 210,264 210,264L210,99C210,80 194,64 175,64Z" style="fill:white;fill-rule:nonzero;"/>
+            </g>
+        </g>
+        <g transform="matrix(1,0,0,1,0,24)">
+            <circle cx="120" cy="104.4" r="10" style="fill:rgb(0,27,60);"/>
+        </g>
+        <g transform="matrix(1,0,0,1,0,24)">
+            <circle cx="180" cy="104.4" r="10" style="fill:rgb(0,27,60);"/>
+        </g>
+        <g transform="matrix(1,0,0,1,0,24)">
+            <path d="M150,124L120,144L150,174L180,144L150,124Z" style="fill:rgb(251,176,113);fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,0,24)">
+            <path d="M150,124L180,144L150,174L150,124Z" style="fill:rgb(246,215,111);fill-rule:nonzero;"/>
+        </g>
+    </g>
+</svg>
