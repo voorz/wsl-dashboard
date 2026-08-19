@@ -174,34 +174,34 @@ export global Theme {
     out property <color> input_bg: dark_mode ? #1A1A1A : #FFFFFF;
     out property <color> input_border: dark_mode ? #333333 : #D5D5D5;
 
-    // Icon style - Grayscale: keep success/danger for critical actions, others black/white by theme
-    out property <color> icon_color_pin: dark_mode ? #FFFFFF : #000000;
+    // Icon style - Fixed semantic colors per icon type
+    out property <color> icon_color_pin: dark_mode ? #fcd34d : #d97706;
     in property <bool> colorful_icons: true;
-    out property <color> icon_color_navigation: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_action: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_success: colorful_icons ? (dark_mode ? #4ade80 : #16a34a) : text_secondary;
-    out property <color> icon_color_danger: colorful_icons ? (dark_mode ? #f87171 : #dc2626) : text_secondary;
-    out property <color> icon_color_warning: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_info: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_purple: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_gold: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_cyan: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_pink: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_teal: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_indigo: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_lime: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_orange: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_rose: colorful_icons ? (dark_mode ? #fb7185 : #e11d48) : text_secondary;
-    out property <color> icon_color_heart: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_violet: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_emerald: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_amber: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_sky: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_fuchsia: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_cobalt: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_mint: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_slate: dark_mode ? #FFFFFF : #000000;
-    out property <color> icon_color_system: text_secondary;
+    out property <color> icon_color_navigation: dark_mode ? #818cf8 : #6366f1;
+    out property <color> icon_color_action: dark_mode ? #818cf8 : #6366f1;
+    out property <color> icon_color_success: dark_mode ? #4ade80 : #16a34a;
+    out property <color> icon_color_danger: dark_mode ? #f87171 : #dc2626;
+    out property <color> icon_color_warning: dark_mode ? #fb923c : #ea580c;
+    out property <color> icon_color_info: dark_mode ? #38bdf8 : #0284c7;
+    out property <color> icon_color_purple: dark_mode ? #c084fc : #9333ea;
+    out property <color> icon_color_gold: dark_mode ? #fcd34d : #d97706;
+    out property <color> icon_color_cyan: dark_mode ? #22d3ee : #0891b2;
+    out property <color> icon_color_pink: dark_mode ? #f9a8d4 : #db2777;
+    out property <color> icon_color_teal: dark_mode ? #5eead4 : #0d9488;
+    out property <color> icon_color_indigo: dark_mode ? #818cf8 : #6366f1;
+    out property <color> icon_color_lime: dark_mode ? #a3e635 : #65a30d;
+    out property <color> icon_color_orange: dark_mode ? #fb923c : #ea580c;
+    out property <color> icon_color_rose: dark_mode ? #fb7185 : #e11d48;
+    out property <color> icon_color_heart: dark_mode ? #fb7185 : #e11d48;
+    out property <color> icon_color_violet: dark_mode ? #a78bfa : #7c3aed;
+    out property <color> icon_color_emerald: dark_mode ? #6ee7b7 : #059669;
+    out property <color> icon_color_amber: dark_mode ? #fcd34d : #d97706;
+    out property <color> icon_color_sky: dark_mode ? #38bdf8 : #0284c7;
+    out property <color> icon_color_fuchsia: dark_mode ? #e879f9 : #c026d3;
+    out property <color> icon_color_cobalt: dark_mode ? #60a5fa : #2563eb;
+    out property <color> icon_color_mint: dark_mode ? #6ee7b7 : #059669;
+    out property <color> icon_color_slate: dark_mode ? #94a3b8 : #64748b;
+    out property <color> icon_color_system: dark_mode ? #94a3b8 : #64748b;
 
     // Compatibility of Chinese and Japanese character display on Western language operating systems
     // Font style

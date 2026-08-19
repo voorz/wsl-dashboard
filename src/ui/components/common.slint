@@ -18,7 +18,6 @@ export component SidebarItem inherits Rectangle {
     
     property <color> icon_color: selected ? Theme.accent : 
                                  touch.has-hover ? Theme.accent :
-                                 !Theme.colorful_icons ? Theme.text_secondary :
                                  icon_type == "navigation" ? Theme.icon_color_navigation :
                                  icon_type == "success" ? Theme.icon_color_success :
                                  icon_type == "danger" ? Theme.icon_color_danger :
@@ -154,8 +153,7 @@ export component ThemedIcon inherits Text {
     in property <string> icon_code;
     in property <string> icon_type: "action"; // "action", "navigation", "success", "danger", "warning", "info", "purple", "gold", "cyan", "pink", "teal", "indigo", "lime", "system"
     font-family: Theme.icon_font;
-    color: !Theme.colorful_icons ? Theme.icon_color_action : 
-           icon_type == "navigation" ? Theme.icon_color_navigation :
+    color: icon_type == "navigation" ? Theme.icon_color_navigation :
            icon_type == "success" ? Theme.icon_color_success :
            icon_type == "danger" ? Theme.icon_color_danger :
            icon_type == "warning" ? Theme.icon_color_warning :
@@ -191,8 +189,7 @@ export component ActionIcon inherits Rectangle {
     in property <bool> is_font_icon: true;
     in property <bool> show_shield: false;
     in property <string> tooltip: "";
-    in property <brush> icon_color: !Theme.colorful_icons ? Theme.icon_color_action :
-                                   active ? Theme.accent :
+    in property <brush> icon_color: active ? Theme.accent :
                                    icon_type == "navigation" ? Theme.icon_color_navigation :
                                    icon_type == "success" ? Theme.icon_color_success :
                                    icon_type == "danger" ? Theme.icon_color_danger :
