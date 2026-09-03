@@ -358,7 +358,7 @@ export component CustomButton inherits Rectangle {
     callback clicked;
     height: 32px;
     border-radius: 4px;
-    background: root.primary ? Theme.accent : (root.danger ? (Theme.dark_mode ? #2d1a1a : #fdeaea) : (touch.pressed ? Theme.selected_bg : (touch.has-hover ? Theme.hover_bg : Theme.input_bg)));
+    background: root.primary ? #32F08C : (root.danger ? (Theme.dark_mode ? #2d1a1a : #fdeaea) : (touch.pressed ? Theme.selected_bg : (touch.has-hover ? Theme.hover_bg : Theme.input_bg)));
     border-width: root.primary ? 0 : 1px;
     border-color: root.danger ? (Theme.dark_mode ? #ff6666 : #c62828) : Theme.input_border;
     opacity: root.enabled ? 1.0 : 0.6;
@@ -367,7 +367,7 @@ export component CustomButton inherits Rectangle {
         padding-right: 15px;
         Text {
             text: root.text;
-            color: root.primary ? #FFFFFF : (root.danger ? (Theme.dark_mode ? #ff6666 : #c62828) : Theme.text_primary);
+            color: root.primary ? #003d1a : (root.danger ? (Theme.dark_mode ? #ff6666 : #c62828) : Theme.text_primary);
             font-family: Theme.default_font;
             font-size: 13px * LayoutConstants.font-scale;
             vertical-alignment: center;

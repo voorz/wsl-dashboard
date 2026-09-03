@@ -48,6 +48,7 @@ export component TitleBar inherits Rectangle {
     callback maximize;
     callback toggle_theme;
     callback drag_delta(float, float);
+    callback update_clicked;
     height: 40px;
     background: transparent;
     TouchArea {
@@ -91,6 +92,34 @@ export component TitleBar inherits Rectangle {
                 vertical-alignment: center;
             }
 
+            // Update available badge (RTL)
+            if AppI18n.is-rtl && AppInfo.has_update && !AppInfo.checking_update: Rectangle {
+                height: 18px;
+                width: update_badge_text_rtl.preferred-width + 16px;
+                y: (parent.height - self.height) / 2;
+                border-radius: 9px;
+                background: #32F08C;
+                HorizontalLayout {
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    update_badge_text_rtl := Text {
+                        text: AppI18n.t("about.update_available", [AppI18n.version]);
+                        font-size: 11px;
+                        font-weight: 500;
+                        font-family: Theme.default_font;
+                        color: #003d1a;
+                        vertical-alignment: center;
+                        horizontal-alignment: center;
+                    }
+                }
+                TouchArea {
+                    mouse-cursor: pointer;
+                    clicked => {
+                        root.update_clicked();
+                    }
+                }
+            }
+
             Text {
                 text: title;
                 font-size: 13px;
@@ -108,6 +137,34 @@ export component TitleBar inherits Rectangle {
                 font-family: Theme.default_font;
                 color: Theme.text_secondary;
                 vertical-alignment: center;
+            }
+
+            // Update available badge
+            if !AppI18n.is-rtl && AppInfo.has_update && !AppInfo.checking_update: Rectangle {
+                height: 18px;
+                width: update_badge_text.preferred-width + 16px;
+                y: (parent.height - self.height) / 2;
+                border-radius: 9px;
+                background: #32F08C;
+                HorizontalLayout {
+                    padding-left: 8px;
+                    padding-right: 8px;
+                    update_badge_text := Text {
+                        text: AppI18n.t("about.update_available", [AppI18n.version]);
+                        font-size: 11px;
+                        font-weight: 500;
+                        font-family: Theme.default_font;
+                        color: #003d1a;
+                        vertical-alignment: center;
+                        horizontal-alignment: center;
+                    }
+                }
+                TouchArea {
+                    mouse-cursor: pointer;
+                    clicked => {
+                        root.update_clicked();
+                    }
+                }
             }
         }
 

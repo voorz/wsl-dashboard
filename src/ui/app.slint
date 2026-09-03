@@ -525,6 +525,9 @@ export component AppWindow inherits Window {
                 drag_delta(dx, dy) => {
                     root.window_drag_delta(dx, dy);
                 }
+                update_clicked => {
+                    root.show_update_dialog = true;
+                }
             }
 
             Rectangle {
@@ -545,7 +548,7 @@ export component AppWindow inherits Window {
                     show_usb: root.sidebar_usb;
                     show_network: root.sidebar_network;
                     show_scheduler: root.sidebar_scheduler;
-                    show_github: true;
+                    show_github: false;
                     tab_selected(idx) => {
                         root.select_tab(idx);
                     }

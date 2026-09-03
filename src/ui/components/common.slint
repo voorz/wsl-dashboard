@@ -16,32 +16,7 @@ export component SidebarItem inherits Rectangle {
     border-radius: 4px;
     background: selected ? Theme.selected_bg : (touch.has-hover ? Theme.hover_bg : transparent);
     
-    property <color> icon_color: selected ? Theme.accent : 
-                                 touch.has-hover ? Theme.accent :
-                                 icon_type == "navigation" ? Theme.icon_color_navigation :
-                                 icon_type == "success" ? Theme.icon_color_success :
-                                 icon_type == "danger" ? Theme.icon_color_danger :
-                                 icon_type == "warning" ? Theme.icon_color_warning :
-                                 icon_type == "info" ? Theme.icon_color_info :
-                                 icon_type == "purple" ? Theme.icon_color_purple :
-                                 icon_type == "gold" ? Theme.icon_color_gold :
-                                 icon_type == "cyan" ? Theme.icon_color_cyan :
-                                 icon_type == "pink" ? Theme.icon_color_pink :
-                                 icon_type == "teal" ? Theme.icon_color_teal :
-                                 icon_type == "indigo" ? Theme.icon_color_indigo :
-                                 icon_type == "lime" ? Theme.icon_color_lime :
-                                 icon_type == "orange" ? Theme.icon_color_orange :
-                                 icon_type == "rose" ? Theme.icon_color_rose :
-                                 icon_type == "heart" ? Theme.icon_color_heart :
-                                 icon_type == "violet" ? Theme.icon_color_violet :
-                                 icon_type == "emerald" ? Theme.icon_color_emerald :
-                                 icon_type == "amber" ? Theme.icon_color_amber :
-                                 icon_type == "sky" ? Theme.icon_color_sky :
-                                 icon_type == "fuchsia" ? Theme.icon_color_fuchsia :
-                                 icon_type == "cobalt" ? Theme.icon_color_cobalt :
-                                 icon_type == "mint" ? Theme.icon_color_mint :
-                                 icon_type == "slate" ? Theme.icon_color_slate :
-                                 Theme.icon_color_action;
+    property <color> icon_color: #32F08C;
 
     // Tooltip
     Rectangle {
